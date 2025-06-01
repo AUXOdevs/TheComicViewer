@@ -25,4 +25,7 @@ export class Title {
 
   @Column({ nullable: true })
   image_url: string;
+
+  @Column()
+  category: string;
 }
