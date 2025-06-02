@@ -2,6 +2,10 @@ import { IsBoolean, IsOptional, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateAdminDto {
+  @IsUUID()
+  @IsOptional()
+  user_id?: string;
+
   @IsOptional()
   @IsBoolean()
   @ApiProperty({
