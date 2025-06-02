@@ -1,8 +1,9 @@
-import { IsUUID, IsBoolean, IsOptional } from 'class-validator';
+import { IsUUID, IsBoolean, IsOptional, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateAdminDto {
   @IsUUID()
+  @IsNotEmpty()
   @ApiProperty({
     description:
       'ID del usuario al que se le otorgan permisos de administrador.',
