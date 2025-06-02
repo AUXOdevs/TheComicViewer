@@ -1,7 +1,7 @@
+import { Chapter } from 'src/chapters/entities/chapter.entity';
+import { Title } from 'src/titles/entities/title.entity';
+import { User } from 'src/user/entities/user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from '../users/user.entity';
-import { Title } from '../titles/title.entity';
-import { Chapter } from '../chapters/chapter.entity';
 
 @Entity('favorites')
 export class Favorite {

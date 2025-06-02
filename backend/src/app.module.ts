@@ -1,3 +1,4 @@
+// src/app.module.ts
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,8 +14,58 @@ import { GenresModule } from './genres/genres.module';
 import { TitleGenreModule } from './title-genre/title-genre.module';
 import { ReadingHistoryModule } from './reading-history/reading-history.module';
 
+// --- ¡Nuevas importaciones necesarias! ---
+import { ConfigModule, ConfigService } from '@nestjs/config'; // Para cargar la configuración
+import { TypeOrmModule } from '@nestjs/typeorm'; // Para la conexión TypeORM
+import typeorm from './config/typeorm';
+// import typeormConfig from '../config/typeorm'; // <-- ¡Importa tu configuración de TypeORM!
+// Asegúrate de que las entidades también se puedan importar aquí si no usas autoLoadEntities
+// import { User } from './user/entities/user.entity';
+// import { Role } from './roles/entities/role.entity';
+// ... etc.
+
 @Module({
-  imports: [UserModule, RolesModule, TitlesModule, ChaptersModule, FavoritesModule, CommentsModule, RatingsModule, AdminsModule, GenresModule, TitleGenreModule, ReadingHistoryModule],
+  imports: [
+    // --- ¡Configura NestJS Config primero! ---
+    ConfigModule.forRoot({
+      isGlobal: true, // Hace que ConfigService esté disponible globalmente
+      load: [typeorm], // Carga tu configuración de TypeORM registrada
+      envFilePath: '.env', // Ruta a tu archivo .env
+    }),
+
+    // --- ¡Configura TypeORM Module después! ---
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule], // Necesita ConfigModule para acceder a ConfigService
+      useFactory: (configService: ConfigService) => {
+        // Accede a la configuración de TypeORM que cargaste
+        const dbConfig = configService.get('typeorm');
+        return {
+          ...dbConfig,
+          // `entities` aquí es crucial. Si usas 'dist/**/*.entity{.ts,.js}'
+          // asegúrate de que tus entidades estén compiladas o que la ruta sea correcta para TS (src)
+          // Un enfoque común para desarrollo es:
+          entities: [__dirname + '/**/*.entity{.ts,.js}'], // Busca entidades en la carpeta `src` (en desarrollo)
+          // Si ejecutas desde `dist` en producción, `dbConfig.entities` ya sería 'dist/**/*.entity{.ts,.js}'
+          // Asegúrate de que `synchronize: true` SOLO en desarrollo.
+          // Para producción, se usa `synchronize: false` y migraciones.
+        };
+      },
+      inject: [ConfigService], // Inyecta ConfigService en useFactory
+    }),
+
+    // --- Tus módulos de características existentes ---
+    UserModule,
+    RolesModule,
+    TitlesModule,
+    ChaptersModule,
+    FavoritesModule,
+    CommentsModule,
+    RatingsModule,
+    AdminsModule,
+    GenresModule,
+    TitleGenreModule,
+    ReadingHistoryModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

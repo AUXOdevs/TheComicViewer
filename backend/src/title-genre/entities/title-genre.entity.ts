@@ -1,6 +1,6 @@
+import { Genre } from 'src/genres/entities/genre.entity';
+import { Title } from 'src/titles/entities/title.entity';
 import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Title } from '../titles/title.entity';
-import { Genre } from '../genres/genre.entity';
 
 @Entity('title_genre')
 export class TitleGenre {
