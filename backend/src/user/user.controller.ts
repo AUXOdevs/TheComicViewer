@@ -1,3 +1,4 @@
+// src/user/user.controller.ts
 import {
   Controller,
   Get,
@@ -6,32 +7,44 @@ import {
   Delete,
   Param,
   Body,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
+import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDto } from './dto/user.dto'; // Ensure UserDto is imported
 
 @Controller('users')
 export class UsersController {
+  constructor(private readonly userService: UserService) {}
+
+  @Post()
+  async create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
+    return this.userService.create(createUserDto);
+  }
+
   @Get()
-  findAll() {
-    /* ... */
+  async findAll(): Promise<UserDto[]> {
+    return this.userService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    /* ... */
-  }
-
-  @Post()
-  create(@Body() dto: any) {
-    /* ... */
+  async findOne(@Param('id') id: string): Promise<UserDto> {
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() dto: any) {
-    /* ... */
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<UserDto> {
+    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    /* ... */
+  @HttpCode(HttpStatus.NO_CONTENT) // Returns 204 No Content on successful deletion
+  async remove(@Param('id') id: string): Promise<void> {
+    await this.userService.remove(id);
   }
 }

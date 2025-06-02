@@ -1,6 +1,6 @@
+import { Chapter } from 'src/chapters/entities/chapter.entity';
+import { User } from 'src/user/entities/user.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { User } from '../users/user.entity';
-import { Chapter } from '../chapters/chapter.entity';
 
 @Entity('reading_history')
 export class ReadingHistory {

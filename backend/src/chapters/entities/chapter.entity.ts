@@ -1,5 +1,5 @@
+import { Title } from 'src/titles/entities/title.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Title } from '../titles/title.entity';
 
 @Entity('chapters')
 export class Chapter {
