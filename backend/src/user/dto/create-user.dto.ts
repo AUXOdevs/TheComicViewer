@@ -6,8 +6,10 @@ import {
   IsUUID,
   IsOptional,
   IsBoolean,
+  IsDate,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
 export class CreateUserDto {
   @IsUUID()
@@ -53,4 +55,16 @@ export class CreateUserDto {
     nullable: true,
   })
   role_id?: string; // Se usará para establecer la relación con Role
+
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
+  @ApiProperty({
+    description: 'Fecha y hora de inactivación de la cuenta (si aplica).',
+    type: 'string',
+    format: 'date-time',
+    nullable: true,
+    required: false,
+  })
+  deleted_at?: Date | null;
 }

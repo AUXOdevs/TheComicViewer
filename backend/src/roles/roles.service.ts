@@ -135,7 +135,7 @@ export class RolesService {
     }
 
     // Definimos los roles críticos que no pueden ser eliminados
-    const CRITICAL_ROLES = ['Registrado', 'Administrador'];
+    const CRITICAL_ROLES = ['Registrado', 'Suscrito'];
 
     if (CRITICAL_ROLES.includes(roleToDelete.name)) {
       throw new BadRequestException(
@@ -147,22 +147,16 @@ export class RolesService {
     const defaultRole = await this.rolesRepository.findByName('Registrado');
 
     if (!defaultRole) {
-      // Este escenario solo debería ocurrir si el rol 'Registrado' no existe
       throw new BadRequestException(
         'Cannot delete role: The default "Registrado" role is missing, unable to reassign users.',
       );
     }
 
-    // --- ¡MODIFICACIÓN CLAVE AQUÍ! ---
-    // Realizamos la actualización de la clave foránea directamente con SQL plano.
-    // Esto evita los problemas de inferencia de nombres de TypeORM para las relaciones.
     await this.userRepository.query(
       `UPDATE "users" SET "role_id" = $1 WHERE "role_id" = $2`,
       [defaultRole.role_id, roleToDelete.role_id],
     );
-    // --- FIN DE MODIFICACIÓN ---
 
-    // Finalmente, elimina el rol de la base de datos
     await this.rolesRepository.remove(roleToDelete);
   }
 }

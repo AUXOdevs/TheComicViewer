@@ -1,25 +1,25 @@
 // src/user/user.module.ts
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm'; // Import TypeOrmModule
+import { Module, forwardRef } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './user.service';
 import { UsersController } from './user.controller';
-import { User } from './entities/user.entity'; // Import User entity
-import { UserRepository } from './user.repository'; // Import UserRepository
-import { Role } from '../roles/entities/role.entity'; // Import Role entity for RolesRepository
-import { RolesRepository } from '../roles/roles.repository'; // Import RolesRepository
+import { User } from './entities/user.entity';
+import { UserRepository } from './user.repository';
+import { Role } from '../roles/entities/role.entity';
+import { RolesRepository } from '../roles/roles.repository';
+import { AdminsModule } from '../admins/admins.module'; // Importar AdminsModule
 
 @Module({
   imports: [
-    // Register entities for TypeORM within this module
-    TypeOrmModule.forFeature([User, Role]), // User is needed for UserRepository, Role for RolesRepository
+    TypeOrmModule.forFeature([User, Role]),
+    forwardRef(() => AdminsModule),
   ],
   controllers: [UsersController],
   providers: [
     UserService,
-    UserRepository, // Make UserRepository available
-    RolesRepository, // Make RolesRepository available for UserService to inject
+    UserRepository,
+    RolesRepository,
   ],
-  // Export UserService and UserRepository if other modules need to inject them
   exports: [UserService, UserRepository, TypeOrmModule],
 })
 export class UserModule {}

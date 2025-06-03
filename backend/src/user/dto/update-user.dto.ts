@@ -4,8 +4,10 @@ import {
   IsUrl,
   IsBoolean,
   IsUUID,
+  IsDate,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
 export class UpdateUserDto {
   @IsOptional()
@@ -43,4 +45,16 @@ export class UpdateUserDto {
     nullable: true,
   })
   role_id?: string;
+
+    @IsOptional()
+    @IsDate()
+    @Type(() => Date)
+    @ApiProperty({
+      description: 'Fecha y hora de inactivación de la cuenta (si aplica).',
+      type: 'string',
+      format: 'date-time',
+      nullable: true,
+      required: false,
+    })
+    deleted_at?: Date | null;
 }

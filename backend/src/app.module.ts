@@ -22,6 +22,8 @@ import typeorm from './config/typeorm';
 // Asegúrate de que las entidades también se puedan importar aquí si no usas autoLoadEntities
 // import { User } from './user/entities/user.entity';
 // import { Role } from './roles/entities/role.entity';
+import { AuthModule } from './auth/auth.module';
+
 // ... etc.
 
 @Module({
@@ -65,6 +67,7 @@ import typeorm from './config/typeorm';
     GenresModule,
     TitleGenreModule,
     ReadingHistoryModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
