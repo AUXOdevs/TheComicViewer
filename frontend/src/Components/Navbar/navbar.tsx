@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUser();
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-[#20444c] text-[#8db5ac] px-6 py-4 shadow-md z-50">
-      
       <div className="flex items-center justify-between">
         <Link href="/">
           <div className="text-lg font-semibold hover:text-gray-300 transition-colors">
@@ -27,7 +29,6 @@ export default function Navbar() {
           </button>
         </div>
 
-       
         <div className="hidden sm:flex items-center gap-6">
           <a href="#comic" className="hover:text-gray-300 transition-colors">
             Comic
@@ -35,6 +36,7 @@ export default function Navbar() {
           <a href="#manga" className="hover:text-gray-300 transition-colors">
             Manga
           </a>
+
           <div className="relative w-full max-w-[200px]">
             <input
               type="text"
@@ -54,13 +56,39 @@ export default function Navbar() {
               />
             </svg>
           </div>
-          <button>
-            <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-gray-300 transition-colors" />
-          </button>
+
+          {/* Icono login o info del usuario */}
+          {!user ? (
+            <Link href="/api/auth/login">
+              <button title="Iniciar sesión">
+                <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-green-400 transition-colors" />
+              </button>
+            </Link>
+          ) : (
+            <div className="flex items-center gap-2">
+              {user.picture && (
+                <Image
+                  src={user.picture}
+                  alt={user.name || "User"}
+                  fill
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+              )}
+              {user.name && (
+                <span className="text-sm text-white hidden sm:inline">
+                  {user.name}
+                </span>
+              )}
+              <Link href="/api/auth/logout">
+                <button title="Cerrar sesión">
+                  <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-red-400 transition-colors" />
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
-     
       {isOpen && (
         <div className="sm:hidden mt-4 flex flex-col gap-4">
           <a href="#comic" className="hover:text-gray-300 transition-colors">
@@ -69,6 +97,7 @@ export default function Navbar() {
           <a href="#manga" className="hover:text-gray-300 transition-colors">
             Manga
           </a>
+
           <div className="relative">
             <input
               type="text"
@@ -88,9 +117,34 @@ export default function Navbar() {
               />
             </svg>
           </div>
-          <button className="self-start">
-            <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-gray-300 transition-colors" />
-          </button>
+
+          {!user ? (
+            <Link href="/api/auth/login">
+              <button className="flex items-center gap-2 text-sm text-white">
+                <ArrowLeftEndOnRectangleIcon className="h-5 w-5" />
+                Iniciar sesión
+              </button>
+            </Link>
+          ) : (
+            <div className="flex items-center gap-2">
+              {user.picture && (
+                <Image
+                  src={user.picture}
+                    alt={user.name || "User"}
+                    fill
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+              )}
+              {user.name && (
+                <span className="text-sm text-white">{user.name}</span>
+              )}
+              <Link href="/api/auth/logout">
+                <button title="Cerrar sesión">
+                  <ArrowLeftEndOnRectangleIcon className="h-5 w-5 hover:text-red-400 transition-colors" />
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </nav>

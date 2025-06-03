@@ -21,7 +21,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "1987-02-01",
-    imagen_url: "/frontend/public/img/batmanYearOne.png",
+    imagen_url: "/img/batmanYearOne.png",
     categoria: "DC",
   },
   {
@@ -33,7 +33,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2003-04-01",
-    imagen_url: "/frontend/public/img/supermanRedSon.png",
+    imagen_url: "/img/supermanRedSon.png",
     categoria: "DC",
   },
   {
@@ -45,7 +45,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2009-04-01",
-    imagen_url: "/frontend/public/img/flashRebirth.png",
+    imagen_url: "/img/flashRebirth.png",
     categoria: "DC",
   },
   {
@@ -57,7 +57,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2016-04-12",
-    imagen_url: "/frontend/public/img/wwEarthOne.png",
+    imagen_url: "/img/wwEarthOne.png",
     categoria: "DC",
   },
   {
@@ -69,7 +69,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2008-07-01",
-    imagen_url: "/frontend/public/img/glSecretOrigin.png",
+    imagen_url: "/img/glSecretOrigin.png",
     categoria: "DC",
   },
   {
@@ -81,7 +81,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2011-09-28",
-    imagen_url: "/frontend/public/img/aquamanTheTrench.png",
+    imagen_url: "/img/aquamanTheTrench.png",
     categoria: "DC",
   },
   {
@@ -93,7 +93,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2011-10-01",
-    imagen_url: "/frontend/public/img/jLOrigin.png",
+    imagen_url: "/img/jLOrigin.png",
     categoria: "DC",
   },
   {
@@ -105,7 +105,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2003-01-01",
-    imagen_url: "/frontend/public/img/batgirlYearOne.png",
+    imagen_url: "/img/batgirlYearOne.png",
     categoria: "DC",
   },
   {
@@ -118,7 +118,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2005-01-01",
-    imagen_url: "/frontend/public/img/nigthwingYearOne.png",
+    imagen_url: "/img/nigthwingYearOne.png",
     categoria: "DC",
   },
   {
@@ -131,7 +131,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "1988-03-29",
-    imagen_url: "/frontend/public/img/killingJoke.png",
+    imagen_url: "/img/killingJoke.png",
     categoria: "DC",
   },
   {
@@ -143,7 +143,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2002-07-01",
-    imagen_url: "/frontend/public/img/spideyBlue.png",
+    imagen_url: "/img/spideyBlue.png",
     categoria: "Marvel",
   },
   {
@@ -155,7 +155,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2005-01-01",
-    imagen_url: "/frontend/public/img/ironManExtremis.png",
+    imagen_url: "/img/ironManExtremis.png",
     categoria: "Marvel",
   },
   {
@@ -167,7 +167,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2012-11-01",
-    imagen_url: "/frontend/public/img/thorGodThunder.png",
+    imagen_url: "/img/thorGodThunder.png",
     categoria: "Marvel",
   },
   {
@@ -180,7 +180,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2005-01-01",
-    imagen_url: "/frontend/public/img/winterSoldier.png",
+    imagen_url: "/img/winterSoldier.png",
     categoria: "Marvel",
   },
   {
@@ -192,7 +192,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2012-08-01",
-    imagen_url: "/frontend/public/img/hawkeye.png",
+    imagen_url: "/img/hawkeye.png",
     categoria: "Marvel",
   },
   {
@@ -204,7 +204,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2016-04-01",
-    imagen_url: "/frontend/public/img/blackPanter.png",
+    imagen_url: "/img/blackPanter.png",
     categoria: "Marvel",
   },
   {
@@ -217,7 +217,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2006-10-01",
-    imagen_url: "/frontend/public/img/strange.png",
+    imagen_url: "/img/strange.png",
     categoria: "Marvel",
   },
   {
@@ -229,7 +229,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "1986-02-01",
-    imagen_url: "/frontend/public/img/daredevil.png",
+    imagen_url: "/img/daredevil.png",
     categoria: "Marvel",
   },
   {
@@ -241,7 +241,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "2008-06-01",
-    imagen_url: "/frontend/public/img/wolverine.png",
+    imagen_url: "/img/wolverine.png",
     categoria: "Marvel",
   },
   {
@@ -253,7 +253,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Comic",
     estado: "Finalizado",
     fecha_de_publicacion: "1981-01-01",
-    imagen_url: "/frontend/public/img/xmen.png",
+    imagen_url: "/img/xmen.png",
     categoria: "Marvel",
   },
   {
@@ -266,7 +266,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "1997-07-22",
-    imagen_url: "/frontend/public/img/onePiece.png",
+    imagen_url: "/img/onePiece.png",
     categoria: "Shonen",
   },
   {
@@ -278,7 +278,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Finalizado",
     fecha_de_publicacion: "1999-09-21",
-    imagen_url: "/frontend/public/img/naruto.png",
+    imagen_url: "/img/naruto.png",
     categoria: "Shonen",
   },
   {
@@ -291,7 +291,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Finalizado",
     fecha_de_publicacion: "2001-08-07",
-    imagen_url: "/frontend/public/img/bleach.png",
+    imagen_url: "/img/bleach.png",
     categoria: "Shonen",
   },
   {
@@ -304,7 +304,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Finalizado",
     fecha_de_publicacion: "1984-12-03",
-    imagen_url: "/frontend/public/img/dragonBall.png",
+    imagen_url: "/img/dragonBall.png",
     categoria: "Shonen",
   },
   {
@@ -317,7 +317,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "2014-07-07",
-    imagen_url: "/frontend/public/img/mha.png",
+    imagen_url: "/img/mha.png",
     categoria: "Shonen",
   },
   {
@@ -330,7 +330,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Finalizado",
     fecha_de_publicacion: "2009-09-09",
-    imagen_url: "/frontend/public/img/snk.png",
+    imagen_url: "/img/snk.png",
     categoria: "Shonen",
   },
   {
@@ -343,7 +343,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Finalizado",
     fecha_de_publicacion: "2016-02-15",
-    imagen_url: "/frontend/public/img/kny.png",
+    imagen_url: "/img/kny.png",
     categoria: "Shonen",
   },
   {
@@ -356,7 +356,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "2018-03-05",
-    imagen_url: "/frontend/public/img/jjk.png",
+    imagen_url: "/img/jjk.png",
     categoria: "Shonen",
   },
   {
@@ -369,7 +369,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "2015-02-16",
-    imagen_url: "/frontend/public/img/blackClover.png",
+    imagen_url: "/img/blackClover.png",
     categoria: "Shonen",
   },
   {
@@ -382,7 +382,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Hiato",
     fecha_de_publicacion: "1998-03-16",
-    imagen_url: "/frontend/public/img/hxh.png",
+    imagen_url: "/img/hxh.png",
     categoria: "Shonen",
   },
   {
@@ -395,7 +395,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "2014-06-27",
-    imagen_url: "/frontend/public/img/reZero.png",
+    imagen_url: "/img/reZero.png",
     categoria: "Isekai",
   },
   {
@@ -408,7 +408,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "2015-03-26",
-    imagen_url: "/frontend/public/img/ttigras.png",
+    imagen_url: "/img/ttigras.png",
     categoria: "Isekai",
   },
   {
@@ -421,7 +421,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "2013-01-27",
-    imagen_url: "/frontend/public/img/noGame.png",
+    imagen_url: "/img/noGame.png",
     categoria: "Isekai",
   },
   {
@@ -434,7 +434,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "2014-08-22",
-    imagen_url: "/frontend/public/img/rsh.png",
+    imagen_url: "/img/rsh.png",
     categoria: "Isekai",
   },
   {
@@ -447,7 +447,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "2014-11-26",
-    imagen_url: "/frontend/public/img/overlord.png",
+    imagen_url: "/img/overlord.png",
     categoria: "Isekai",
   },
   {
@@ -460,7 +460,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "En emisión",
     fecha_de_publicacion: "1989-08-25",
-    imagen_url: "/frontend/public/img/berserk.png",
+    imagen_url: "/img/berserk.png",
     categoria: "Seinen",
   },
   {
@@ -473,7 +473,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Finalizado",
     fecha_de_publicacion: "1994-12-05",
-    imagen_url: "/frontend/public/img/monster.png",
+    imagen_url: "/img/monster.png",
     categoria: "Seinen",
   },
   {
@@ -486,7 +486,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Hiato",
     fecha_de_publicacion: "1998-03-23",
-    imagen_url: "/frontend/public/img/vagabound.png",
+    imagen_url: "/img/vagabound.png",
     categoria: "Seinen",
   },
   {
@@ -499,7 +499,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Finalizado",
     fecha_de_publicacion: "2011-09-08",
-    imagen_url: "/frontend/public/img/tokyoGhoul.png",
+    imagen_url: "/img/tokyoGhoul.png",
     categoria: "Seinen",
   },
   {
@@ -512,7 +512,7 @@ export const mock: ComicMangaItem[] = [
     tipo: "Manga",
     estado: "Finalizado",
     fecha_de_publicacion: "1999-01-20",
-    imagen_url: "/frontend/public/img/20cb.png",
+    imagen_url: "/img/20cb.png",
     categoria: "Seinen",
   },
 ];
