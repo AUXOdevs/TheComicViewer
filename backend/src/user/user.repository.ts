@@ -1,5 +1,12 @@
 // src/user/user.repository.ts
-import { Repository, SaveOptions, RemoveOptions } from 'typeorm';
+import {
+  Repository,
+  SaveOptions,
+  IsNull,
+  Not,
+  UpdateResult,
+  DataSource,
+} from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,45 +18,77 @@ export class UserRepository {
     private readonly userORMRepository: Repository<User>,
   ) {}
 
+  private createQueryBuilder(alias = 'user') {
+    return this.userORMRepository.createQueryBuilder(alias);
+  }
+
   // --- Métodos de Lectura (Read Operations) ---
 
-  async findByAuth0Id(auth0Id: string): Promise<User | undefined> {
-    return this.userORMRepository
-      .createQueryBuilder('user')
+  async findByAuth0Id(
+    auth0Id: string,
+    includeDeleted = false,
+  ): Promise<User | null> {
+    const query = this.createQueryBuilder('user')
       .leftJoinAndSelect('user.role', 'role')
-      .where('user.auth0_id = :auth0Id', { auth0Id }) // <-- USAR auth0_id
-      .getOne();
+      .where('user.auth0_id = :auth0Id', { auth0Id });
+
+    if (!includeDeleted) {
+      query.andWhere('user.deleted_at IS NULL');
+    }
+    return query.getOne();
   }
 
-  async findByEmail(email: string): Promise<User | undefined> {
-    return this.userORMRepository
-      .createQueryBuilder('user')
+  async findByEmail(
+    email: string,
+    includeDeleted = false,
+  ): Promise<User | null> {
+    const query = this.createQueryBuilder('user')
       .leftJoinAndSelect('user.role', 'role')
-      .where('user.email = :email', { email })
-      .getOne();
+      .where('user.email = :email', { email });
+
+    if (!includeDeleted) {
+      query.andWhere('user.deleted_at IS NULL');
+    }
+    return query.getOne();
   }
 
-  async findUserWithRole(auth0Id: string): Promise<User | undefined> {
-    // <-- CAMBIO DE PARÁMETRO
-    return this.userORMRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.role', 'role')
-      .where('user.auth0_id = :auth0Id', { auth0Id }) // <-- USAR auth0_id
-      .getOne();
+  async findUserWithRole(
+    auth0Id: string,
+    includeDeleted = false,
+  ): Promise<User | null> {
+    return this.findByAuth0Id(auth0Id, includeDeleted);
   }
 
-  async find(options?: any): Promise<User[]> {
-    const query = this.userORMRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.role', 'role');
-    // ... (resto de la lógica de find si tienes filtros o paginación)
+  async findAll(includeDeleted = false): Promise<User[]> {
+    const query = this.createQueryBuilder('user').leftJoinAndSelect(
+      'user.role',
+      'role',
+    );
+
+    if (!includeDeleted) {
+      query.andWhere('user.deleted_at IS NULL');
+    }
     return query.getMany();
   }
 
-  async findOne(options?: any): Promise<User | undefined> {
-    // Este findOne sigue siendo útil para buscar por cualquier columna sin relaciones
-    // Si lo llamas con { where: { auth0_id: '...' } }, debería funcionar
-    return this.userORMRepository.findOne(options);
+  // Nuevo método para encontrar solo usuarios desactivados
+  async findDeactivatedUsers(): Promise<User[]> {
+    return this.createQueryBuilder('user')
+      .leftJoinAndSelect('user.role', 'role')
+      .where('user.deleted_at IS NOT NULL') // Filtra por usuarios con deleted_at no nulo
+      .getMany();
+  }
+
+  async findOne(options: any, includeDeleted = false): Promise<User | null> {
+    const whereClause = { ...options.where };
+    if (!includeDeleted) {
+      whereClause.deleted_at = IsNull();
+    }
+    return this.userORMRepository.findOne({
+      ...options,
+      where: whereClause,
+      relations: ['role'],
+    });
   }
 
   // --- Métodos de Escritura (Write Operations) ---
@@ -58,8 +97,8 @@ export class UserRepository {
     return this.userORMRepository.create(userPartial);
   }
 
-  async save(user: User): Promise<User>;
-  async save(users: User[]): Promise<User[]>;
+  async save(user: User, options?: SaveOptions): Promise<User>;
+  async save(users: User[], options?: SaveOptions): Promise<User[]>;
   async save(
     userOrUsers: User | User[],
     options?: SaveOptions,
@@ -67,12 +106,17 @@ export class UserRepository {
     return this.userORMRepository.save(userOrUsers as any, options);
   }
 
-  async remove(user: User): Promise<User>;
-  async remove(users: User[]): Promise<User[]>;
-  async remove(
-    userOrUsers: User | User[],
-    options?: RemoveOptions,
-  ): Promise<User | User[]> {
-    return this.userORMRepository.remove(userOrUsers as any, options);
+  async markAsDeleted(auth0_id: string): Promise<UpdateResult> {
+    return this.userORMRepository.update(
+      { auth0_id, deleted_at: IsNull() },
+      { deleted_at: new Date() },
+    );
+  }
+
+  async markAsActive(auth0_id: string): Promise<UpdateResult> {
+    return this.userORMRepository.update(
+      { auth0_id, deleted_at: Not(IsNull()) },
+      { deleted_at: null },
+    );
   }
 }

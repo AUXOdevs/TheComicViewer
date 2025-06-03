@@ -5,13 +5,13 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateRoleDto {
   @IsString()
   @IsNotEmpty()
-  @IsIn(['Registrado', 'Suscrito', 'Administrador'], {
-    message: 'El nombre del rol debe ser Registrado, Suscrito o Administrador.',
+  @IsIn(['Registrado', 'Suscrito'], { 
+    message: 'El nombre del rol debe ser Registrado o Suscrito.',
   })
   @ApiProperty({
     description: 'Nombre único del rol.',
     example: 'Suscrito',
-    enum: ['Registrado', 'Suscrito', 'Administrador'],
+    enum: ['Registrado', 'Suscrito'],
   })
   name: string;
 }

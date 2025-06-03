@@ -38,4 +38,12 @@ export class User {
   })
   @JoinColumn({ name: 'role_id', referencedColumnName: 'role_id' }) // 'name' es la columna en la tabla 'users', 'referencedColumnName' es la PK en 'roles'
   role: Role;
+
+  @Column({
+    type: 'timestamptz',
+    name: 'deleted_at',
+    nullable: true,
+    default: null,
+  })
+  deleted_at: Date | null;
 }
