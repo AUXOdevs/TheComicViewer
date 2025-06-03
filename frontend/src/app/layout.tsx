@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "../Components/Footer/footer";
 import Navbar from "../Components/Navbar/navbar";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 
 const geistSans = Geist({
@@ -27,6 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
+      <UserProvider>
       <Navbar />
       <html lang="en">
         <body
@@ -34,7 +36,8 @@ export default function RootLayout({
           {children}
         </body>
       </html>
-      <Footer />
+        <Footer />
+  </UserProvider>
     </>
   );
 }
