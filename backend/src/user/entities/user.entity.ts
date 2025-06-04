@@ -1,43 +1,54 @@
-// src/user/entities/user.entity.ts
 import { Role } from 'src/roles/entities/role.entity';
-import { Entity, Column, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm'; // Importa JoinColumn
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  PrimaryColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('users')
 export class User {
-  @PrimaryColumn({ type: 'uuid', name: 'auth0_id' }) // <-- CAMBIO CLAVE AQUÍ
+  @PrimaryColumn({ type: 'text', name: 'auth0_id' })
   auth0_id: string;
 
-  // Si tenías un user_id que no era PK, lo dejarías como @Column
-  // @Column({ type: 'uuid', name: 'user_id', unique: true, nullable: true })
-  // user_id: string; // O elimínalo si no lo necesitas
+  @Column({ type: 'text', nullable: true })
+  name: string | null;
 
-  @Column()
-  name: string;
-
-  @Column({ unique: true })
+  @Column({ type: 'text', unique: true })
   email: string;
 
-  @Column({ nullable: true })
-  picture: string;
+  @Column({ type: 'boolean', default: false, name: 'email_verified' })
+  email_verified: boolean;
 
-  @Column({ type: 'timestamptz', default: () => 'now()' })
+  @Column({ type: 'text', nullable: true })
+  picture: string | null;
+
+  @Column({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'last_login',
+  })
   last_login: Date;
 
-  @Column({ type: 'timestamptz', default: () => 'now()' })
+  @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   created_at: Date;
 
-  @Column({ default: false })
+  @Column({ type: 'boolean', default: false, name: 'is_blocked' })
   is_blocked: boolean;
 
-  @Column({ type: 'uuid', nullable: true })
-  role_id: string; // Esta propiedad representa directamente la columna role_id en tu tabla 'users'
+  @Column({ type: 'uuid', name: 'role_id', nullable: true })
+  role_id: string | null;
 
   @ManyToOne(() => Role, (role) => role.users, {
-    eager: true, // Si quieres que el rol se cargue automáticamente con el usuario
-    onDelete: 'SET NULL', // Esto es bueno para la integridad referencial
+    eager: false,
+    onDelete: 'SET NULL',
+    nullable: true,
   })
-  @JoinColumn({ name: 'role_id', referencedColumnName: 'role_id' }) // 'name' es la columna en la tabla 'users', 'referencedColumnName' es la PK en 'roles'
-  role: Role;
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'role_id' })
+  role: Role | null;
 
   @Column({
     type: 'timestamptz',

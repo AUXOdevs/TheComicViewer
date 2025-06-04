@@ -8,11 +8,13 @@ import { UserRepository } from './user.repository';
 import { Role } from '../roles/entities/role.entity';
 import { RolesRepository } from '../roles/roles.repository';
 import { AdminsModule } from '../admins/admins.module'; // Importar AdminsModule
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Role]),
     forwardRef(() => AdminsModule),
+    AuthModule
   ],
   controllers: [UsersController],
   providers: [

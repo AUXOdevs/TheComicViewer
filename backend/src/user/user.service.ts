@@ -1,4 +1,3 @@
-// src/user/user.service.ts
 import {
   Injectable,
   NotFoundException,
@@ -30,18 +29,22 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<UserDto> {
+    const processedAuth0Id = createUserDto.auth0_id?.startsWith('auth0|')
+      ? createUserDto.auth0_id
+      : `auth0|${createUserDto.auth0_id}`;
+
     let existingUser = await this.userRepository.findByAuth0Id(
-      createUserDto.auth0_id,
+      processedAuth0Id,
       true,
     );
     if (existingUser) {
       if (existingUser.deleted_at) {
         throw new ConflictException(
-          `User with Auth0 ID "${createUserDto.auth0_id}" is deactivated. Consider reactivating.`,
+          `User with Auth0 ID "${processedAuth0Id}" is deactivated. Consider reactivating.`,
         );
       }
       throw new ConflictException(
-        `User with Auth0 ID "${createUserDto.auth0_id}" already exists.`,
+        `User with Auth0 ID "${processedAuth0Id}" already exists.`,
       );
     }
 
@@ -70,27 +73,35 @@ export class UserService {
           `Role with ID "${createUserDto.role_id}" not found.`,
         );
     } else {
+      // Asignar rol por defecto 'Registrado' si no se proporciona
       role = await this.rolesRepository.findByName('Registrado');
-      if (!role)
+      if (!role) {
         console.warn(
           'Default role "Registrado" not found. User will be created without a specific role if role_id is not provided.',
         );
+        // Opcional: Si el rol 'Registrado' es MANDATORIO, puedes lanzar una excepción aquí.
+        // throw new InternalServerErrorException('Default role "Registrado" not found. Please create it.');
+      }
     }
 
     const userEntity = this.userRepository.create({
-      ...createUserDto,
+      auth0_id: processedAuth0Id,
       name: createUserDto.name || createUserDto.email.split('@')[0],
-      role: role,
-      role_id: role ? role.role_id : null,
+      email: createUserDto.email,
+      email_verified: createUserDto.email_verified || false,
+      picture: createUserDto.picture || null,
+      role: role, // Asegúrate de asignar el objeto rol
+      role_id: role ? role.role_id : null, // Asegúrate de asignar el role_id
     });
 
     const savedUser = await this.userRepository.save(userEntity);
+    // Vuelve a buscar el usuario con la relación de rol cargada
     const userWithRole = await this.userRepository.findUserWithRole(
       savedUser.auth0_id,
     );
     if (!userWithRole)
       throw new InternalServerErrorException(
-        'Failed to retrieve user after creation.',
+        'Failed to retrieve user after creation with role.',
       );
     return plainToInstance(UserDto, userWithRole);
   }
@@ -100,7 +111,6 @@ export class UserService {
     return plainToInstance(UserDto, users);
   }
 
-  // Nuevo método para encontrar solo usuarios desactivados
   async findDeactivatedUsers(): Promise<UserDto[]> {
     const users = await this.userRepository.findDeactivatedUsers();
     return plainToInstance(UserDto, users);
@@ -116,8 +126,17 @@ export class UserService {
     return plainToInstance(UserDto, user);
   }
 
-  async findByAuth0IdForAuth(auth0Id: string): Promise<User | null> {
-    return this.userRepository.findByAuth0Id(auth0Id, true);
+  async findByEmail(
+    email: string,
+    includeDeleted = false,
+  ): Promise<UserDto | null> {
+    const user = await this.userRepository.findByEmail(email, includeDeleted);
+    return user ? plainToInstance(UserDto, user) : null;
+  }
+
+  async findByAuth0IdForAuth(auth0Id: string): Promise<UserDto | null> {
+    const user = await this.userRepository.findByAuth0Id(auth0Id, true);
+    return user ? plainToInstance(UserDto, user) : null;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<UserDto> {
