@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useUser();
+  const { user, isAuthenticated, login, logout } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-[#20444c] text-[#8db5ac] px-6 py-4 shadow-md z-50">
@@ -57,38 +57,35 @@ export default function Navbar() {
             </svg>
           </div>
 
-          {/* Icono login o info del usuario */}
-          {!user ? (
-            <Link href="/api/auth/login">
-              <button title="Iniciar sesión">
-                <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-green-400 transition-colors" />
-              </button>
-            </Link>
+          {!isAuthenticated ? (
+            <button onClick={() => login()} title="Iniciar sesión">
+              <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-green-400 transition-colors" />
+            </button>
           ) : (
             <div className="flex items-center gap-2">
-              {user.picture && (
+              {user?.picture && (
                 <Image
                   src={user.picture}
                   alt={user.name || "User"}
-                  fill
+                  width={32}
+                  height={32}
                   className="w-8 h-8 rounded-full object-cover"
                 />
               )}
-              {user.name && (
+              {user?.name && (
                 <span className="text-sm text-white hidden sm:inline">
                   {user.name}
                 </span>
               )}
-              <Link href="/api/auth/logout">
-                <button title="Cerrar sesión">
-                  <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-red-400 transition-colors" />
-                </button>
-              </Link>
+              <button onClick={logout} title="Cerrar sesión">
+                <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-red-400 transition-colors" />
+              </button>
             </div>
           )}
         </div>
       </div>
 
+      {/* Menú móvil */}
       {isOpen && (
         <div className="sm:hidden mt-4 flex flex-col gap-4">
           <a href="#comic" className="hover:text-gray-300 transition-colors">
@@ -118,31 +115,30 @@ export default function Navbar() {
             </svg>
           </div>
 
-          {!user ? (
-            <Link href="/api/auth/login">
-              <button className="flex items-center gap-2 text-sm text-white">
-                <ArrowLeftEndOnRectangleIcon className="h-5 w-5" />
-                Iniciar sesión
-              </button>
-            </Link>
+          {!isAuthenticated ? (
+            <button
+              onClick={() => login()}
+              className="flex items-center gap-2 text-sm text-white">
+              <ArrowLeftEndOnRectangleIcon className="h-5 w-5" />
+              Iniciar sesión
+            </button>
           ) : (
             <div className="flex items-center gap-2">
-              {user.picture && (
+              {user?.picture && (
                 <Image
                   src={user.picture}
-                    alt={user.name || "User"}
-                    fill
+                  alt={user.name || "User"}
+                  width={32}
+                  height={32}
                   className="w-8 h-8 rounded-full object-cover"
                 />
               )}
-              {user.name && (
+              {user?.name && (
                 <span className="text-sm text-white">{user.name}</span>
               )}
-              <Link href="/api/auth/logout">
-                <button title="Cerrar sesión">
-                  <ArrowLeftEndOnRectangleIcon className="h-5 w-5 hover:text-red-400 transition-colors" />
-                </button>
-              </Link>
+              <button onClick={logout} title="Cerrar sesión">
+                <ArrowLeftEndOnRectangleIcon className="h-5 w-5 hover:text-red-400 transition-colors" />
+              </button>
             </div>
           )}
         </div>
