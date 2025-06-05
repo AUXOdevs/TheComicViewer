@@ -1,14 +1,74 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, login, logout } = useAuth();
+
+  const syncUserWithSupabase = useCallback(async () => {
+    if (!user) return;
+
+    console.log("Iniciando sincronización con Supabase...");
+    console.log("Datos del usuario:", user);
+
+    try {
+      const supabase = createClientComponentClient();
+
+      const { data: existingUser, error: fetchError } = await supabase
+        .from("users")
+        .select("*")
+        .eq("auth0_id", user.sub)
+        .single();
+
+      if (fetchError && fetchError.code !== "PGRST116") {
+        console.error("Error al verificar si el usuario existe:", fetchError);
+        return;
+      }
+
+      if (!existingUser) {
+        const insertData = {
+          auth0_id: user.sub,
+          name: user.name || "Desconocido",
+          email: user.email,
+          picture: user.picture,
+          last_login: new Date().toISOString(),
+          role_id: "fb71ff38-acaa-4b55-97f7-4ce243fb71c1",
+        };
+
+        console.log("Insertando usuario en Supabase:", insertData);
+
+        const { error: insertError, data: insertResult } = await supabase
+          .from("users")
+          .insert([insertData])
+          .select();
+
+        if (insertError) {
+          console.error(
+            "Error al insertar usuario:",
+            JSON.stringify(insertError, null, 2)
+          );
+        } else {
+          console.log("Usuario insertado correctamente:", insertResult);
+        }
+      } else {
+        console.log("El usuario ya existe en la base de datos:", existingUser);
+      }
+    } catch (err) {
+      console.error("Error general en syncUserWithSupabase:", err);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      syncUserWithSupabase();
+    }
+  }, [isAuthenticated, user, syncUserWithSupabase]);
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-[#20444c] text-[#8db5ac] px-6 py-4 shadow-md z-50">
@@ -85,7 +145,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Menú móvil */}
       {isOpen && (
         <div className="sm:hidden mt-4 flex flex-col gap-4">
           <a href="#comic" className="hover:text-gray-300 transition-colors">
