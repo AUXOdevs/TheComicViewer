@@ -1,4 +1,3 @@
-// src/user/dto/user.dto.ts
 import {
   IsString,
   IsEmail,
@@ -6,10 +5,10 @@ import {
   IsBoolean,
   IsDate,
   IsOptional,
-  // IsUUID,
+  IsUUID, // Asegúrate de importar IsUUID
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { RoleDto } from '../../roles/dto/role.dto'; // Ajusta la ruta
+import { RoleDto } from '../../roles/dto/role.dto';
 import { Type } from 'class-transformer';
 
 export class UserDto {
@@ -65,6 +64,15 @@ export class UserDto {
     description: 'Indica si el usuario está bloqueado por un admin.',
   })
   is_blocked: boolean;
+
+  @IsOptional()
+  @IsUUID() // role_id es un UUID
+  @ApiProperty({
+    description: 'ID del rol del usuario.',
+    nullable: true,
+    required: false,
+  })
+  role_id?: string | null; // <-- CAMBIO CLAVE: Añadir role_id
 
   @IsOptional()
   @ApiProperty({

@@ -1,70 +1,75 @@
 import {
   IsString,
-  IsNotEmpty,
   IsEmail,
-  IsUrl,
-  IsUUID,
   IsOptional,
   IsBoolean,
-  IsDate,
+  IsUUID, // Mantener IsUUID solo si es para role_id
+  IsNotEmpty,
+  MinLength,
+  MaxLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 
 export class CreateUserDto {
-  @IsUUID()
-  @IsNotEmpty()
+  @IsOptional() // Hacemos auth0_id opcional aquí porque AuthService lo construirá
+  @IsString() // CAMBIO CLAVE: Es un string, no un UUID
   @ApiProperty({
     description: 'ID único del usuario proporcionado por Auth0.',
-    example: 'auth0|abcdef1234567890',
+    required: false,
   })
-  auth0_id: string;
+  auth0_id?: string; // Ahora es opcional en el DTO
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({
-    description: 'Nombre completo del usuario.',
-    example: 'John Doe',
-  })
+  @ApiProperty({ description: 'Nombre completo del usuario.' })
   name: string;
 
   @IsEmail()
   @IsNotEmpty()
   @ApiProperty({
     description: 'Dirección de correo electrónico única del usuario.',
-    example: 'john.doe@example.com',
   })
   email: string;
 
-  @IsOptional()
-  @IsUrl()
+  @IsOptional() // Puede que Auth0 no siempre lo envíe o que se verifique después
+  @IsBoolean()
   @ApiProperty({
-    description: 'URL de la foto de perfil del usuario (opcional).',
+    description: 'Indica si el email del usuario ha sido verificado.',
     required: false,
-    example: 'https://example.com/profile.jpg',
   })
-  picture?: string;
+  email_verified?: boolean; // Ahora es opcional y booleano
 
-  @IsOptional()
-  @IsUUID() // Si el role se asigna por ID
+  @IsOptional() // La imagen de perfil puede ser opcional
+  @IsString() // Puede ser string o null
   @ApiProperty({
-    description:
-      'ID del rol asignado al usuario (ej. "lector", "administrador").',
-    required: false,
-    example: 'a1b2c3d4-e5f6-7890-1234-567890abcdef',
-    nullable: true,
-  })
-  role_id?: string; // Se usará para establecer la relación con Role
-
-  @IsOptional()
-  @IsDate()
-  @Type(() => Date)
-  @ApiProperty({
-    description: 'Fecha y hora de inactivación de la cuenta (si aplica).',
-    type: 'string',
-    format: 'date-time',
+    description: 'URL de la foto de perfil del usuario.',
     nullable: true,
     required: false,
   })
-  deleted_at?: Date | null;
+  picture?: string | null;
+
+  // Las propiedades de contraseña no son necesarias si Auth0 gestiona las credenciales.
+  // Las mantengo comentadas para referencia, si tuvieras un flujo de registro local.
+  // @IsOptional()
+  // @IsString()
+  // @MinLength(8)
+  // @MaxLength(128)
+  // @ApiProperty({ description: 'Contraseña del usuario (solo si no es Auth0).', required: false })
+  // password?: string;
+
+  // @IsOptional()
+  // @IsString()
+  // @MinLength(8)
+  // @MaxLength(128)
+  // @ApiProperty({ description: 'Confirmación de contraseña (solo si no es Auth0).', required: false })
+  // confirmPassword?: string;
+
+  @IsOptional() // El rol_id es opcional si tu UserService asigna un rol por defecto
+  @IsUUID()
+  @ApiProperty({
+    description: 'ID del rol del usuario.',
+    nullable: true,
+    required: false,
+  })
+  role_id?: string | null; // role_id puede ser string o null
 }

@@ -38,7 +38,7 @@ export class UsersController {
   }
 
   @Get()
-  @UseGuards(RolesGuard)
+  // @UseGuards(RolesGuard)
   // @Roles('admin', 'moderator') // Solo admins o moderadores pueden ver todos los usuarios
   async findAll(
     @Query('includeDeleted') includeDeleted?: string,
