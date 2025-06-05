@@ -109,7 +109,7 @@ export class AuthService {
           client_id: auth0ClientId,
           // CAMBIO CLAVE: Ajustar el scope. Si definiste 'read:users', inclúyelo.
           // Siempre incluye 'openid' para obtener el id_token.
-          scope: 'openid read:users', // O 'openid' si solo necesitas el id_token y no hay otros scopes definidos
+          scope: 'read:users', // O 'openid' si solo necesitas el id_token y no hay otros scopes definidos
           connection: auth0Connection,
         }),
       );
