@@ -17,7 +17,7 @@ const AuthProvider = ({ children }: Props): React.ReactElement => {
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ""}
       authorizationParams={{
         redirect_uri:
-          typeof window !== "undefined" ? window.location.origin : "",
+          typeof window !== "undefined" ? window.location.origin : "", audience: process.env.NEXT_PUBLIC_SUPABASE_URL
       }}
       onRedirectCallback={appState => {
         router.push(appState?.returnTo || "/");
