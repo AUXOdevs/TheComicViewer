@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
@@ -10,9 +10,11 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, login, logout } = useAuth();
+  const hasSynced = useRef(false);
 
   const syncUserWithSupabase = useCallback(async () => {
-    if (!user) return;
+    if (!user || hasSynced.current) return;
+    hasSynced.current = true;
 
     console.log("Iniciando sincronización con Supabase...");
     console.log("Datos del usuario:", user);
@@ -65,7 +67,7 @@ export default function Navbar() {
   }, [user]);
 
   useEffect(() => {
-    if (isAuthenticated && user) {
+    if (isAuthenticated && user?.sub) {
       syncUserWithSupabase();
     }
   }, [isAuthenticated, user, syncUserWithSupabase]);
