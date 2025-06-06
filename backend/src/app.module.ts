@@ -1,5 +1,5 @@
 // src/app.module.ts
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -23,6 +23,7 @@ import typeorm from './config/typeorm';
 // import { User } from './user/entities/user.entity';
 // import { Role } from './roles/entities/role.entity';
 import { AuthModule } from './auth/auth.module';
+import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware';
 
 // ... etc.
 
@@ -72,4 +73,11 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  // Implementa NestModule
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(RequestLoggerMiddleware) // Aplica tu middleware
+      .forRoutes('*'); // A todas las rutas
+  }
+}

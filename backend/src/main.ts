@@ -1,15 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'; // Importa SwaggerModule y DocumentBuilder
+import { ValidationPipe, Logger } from '@nestjs/common'; // Importa Logger
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    // Configura los niveles de log para la aplicación NestJS
+    // En desarrollo, puedes usar ['debug', 'log', 'warn', 'error', 'verbose']
+    // En producción, podrías usar ['error', 'warn'] o false para deshabilitar los logs de NestJS
+    logger:
+      process.env.NODE_ENV === 'production'
+        ? ['error', 'warn', 'log'] // Solo errores, advertencias y logs generales en producción
+        : ['debug', 'log', 'warn', 'error', 'verbose'], // Todos los niveles en desarrollo
+  });
 
-  // --- 1. Habilitar Global Prefix ---
-  app.setGlobalPrefix('api'); // Todas tus rutas ahora serán /api/users, /api/auth, etc.
-
-  // --- 2. Habilitar la validación y transformación de DTOs ---
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -21,7 +26,6 @@ async function bootstrap() {
     }),
   );
 
-  // --- 3. Configurar Swagger ---
   const config = new DocumentBuilder()
     .setTitle('The Comic Viewer API')
     .setDescription(
@@ -29,7 +33,6 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .addBearerAuth(
-      // Añade soporte para JWT (Bearer token)
       {
         type: 'http',
         scheme: 'bearer',
@@ -37,15 +40,17 @@ async function bootstrap() {
         name: 'JWT',
         description: 'Enter JWT token',
       },
-      'JWT-auth', // Nombre para referenciar este esquema de seguridad en las operaciones
+      'JWT-auth',
     )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document); // Swagger UI estará en /api/docs
-
-  // -------------------------------------------------------------------------
+  SwaggerModule.setup('api/docs', app, document);
 
   await app.listen(3000);
+  Logger.log(
+    `Application is running on: ${await app.getUrl()}`,
+    'BackendTheComicViewer',
+  );
 }
 bootstrap();
