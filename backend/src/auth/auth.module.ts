@@ -4,7 +4,6 @@ import { JwtStrategy } from './jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config'; // Importar ConfigService
 import { UserModule } from '../user/user.module';
 import { AuthService } from './auth.service'; // Importar AuthService
-import { AuthController } from './auth.controller'; // Importar AuthController
 import { HttpModule } from '@nestjs/axios'; // Importar HttpModule para peticiones HTTP
 
 @Module({
@@ -14,15 +13,15 @@ import { HttpModule } from '@nestjs/axios'; // Importar HttpModule para peticion
     forwardRef(() => UserModule),
     HttpModule, // Añadir HttpModule aquí
   ],
-  controllers: [AuthController], // Añadir AuthController aquí
+  controllers: [],
   providers: [
-    AuthService, // Añadir AuthService aquí
+    AuthService,
     JwtStrategy,
   ],
   exports: [
     PassportModule,
     JwtStrategy,
-    AuthService, // Exportar AuthService si otros módulos lo necesitan
+    AuthService,
   ],
 })
 export class AuthModule {}

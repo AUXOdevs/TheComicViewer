@@ -1,11 +1,17 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  Logger,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../decorators/roles.decorator';
-// import { User } from 'src/user/entities/user.entity';
-
+// import { User } from 'src/user/entities/user.entity'; // Ya no es necesario importar si solo se usa 'user' del request
 
 @Injectable()
 export class RolesGuard implements CanActivate {
+  private readonly logger = new Logger(RolesGuard.name);
+
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
@@ -15,18 +21,35 @@ export class RolesGuard implements CanActivate {
     );
 
     if (!requiredRoles) {
-      return true; // No se requiere un rol específico, permitir acceso
+      this.logger.debug(
+        'RolesGuard: No se requieren roles específicos para esta ruta. Acceso permitido.',
+      );
+      return true;
     }
 
     const { user } = context.switchToHttp().getRequest();
+    this.logger.debug(
+      `RolesGuard: Roles requeridos: [${requiredRoles.join(', ')}]`,
+    );
 
-    // Asegúrate de que user.role sea la entidad Role completa y no solo un string
-    // O adapta esta lógica a cómo manejas los roles en tu entidad User
     if (!user || !user.role || !user.role.name) {
+      this.logger.warn(
+        `RolesGuard: Usuario "${user?.email}" no tiene rol definido o no está autenticado.`,
+      );
       return false; // Usuario no tiene rol definido
     }
 
-    // Verificar si el rol del usuario está entre los roles requeridos
-    return requiredRoles.some((role) => user.role.name === role);
+    const hasRole = requiredRoles.some((role) => user.role.name === role);
+    if (hasRole) {
+      this.logger.debug(
+        `RolesGuard: Usuario "<span class="math-inline">\{user\.email\}" con rol "</span>{user.role.name}" tiene acceso. `,
+      );
+    } else {
+      this.logger.warn(
+        `RolesGuard: Usuario "<span class="math-inline">\{user\.email\}" con rol "</span>{user.role.name}" NO tiene los roles requeridos.`,
+      );
+    }
+
+    return hasRole;
   }
 }
