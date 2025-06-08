@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
@@ -10,9 +10,11 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated, login, logout } = useAuth();
+  const hasSynced = useRef(false);
 
   const syncUserWithSupabase = useCallback(async () => {
-    if (!user) return;
+    if (!user || hasSynced.current) return;
+    hasSynced.current = true;
 
     console.log("Iniciando sincronización con Supabase...");
     console.log("Datos del usuario:", user);
@@ -65,7 +67,7 @@ export default function Navbar() {
   }, [user]);
 
   useEffect(() => {
-    if (isAuthenticated && user) {
+    if (isAuthenticated && user?.sub) {
       syncUserWithSupabase();
     }
   }, [isAuthenticated, user, syncUserWithSupabase]);
@@ -90,10 +92,10 @@ export default function Navbar() {
         </div>
 
         <div className="hidden sm:flex items-center gap-6">
-          <a href="#comic" className="hover:text-gray-300 transition-colors">
+          <a href="/Comics" className="hover:text-gray-300 transition-colors">
             Comic
           </a>
-          <a href="#manga" className="hover:text-gray-300 transition-colors">
+          <a href="/Manga" className="hover:text-gray-300 transition-colors">
             Manga
           </a>
 
@@ -147,10 +149,10 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="sm:hidden mt-4 flex flex-col gap-4">
-          <a href="#comic" className="hover:text-gray-300 transition-colors">
+          <a href="/Comics" className="hover:text-gray-300 transition-colors">
             Comic
           </a>
-          <a href="#manga" className="hover:text-gray-300 transition-colors">
+          <a href="/Manga" className="hover:text-gray-300 transition-colors">
             Manga
           </a>
 
