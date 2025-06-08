@@ -1,18 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsUUID, IsDate, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsUUID,
+  IsDate,
+  IsOptional,
+  IsNumber,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { UserDto } from '../../user/dto/user.dto';
 import { TitleDto } from '../../titles/dto/title.dto';
 import { ChapterDto } from '../../chapters/dto/chapter.dto';
 
-export class FavoriteDto {
+export class RatingDto {
   @IsUUID()
   @IsString()
-  @ApiProperty({ description: 'ID único del favorito.' })
-  favorite_id: string;
+  @ApiProperty({ description: 'ID único de la calificación.' })
+  rating_id: string;
 
   @IsString()
-  @ApiProperty({ description: 'ID del usuario que añadió el favorito.' })
+  @ApiProperty({ description: 'ID del usuario que realizó la calificación.' })
   user_id: string;
 
   @IsOptional()
@@ -22,11 +28,13 @@ export class FavoriteDto {
     type: () => UserDto,
     nullable: true,
   })
-  user?: UserDto; // Opcional para cargar la relación
+  user?: UserDto;
 
   @IsUUID()
   @IsString()
-  @ApiProperty({ description: 'ID del título asociado al favorito.' })
+  @ApiProperty({
+    description: 'ID del título al que pertenece la calificación.',
+  })
   title_id: string;
 
   @IsOptional()
@@ -36,13 +44,14 @@ export class FavoriteDto {
     type: () => TitleDto,
     nullable: true,
   })
-  title?: TitleDto; // Opcional para cargar la relación
+  title?: TitleDto;
 
   @IsOptional()
   @IsUUID()
   @IsString()
   @ApiProperty({
-    description: 'ID del capítulo asociado al favorito (si aplica).',
+    description:
+      'ID del capítulo al que pertenece la calificación (si aplica).',
     nullable: true,
   })
   chapter_id?: string | null;
@@ -54,16 +63,24 @@ export class FavoriteDto {
     type: () => ChapterDto,
     nullable: true,
   })
-  chapter?: ChapterDto; // Opcional para cargar la relación
+  chapter?: ChapterDto;
+
+  @IsNumber()
+  @ApiProperty({
+    description: 'Puntuación de la calificación (entre 1 y 5).',
+    minimum: 1,
+    maximum: 5,
+  })
+  score: number;
 
   @IsDate()
   @Type(() => Date)
   @ApiProperty({
-    description: 'Fecha en que se añadió el favorito.',
+    description: 'Fecha de la calificación.',
     type: 'string',
     format: 'date-time',
   })
-  date_added: Date;
+  rating_date: Date;
 
   @IsDate()
   @Type(() => Date)

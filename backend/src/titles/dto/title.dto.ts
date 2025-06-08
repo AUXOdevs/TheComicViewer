@@ -1,50 +1,108 @@
-import { IsUUID, IsString, IsDate, IsUrl, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsEnum,
+  IsDate,
+  IsUrl,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { ChapterDto } from '../../chapters/dto/chapter.dto'; // Importar si se incluyen capítulos anidados
+import { GenreDto } from '../../genres/dto/genre.dto'; // Importar si se incluyen géneros anidados
 
 export class TitleDto {
-  @IsUUID()
+  @IsString()
+  @IsNotEmpty()
   @ApiProperty({ description: 'ID único del título.' })
   title_id: string;
 
   @IsString()
+  @IsNotEmpty()
   @ApiProperty({ description: 'Nombre del título.' })
   name: string;
 
+  @IsOptional()
   @IsString()
-  @ApiProperty({ description: 'Descripción del título.' })
-  description: string;
-
-  @IsString()
-  @ApiProperty({ description: 'Autor o creador del título.' })
-  author: string;
-
-  @IsString()
-  @ApiProperty({ description: "Tipo de título ('comic' o 'manga')." })
-  type: string;
-
-  @IsString()
-  @ApiProperty({ description: 'Estado actual del título.' })
-  status: string;
+  @ApiProperty({ description: 'Descripción detallada.', nullable: true })
+  description?: string | null;
 
   @IsOptional()
-  @IsDate() // Cuando se devuelve, ya es un objeto Date
+  @IsString()
+  @ApiProperty({ description: 'Autor.', nullable: true })
+  author?: string | null;
+
+  @IsOptional()
+  @IsString()
   @ApiProperty({
-    description: 'Fecha de publicación del título.',
+    description: 'Género (campo obsoleto en DB).',
+    nullable: true,
+  })
+  genre?: string | null;
+
+  @IsEnum(['comic', 'manga'])
+  @ApiProperty({ description: 'Tipo de título.', enum: ['comic', 'manga'] })
+  type: 'comic' | 'manga';
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ description: 'Estado.', nullable: true })
+  status?: string | null;
+
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
+  @ApiProperty({
+    description: 'Fecha de publicación.',
     type: 'string',
     format: 'date-time',
     nullable: true,
   })
-  publication_date?: Date;
+  publication_date?: Date | null;
 
   @IsOptional()
   @IsUrl()
+  @ApiProperty({ description: 'URL de la imagen de portada.', nullable: true })
+  image_url?: string | null;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({ description: 'Categoría adicional.', nullable: true })
+  category?: string | null;
+
+  @IsDate()
+  @Type(() => Date)
   @ApiProperty({
-    description: 'URL de la imagen de portada del título.',
+    description: 'Fecha de creación del registro.',
+    type: 'string',
+    format: 'date-time',
+  })
+  created_at: Date;
+
+  @IsDate()
+  @Type(() => Date)
+  @ApiProperty({
+    description: 'Fecha de última actualización del registro.',
+    type: 'string',
+    format: 'date-time',
+  })
+  updated_at: Date;
+
+  @IsOptional()
+  @ApiProperty({
+    type: [ChapterDto],
+    description: 'Lista de capítulos asociados al título.',
     nullable: true,
   })
-  image_url?: string;
+  @Type(() => ChapterDto)
+  chapters?: ChapterDto[];
 
-  @IsString()
-  @ApiProperty({ description: 'Categoría o género del título.' })
-  category: string;
+  @IsOptional()
+  @ApiProperty({
+    type: [GenreDto],
+    description: 'Lista de géneros asociados al título.',
+    nullable: true,
+  })
+  @Type(() => GenreDto)
+  genres?: GenreDto[]; // Aquí mapearemos los géneros a través de titleGenres
 }
