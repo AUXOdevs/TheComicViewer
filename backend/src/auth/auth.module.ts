@@ -1,21 +1,27 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './jwt.strategy'; // Importa tu estrategia JWT
-import { ConfigModule } from '@nestjs/config';
+import { JwtStrategy } from './jwt.strategy';
+import { ConfigModule, ConfigService } from '@nestjs/config'; // Importar ConfigService
 import { UserModule } from '../user/user.module';
+import { AuthService } from './auth.service'; // Importar AuthService
+import { HttpModule } from '@nestjs/axios'; // Importar HttpModule para peticiones HTTP
 
 @Module({
   imports: [
     ConfigModule,
-    PassportModule.register({ defaultStrategy: 'jwt' }), // Registra la estrategia por defecto
-    forwardRef(() => UserModule), // Importa UserModule con forwardRef
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    forwardRef(() => UserModule),
+    HttpModule, // Añadir HttpModule aquí
   ],
+  controllers: [],
   providers: [
-    JwtStrategy, // ¡Asegúrate de que JwtStrategy esté listada aquí como un proveedor!
+    AuthService,
+    JwtStrategy,
   ],
   exports: [
-    PassportModule, // Exporta PassportModule para que otros módulos puedan usar los guards de Passport
-    JwtStrategy, // Opcional: exportar la estrategia si otros módulos la necesitan directamente (raro)
+    PassportModule,
+    JwtStrategy,
+    AuthService,
   ],
 })
 export class AuthModule {}

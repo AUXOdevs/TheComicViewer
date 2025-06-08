@@ -1,70 +1,61 @@
 import {
   IsString,
-  IsNotEmpty,
   IsEmail,
-  IsUrl,
-  IsUUID,
   IsOptional,
   IsBoolean,
-  IsDate,
+  IsUUID,
+  IsNotEmpty, // Se mantiene para campos requeridos explícitamente (ej. name, email en registro original)
+  MinLength,
+  MaxLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 
 export class CreateUserDto {
-  @IsUUID()
-  @IsNotEmpty()
+  @IsOptional() // Hacemos auth0_id opcional aquí porque AuthService lo construirá
+  @IsString()
   @ApiProperty({
     description: 'ID único del usuario proporcionado por Auth0.',
-    example: 'auth0|abcdef1234567890',
+    required: false,
   })
-  auth0_id: string;
+  auth0_id?: string;
 
+  @IsOptional() // Hacer opcional si el nombre puede venir del token o ser por defecto
   @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'Nombre completo del usuario.',
-    example: 'John Doe',
-  })
-  name: string;
+  @IsNotEmpty({ message: 'Name cannot be empty when explicitly provided.' }) // Condicionalmente NotEmpty
+  @ApiProperty({ description: 'Nombre completo del usuario.' })
+  name?: string; // Ahora es opcional
 
+  @IsOptional() // Hacer opcional si el email puede venir del token o ser por defecto
   @IsEmail()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Email cannot be empty when explicitly provided.' }) // Condicionalmente NotEmpty
   @ApiProperty({
     description: 'Dirección de correo electrónico única del usuario.',
-    example: 'john.doe@example.com',
   })
-  email: string;
+  email?: string; // Ahora es opcional
 
   @IsOptional()
-  @IsUrl()
+  @IsBoolean()
   @ApiProperty({
-    description: 'URL de la foto de perfil del usuario (opcional).',
+    description: 'Indica si el email del usuario ha sido verificado.',
     required: false,
-    example: 'https://example.com/profile.jpg',
   })
-  picture?: string;
+  email_verified?: boolean;
 
   @IsOptional()
-  @IsUUID() // Si el role se asigna por ID
+  @IsString()
   @ApiProperty({
-    description:
-      'ID del rol asignado al usuario (ej. "lector", "administrador").',
-    required: false,
-    example: 'a1b2c3d4-e5f6-7890-1234-567890abcdef',
-    nullable: true,
-  })
-  role_id?: string; // Se usará para establecer la relación con Role
-
-  @IsOptional()
-  @IsDate()
-  @Type(() => Date)
-  @ApiProperty({
-    description: 'Fecha y hora de inactivación de la cuenta (si aplica).',
-    type: 'string',
-    format: 'date-time',
+    description: 'URL de la foto de perfil del usuario.',
     nullable: true,
     required: false,
   })
-  deleted_at?: Date | null;
+  picture?: string | null;
+
+  @IsOptional()
+  @IsUUID()
+  @ApiProperty({
+    description: 'ID del rol del usuario.',
+    nullable: true,
+    required: false,
+  })
+  role_id?: string | null;
 }

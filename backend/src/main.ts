@@ -1,24 +1,56 @@
-// src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common'; // <-- ¡Importa esto!
+import { ValidationPipe, Logger } from '@nestjs/common'; // Importa Logger
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    // Configura los niveles de log para la aplicación NestJS
+    // En desarrollo, puedes usar ['debug', 'log', 'warn', 'error', 'verbose']
+    // En producción, podrías usar ['error', 'warn'] o false para deshabilitar los logs de NestJS
+    logger:
+      process.env.NODE_ENV === 'production'
+        ? ['error', 'warn', 'log'] // Solo errores, advertencias y logs generales en producción
+        : ['debug', 'log', 'warn', 'error', 'verbose'], // Todos los niveles en desarrollo
+  });
 
-  // --- ¡Añade esto para habilitar la validación y transformación de DTOs! ---
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // Elimina propiedades que no están definidas en el DTO
-      forbidNonWhitelisted: true, // Lanza un error si hay propiedades no definidas
-      transform: true, // Transforma los tipos de datos (ej. string a number, o a instancia de DTO)
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
       transformOptions: {
-        enableImplicitConversion: true, // Opcional: convierte tipos primitivos si es posible
+        enableImplicitConversion: true,
       },
     }),
   );
-  // -------------------------------------------------------------------------
+
+  const config = new DocumentBuilder()
+    .setTitle('The Comic Viewer API')
+    .setDescription(
+      'Documentación de la API para la aplicación The Comic Viewer',
+    )
+    .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+      },
+      'JWT-auth',
+    )
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
 
   await app.listen(3000);
+  Logger.log(
+    `Application is running on: ${await app.getUrl()}`,
+    'BackendTheComicViewer',
+  );
 }
 bootstrap();
