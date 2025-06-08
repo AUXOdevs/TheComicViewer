@@ -1,7 +1,7 @@
-import { Repository, DataSource } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { Genre } from './entities/genre.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Genre } from './entities/genre.entity';
 
 @Injectable()
 export class GenreRepository {
@@ -19,6 +19,7 @@ export class GenreRepository {
   }
 
   async findOneById(genreId: string): Promise<Genre | null> {
+    // <-- Asegurar que existe
     return this.createQueryBuilder('genre')
       .where('genre.genre_id = :genreId', { genreId })
       .getOne();
