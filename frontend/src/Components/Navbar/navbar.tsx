@@ -92,10 +92,10 @@ export default function Navbar() {
         </div>
 
         <div className="hidden sm:flex items-center gap-6">
-          <a href="#comic" className="hover:text-gray-300 transition-colors">
+          <a href="/Comics" className="hover:text-gray-300 transition-colors">
             Comic
           </a>
-          <a href="#manga" className="hover:text-gray-300 transition-colors">
+          <a href="/Manga" className="hover:text-gray-300 transition-colors">
             Manga
           </a>
 
@@ -149,10 +149,10 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="sm:hidden mt-4 flex flex-col gap-4">
-          <a href="#comic" className="hover:text-gray-300 transition-colors">
+          <a href="/Comics" className="hover:text-gray-300 transition-colors">
             Comic
           </a>
-          <a href="#manga" className="hover:text-gray-300 transition-colors">
+          <a href="/Manga" className="hover:text-gray-300 transition-colors">
             Manga
           </a>
 
