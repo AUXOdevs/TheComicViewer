@@ -5,8 +5,6 @@ import {
   IsBoolean,
   IsUUID,
   IsNotEmpty, // Se mantiene para campos requeridos explícitamente (ej. name, email en registro original)
-  MinLength,
-  MaxLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
