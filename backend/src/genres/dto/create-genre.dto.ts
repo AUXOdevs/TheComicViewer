@@ -4,6 +4,6 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateGenreDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ description: 'Nombre del género.', example: 'Aventura' })
+  @ApiProperty({ description: 'Nombre del género.', example: 'Fantasy' })
   name: string;
 }

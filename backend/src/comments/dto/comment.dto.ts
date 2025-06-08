@@ -5,14 +5,14 @@ import { UserDto } from '../../user/dto/user.dto';
 import { TitleDto } from '../../titles/dto/title.dto';
 import { ChapterDto } from '../../chapters/dto/chapter.dto';
 
-export class FavoriteDto {
+export class CommentDto {
   @IsUUID()
   @IsString()
-  @ApiProperty({ description: 'ID único del favorito.' })
-  favorite_id: string;
+  @ApiProperty({ description: 'ID único del comentario.' })
+  comment_id: string;
 
   @IsString()
-  @ApiProperty({ description: 'ID del usuario que añadió el favorito.' })
+  @ApiProperty({ description: 'ID del usuario que escribió el comentario.' })
   user_id: string;
 
   @IsOptional()
@@ -22,11 +22,11 @@ export class FavoriteDto {
     type: () => UserDto,
     nullable: true,
   })
-  user?: UserDto; // Opcional para cargar la relación
+  user?: UserDto;
 
   @IsUUID()
   @IsString()
-  @ApiProperty({ description: 'ID del título asociado al favorito.' })
+  @ApiProperty({ description: 'ID del título al que pertenece el comentario.' })
   title_id: string;
 
   @IsOptional()
@@ -36,13 +36,13 @@ export class FavoriteDto {
     type: () => TitleDto,
     nullable: true,
   })
-  title?: TitleDto; // Opcional para cargar la relación
+  title?: TitleDto;
 
   @IsOptional()
   @IsUUID()
   @IsString()
   @ApiProperty({
-    description: 'ID del capítulo asociado al favorito (si aplica).',
+    description: 'ID del capítulo al que pertenece el comentario (si aplica).',
     nullable: true,
   })
   chapter_id?: string | null;
@@ -54,16 +54,20 @@ export class FavoriteDto {
     type: () => ChapterDto,
     nullable: true,
   })
-  chapter?: ChapterDto; // Opcional para cargar la relación
+  chapter?: ChapterDto;
+
+  @IsString()
+  @ApiProperty({ description: 'Contenido del comentario.' })
+  content: string;
 
   @IsDate()
   @Type(() => Date)
   @ApiProperty({
-    description: 'Fecha en que se añadió el favorito.',
+    description: 'Fecha del comentario.',
     type: 'string',
     format: 'date-time',
   })
-  date_added: Date;
+  comment_date: Date;
 
   @IsDate()
   @Type(() => Date)

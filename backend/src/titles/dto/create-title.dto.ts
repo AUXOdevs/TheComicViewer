@@ -1,78 +1,80 @@
 import {
   IsString,
   IsNotEmpty,
-  IsDateString,
   IsOptional,
+  IsEnum,
+  IsDateString,
   IsUrl,
-  IsIn,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateTitleDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ description: 'Nombre del título.', example: 'One Piece' })
+  @ApiProperty({ description: 'Nombre del título (cómic o manga).' })
   name: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   @ApiProperty({
-    description: 'Descripción del título.',
-    example: 'Las aventuras de Monkey D. Luffy y su tripulación.',
+    description: 'Descripción detallada del título.',
+    nullable: true,
   })
-  description: string;
+  description?: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'Autor o creador del título.',
-    example: 'Eiichiro Oda',
-  })
-  author: string;
+  @ApiProperty({ description: 'Autor o creador del título.', nullable: true })
+  author?: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @IsIn(['comic', 'manga']) // Valida que el tipo sea 'comic' o 'manga'
-  @ApiProperty({
-    description: "Tipo de título ('comic' o 'manga').",
-    example: 'manga',
-    enum: ['comic', 'manga'],
-  })
-  type: string;
-
-  @IsString()
-  @IsNotEmpty()
   @ApiProperty({
     description:
-      'Estado actual del título (ej. "En curso", "Finalizado", "Pausado").',
-    example: 'En curso',
+      'Género principal del título (ej. "Aventura", "Fantasia"). Este campo puede ser obsoleto si se usan title_genre.',
+    nullable: true,
   })
-  status: string;
+  genre?: string;
+
+  @IsEnum(['comic', 'manga'], {
+    message: 'El tipo debe ser "comic" o "manga".',
+  })
+  @IsNotEmpty()
+  @ApiProperty({
+    description: 'Tipo de título: "comic" o "manga".',
+    enum: ['comic', 'manga'],
+  })
+  type: 'comic' | 'manga';
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: 'Estado actual del título (ej. "En curso", "Completo").',
+    nullable: true,
+  })
+  status?: string;
 
   @IsOptional()
   @IsDateString()
   @ApiProperty({
     description: 'Fecha de publicación del título (formato ISO 8601).',
-    required: false,
-    example: '1997-07-22T00:00:00Z',
+    nullable: true,
   })
-  publication_date?: string; // Se usa string para la entrada, luego se convierte a Date en el servicio
+  publication_date?: string; // Usar string para la entrada, luego convertir a Date
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
     description: 'URL de la imagen de portada del título.',
-    required: false,
-    example: 'https://example.com/onepiece_cover.jpg',
+    nullable: true,
   })
   image_url?: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   @ApiProperty({
-    description:
-      'Categoría o género del título (ej. "Aventura", "Fantasia", "Ciencia ficción").',
-    example: 'Aventura',
+    description: 'Categoría adicional del título.',
+    nullable: true,
   })
-  category: string;
+  category?: string;
 }
