@@ -1,7 +1,7 @@
-import { Repository, DataSource } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { ReadingHistory } from './entities/reading-history.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ReadingHistory } from './entities/reading-history.entity';
 
 @Injectable()
 export class ReadingHistoryRepository {
@@ -18,9 +18,9 @@ export class ReadingHistoryRepository {
     return this.createQueryBuilder('history')
       .leftJoinAndSelect('history.user', 'user')
       .leftJoinAndSelect('history.chapter', 'chapter')
-      .leftJoinAndSelect('chapter.title', 'title') // Cargar título del capítulo
+      .leftJoinAndSelect('chapter.title', 'title')
       .where('history.user_id = :userId', { userId })
-      .orderBy('history.updated_at', 'DESC') // Ordenar por fecha de último acceso
+      .orderBy('history.updated_at', 'DESC')
       .getMany();
   }
 
@@ -31,6 +31,15 @@ export class ReadingHistoryRepository {
     return this.createQueryBuilder('history')
       .where('history.user_id = :userId', { userId })
       .andWhere('history.chapter_id = :chapterId', { chapterId })
+      .getOne();
+  }
+
+  // Nuevo método: encontrar historial por su propio ID
+  async findOneById(historyId: string): Promise<ReadingHistory | null> {
+    return this.createQueryBuilder('history')
+      .where('history.history_id = :historyId', { historyId })
+      .leftJoinAndSelect('history.user', 'user')
+      .leftJoinAndSelect('history.chapter', 'chapter')
       .getOne();
   }
 

@@ -1,7 +1,7 @@
-import { Repository, DataSource } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { TitleGenre } from './entities/title-genre.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { TitleGenre } from './entities/title-genre.entity';
 
 @Injectable()
 export class TitleGenreRepository {
@@ -28,6 +28,15 @@ export class TitleGenreRepository {
     return this.createQueryBuilder('titleGenre')
       .where('titleGenre.title_id = :titleId', { titleId })
       .andWhere('titleGenre.genre_id = :genreId', { genreId })
+      .getOne();
+  }
+
+  // Nuevo método: encontrar asociación por su propio ID
+  async findOneById(titleGenreId: string): Promise<TitleGenre | null> {
+    return this.createQueryBuilder('titleGenre')
+      .where('titleGenre.title_genre_id = :titleGenreId', { titleGenreId })
+      .leftJoinAndSelect('titleGenre.title', 'title')
+      .leftJoinAndSelect('titleGenre.genre', 'genre')
       .getOne();
   }
 
