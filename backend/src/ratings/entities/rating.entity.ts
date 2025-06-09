@@ -6,19 +6,22 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Check, // Import Check decorator
+  Check, // Importa Check decorator
+  Unique, // Importa Unique decorator
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { Title } from '../../titles/entities/title.entity';
 import { Chapter } from '../../chapters/entities/chapter.entity';
 
 @Entity('ratings')
-@Check(`score >= 1 AND score <= 5`) // Constraint from SQL schema
+// La combinación de user_id, title_id y chapter_id debe ser única para evitar múltiples calificaciones por el mismo usuario
+@Unique(['user_id', 'title_id', 'chapter_id'])
+@Check(`score >= 1 AND score <= 5`)
 export class Rating {
   @PrimaryGeneratedColumn('uuid', { name: 'rating_id' })
   rating_id: string;
 
-  @Column({ type: 'text', name: 'user_id', nullable: false }) // user_id is text because auth0_id is text now
+  @Column({ type: 'text', name: 'user_id', nullable: false })
   user_id: string;
 
   @ManyToOne(() => User, (user) => user.ratings, { onDelete: 'CASCADE' })
@@ -49,5 +52,5 @@ export class Rating {
   rating_date: Date;
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
-  updated_at: Date; // Añadido para seguir consistencia
+  updated_at: Date;
 }

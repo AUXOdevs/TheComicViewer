@@ -33,15 +33,17 @@ export class ChaptersService {
       );
     }
 
-    // Convertir release_date de string a Date si existe
+    // Construir el objeto Partial<Chapter> explícitamente para evitar el error de 'pages'
     const chapterToCreate: Partial<Chapter> = {
-      ...createChapterDto,
+      name: createChapterDto.name,
+      title_id: createChapterDto.title_id,
+      chapter_number: createChapterDto.chapter_number,
       release_date: createChapterDto.release_date
         ? new Date(createChapterDto.release_date)
         : null,
+      // Convertir array de URLs a string JSON para la base de datos
+      pages: JSON.stringify(createChapterDto.pages), // 'pages' es string en la entidad
     };
-    // Convertir array de URLs a string JSON para la base de datos
-    chapterToCreate.pages = JSON.stringify(createChapterDto.pages) as any;
 
     const newChapter = this.chapterRepository.create(chapterToCreate);
     const savedChapter = await this.chapterRepository.save(newChapter);
@@ -51,7 +53,8 @@ export class ChaptersService {
 
     // Al retornar, asegúrate de que 'pages' sea un array de strings para el DTO
     const chapterDto = plainToInstance(ChapterDto, savedChapter);
-    chapterDto.pages = JSON.parse(savedChapter.pages as any);
+    // Explicitamente parsear la cadena JSON de 'pages' para el DTO
+    chapterDto.pages = JSON.parse(savedChapter.pages);
     return chapterDto;
   }
 
@@ -65,11 +68,15 @@ export class ChaptersService {
         `findAllByTitle(): No se encontraron capítulos para el título con ID "${titleId}".`,
       );
     }
-    return plainToInstance(ChapterDto, chapters).map((chapter) => {
+    // Mapear cada capítulo y transformar 'pages' para el DTO
+    return chapters.map((chapter) => {
+      const chapterDto = plainToInstance(ChapterDto, chapter);
       if (typeof chapter.pages === 'string') {
-        chapter.pages = JSON.parse(chapter.pages as any);
+        chapterDto.pages = JSON.parse(chapter.pages);
+      } else {
+        chapterDto.pages = []; // En caso de que no sea una cadena válida
       }
-      return chapter;
+      return chapterDto;
     });
   }
 
@@ -89,7 +96,7 @@ export class ChaptersService {
 
     let pagesArray: string[];
     try {
-      pagesArray = JSON.parse(chapter.pages as any);
+      pagesArray = JSON.parse(chapter.pages); // 'chapter.pages' es una cadena
     } catch (e) {
       this.logger.error(
         `findOne(): Error al parsear páginas del capítulo ${id}:`,
@@ -115,16 +122,16 @@ export class ChaptersService {
       this.logger.log(
         `findOne(): Acceso a capítulo ${chapter.chapter_number} (gratis) concedido para usuario no suscrito.`,
       );
-      chapter.pages = pagesArray as any;
+      // No asignar pagesArray directamente a chapter.pages aquí, ya que 'pages' en la entidad es 'string'
     } else {
       this.logger.log(
         `findOne(): Acceso completo a capítulo ${chapter.chapter_number} para usuario suscrito/admin.`,
       );
-      chapter.pages = pagesArray as any;
+      // No asignar pagesArray directamente a chapter.pages aquí
     }
 
     const chapterDto = plainToInstance(ChapterDto, chapter);
-    chapterDto.pages = chapter.pages as string[];
+    chapterDto.pages = pagesArray; // Asignar el array parseado al DTO
     return chapterDto;
   }
 
@@ -144,7 +151,7 @@ export class ChaptersService {
     // Extraer title_id, pages, release_date para manejar por separado
     // Usamos 'as any' para permitir la desestructuración de propiedades que TypeScript no ve directamente
     const { title_id, pages, release_date, ...restOfUpdateDto } =
-      updateChapterDto as any; // <-- CORRECCIÓN APLICADA AQUÍ
+      updateChapterDto as any; // <-- Corrección aplicada aquí
 
     // Validar y actualizar title_id si se proporciona
     if (title_id !== undefined) {
@@ -161,8 +168,8 @@ export class ChaptersService {
     }
 
     // Manejar 'pages' si se actualiza
-    if (pages) {
-      chapter.pages = JSON.stringify(pages) as any; // Convertir a string para la DB
+    if (pages !== undefined) {
+      chapter.pages = JSON.stringify(pages); // Convertir a string para la DB
     }
 
     // Aplicar las demás propiedades del DTO
@@ -173,7 +180,7 @@ export class ChaptersService {
     );
 
     const chapterDto = plainToInstance(ChapterDto, updatedChapter);
-    chapterDto.pages = JSON.parse(updatedChapter.pages as any); // Convertir de nuevo a array para el DTO
+    chapterDto.pages = JSON.parse(updatedChapter.pages); // Convertir de nuevo a array para el DTO
     return chapterDto;
   }
 
