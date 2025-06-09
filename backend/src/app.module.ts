@@ -23,6 +23,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import typeorm from './config/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware';
+import { DatabaseModule } from './database/database.module';
+import { SettingsModule } from './settings/setting.module';
+import { Setting } from './settings/entities/setting.entity';
 
 @Module({
   imports: [
@@ -38,6 +41,7 @@ import { RequestLoggerMiddleware } from './common/middleware/request-logger.midd
         return {
           ...dbConfig,
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          Setting,
           // Asegúrate de que synchronize: true SOLO en desarrollo
           // synchronize: process.env.NODE_ENV !== 'production', // O controla esto desde tu configuración typeorm.ts
         };
@@ -56,6 +60,8 @@ import { RequestLoggerMiddleware } from './common/middleware/request-logger.midd
     GenresModule,
     TitleGenreModule,
     ReadingHistoryModule,
+    SettingsModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

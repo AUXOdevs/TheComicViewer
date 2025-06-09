@@ -1,3 +1,5 @@
+// src/comments/entities/comment.entity.ts
+
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -16,7 +18,7 @@ export class Comment {
   @PrimaryGeneratedColumn('uuid', { name: 'comment_id' })
   comment_id: string;
 
-  @Column({ type: 'text', name: 'user_id', nullable: false }) // user_id is text because auth0_id is text now
+  @Column({ type: 'text', name: 'user_id', nullable: false })
   user_id: string;
 
   @ManyToOne(() => User, (user) => user.comments, { onDelete: 'CASCADE' })
@@ -47,5 +49,5 @@ export class Comment {
   comment_date: Date;
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
-  updated_at: Date; // Añadido para seguir consistencia
+  updated_at: Date;
 }

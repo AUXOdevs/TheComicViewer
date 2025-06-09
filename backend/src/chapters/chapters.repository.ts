@@ -1,7 +1,7 @@
-import { Repository, DataSource, IsNull, Not } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Chapter } from './entities/chapter.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ChapterRepository {
@@ -18,7 +18,7 @@ export class ChapterRepository {
     return this.createQueryBuilder('chapter')
       .leftJoinAndSelect('chapter.title', 'title')
       .where('chapter.title_id = :titleId', { titleId })
-      .orderBy('chapter.chapter_number', 'ASC') // Ordenar capítulos por número
+      .orderBy('chapter.chapter_number', 'ASC')
       .getMany();
   }
 
@@ -26,6 +26,17 @@ export class ChapterRepository {
     return this.createQueryBuilder('chapter')
       .leftJoinAndSelect('chapter.title', 'title')
       .where('chapter.chapter_id = :chapterId', { chapterId })
+      .getOne();
+  }
+
+  // Nuevo método: encontrar capítulo por title_id y chapter_number
+  async findByTitleIdAndChapterNumber(
+    titleId: string,
+    chapterNumber: number,
+  ): Promise<Chapter | null> {
+    return this.createQueryBuilder('chapter')
+      .where('chapter.title_id = :titleId', { titleId })
+      .andWhere('chapter.chapter_number = :chapterNumber', { chapterNumber })
       .getOne();
   }
 

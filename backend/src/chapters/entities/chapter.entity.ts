@@ -1,3 +1,5 @@
+// src/chapters/entities/chapter.entity.ts
+
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -22,20 +24,16 @@ export class Chapter {
   @Column({ type: 'uuid', name: 'title_id', nullable: false })
   title_id: string;
 
-  @ManyToOne(() => Title, (title) => title.chapters, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'title_id', referencedColumnName: 'title_id' })
-  title: Title;
+  @Column({ name: 'chapter_name', type: 'text', nullable: true }) // Mapea a 'chapter_name' en DB, y es nullable: true
+  name: string; // La propiedad en la entidad se llama 'name'
 
-  @Column({ type: 'text', nullable: false })
-  name: string;
-
-  @Column({ type: 'timestamptz', nullable: true })
+  @Column({ type: 'date', name: 'release_date', nullable: true })
   release_date: Date | null;
 
-  @Column({ type: 'jsonb', nullable: false }) // Assuming 'pages' is an array of URLs stored as JSONB
-  pages: string[]; // Store as JSON string in DB, handle as string[] in app
+  @Column({ name: 'content_url', type: 'jsonb', nullable: true }) // Mapea a 'content_url' en DB, tipo JSONB
+  pages: string; // La propiedad en la entidad se llama 'pages', almacena JSON string
 
-  @Column({ type: 'int', nullable: false, name: 'chapter_number' })
+  @Column({ type: 'int', name: 'chapter_number', nullable: false })
   chapter_number: number;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
@@ -44,7 +42,12 @@ export class Chapter {
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updated_at: Date;
 
-  // Relaciones
+  // Relaciones ManyToOne
+  @ManyToOne(() => Title, (title) => title.chapters, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'title_id', referencedColumnName: 'title_id' })
+  title: Title;
+
+  // Relaciones OneToMany
   @OneToMany(() => Favorite, (favorite) => favorite.chapter)
   favorites: Favorite[];
 
@@ -54,6 +57,8 @@ export class Chapter {
   @OneToMany(() => Rating, (rating) => rating.chapter)
   ratings: Rating[];
 
-  @OneToMany(() => ReadingHistory, (history) => history.chapter)
-  readingHistories: ReadingHistory[];
+  // Asegúrate de que esta propiedad exista en ReadingHistory y que la relación sea correcta.
+  // El nombre de la propiedad en Chapter es 'readingHistory' (singular)
+  @OneToMany(() => ReadingHistory, (readingHistory) => readingHistory.chapter)
+  readingHistory: ReadingHistory[];
 }
