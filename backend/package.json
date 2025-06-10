@@ -77,8 +77,12 @@
   "dependencies": {
     "@nestjs/passport": "^11.0.5",
     "@nestjs/swagger": "^11.2.0",
+    "@types/cheerio": "^0.22.35",
+    "@types/node-fetch": "^2.6.12",
+    "cheerio": "^1.1.0",
     "class-transformer": "^0.5.1",
     "jwks-rsa": "^3.2.0",
+    "node-fetch": "^3.3.2",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "swagger-ui-express": "^5.0.1"
