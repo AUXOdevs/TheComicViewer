@@ -1,4 +1,8 @@
 import { Role } from 'src/roles/entities/role.entity';
+import { Favorite } from '../../favorites/entities/favorite.entity'; // Importar
+import { Comment } from '../../comments/entities/comment.entity'; // Importar
+import { Rating } from '../../ratings/entities/rating.entity'; // Importar
+import { ReadingHistory } from '../../reading-history/entities/reading-history.entity'; // Importar
 import {
   Entity,
   Column,
@@ -7,11 +11,12 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany, // Importar OneToMany
 } from 'typeorm';
 
 @Entity('users')
 export class User {
-  @PrimaryColumn({ type: 'text', name: 'auth0_id' })
+  @PrimaryColumn({ type: 'text', name: 'auth0_id' }) // <-- Asegúrate que sea TEXT en tu DB
   auth0_id: string;
 
   @Column({ type: 'text', nullable: true })
@@ -57,4 +62,17 @@ export class User {
     default: null,
   })
   deleted_at: Date | null;
+
+  // --- Nuevas Relaciones ---
+  @OneToMany(() => Favorite, (favorite) => favorite.user)
+  favorites: Favorite[];
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
+
+  @OneToMany(() => Rating, (rating) => rating.user)
+  ratings: Rating[];
+
+  @OneToMany(() => ReadingHistory, (history) => history.user)
+  readingHistories: ReadingHistory[];
 }

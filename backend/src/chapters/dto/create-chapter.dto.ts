@@ -1,19 +1,20 @@
 import {
-  IsUUID,
   IsString,
   IsNotEmpty,
-  IsNumber,
-  IsUrl,
+  IsUUID,
   IsOptional,
   IsDateString,
-  Min,
+  IsNumber,
+  IsArray,
+  ArrayMinSize,
+  IsUrl, // Asumiendo que las páginas son URLs
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateChapterDto {
   @IsUUID()
   @IsNotEmpty()
-  @ApiProperty({ description: 'ID del título al que pertenece este capítulo.' })
+  @ApiProperty({ description: 'ID del título al que pertenece el capítulo.' })
   title_id: string;
 
   @IsString()
@@ -24,27 +25,23 @@ export class CreateChapterDto {
   @IsOptional()
   @IsDateString()
   @ApiProperty({
-    description:
-      'Fecha de lanzamiento del capítulo (formato ISO 8601, ej: 2023-10-27T10:00:00Z).',
-    required: false,
-    example: '2024-06-01T14:30:00Z',
+    description: 'Fecha de lanzamiento del capítulo.',
+    nullable: true,
   })
-  release_date?: string; // Se usa string para la entrada, luego se convierte a Date en el servicio
+  release_date?: string;
 
-//   @IsString()
-  @IsUrl()
-  @IsNotEmpty()
-  // Podrías usar @IsUrl({ each: true }) si 'pages' es un array de URLs, o ajustar la validación según el formato de URLs/paths
+  @IsArray()
+  @ArrayMinSize(1)
+  @IsUrl({}, { each: true }) // Cada elemento debe ser una URL válida
   @ApiProperty({
-    description:
-      'URLs o paths de las páginas del capítulo (ej. URLs de S3 o paths a archivos). Puede ser un JSON string de un array de URLs.',
-    example:
-      '["https://example.com/page1.jpg", "https://example.com/page2.jpg"]',
+    description: 'Array de URLs (o rutas) de las páginas del capítulo.',
+    type: [String],
+    example: ['http://example.com/page1.jpg', 'http://example.com/page2.jpg'],
   })
-  pages: string;
+  pages: string[];
 
   @IsNumber()
-  @Min(1)
-  @ApiProperty({ description: 'Número de capítulo.', example: 1 })
+  @IsNotEmpty()
+  @ApiProperty({ description: 'Número del capítulo.' })
   chapter_number: number;
 }

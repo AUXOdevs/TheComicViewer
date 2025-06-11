@@ -1,0 +1,1754 @@
+[
+  {
+    "title_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+    "name": "Shingeki no Kyojin (Attack on Titan)",
+    "description": "En un mundo donde la humanidad está al borde de la extinción, los supervivientes se refugian tras enormes muros para protegerse de los Titanes, gigantescas criaturas devoradoras de hombres. La historia sigue a Eren Jaeger, quien jura exterminar a los Titanes después de que destruyen su ciudad natal y matan a su madre.",
+    "author": "Hajime Isayama",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2013-04-07T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/E50914/FFFFFF?text=Shingeki+no+Kyojin",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía Oscura", "Post-apocalíptico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-snk-01",
+        "name": "A ti, 2000 años en el futuro: La caída de Shiganshina, parte 1",
+        "release_date": "2013-04-07T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-snk-02",
+        "name": "Ese día: La caída de Shiganshina, parte 2",
+        "release_date": "2013-04-14T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-snk-03",
+        "name": "Episodio 3",
+        "release_date": "2013-04-21T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-snk-04",
+        "name": "Episodio 4",
+        "release_date": "2013-04-28T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-snk-05",
+        "name": "Episodio 5",
+        "release_date": "2013-05-05T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 5
+      },
+      {
+        "chapter_id": "chap-snk-06",
+        "name": "Episodio 6",
+        "release_date": "2013-05-12T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 6
+      },
+      {
+        "chapter_id": "chap-snk-07",
+        "name": "Episodio 7",
+        "release_date": "2013-05-19T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 7
+      },
+      {
+        "chapter_id": "chap-snk-08",
+        "name": "Episodio 8",
+        "release_date": "2013-05-26T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 8
+      },
+      {
+        "chapter_id": "chap-snk-09",
+        "name": "Episodio 9",
+        "release_date": "2013-06-02T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 9
+      },
+      {
+        "chapter_id": "chap-snk-10",
+        "name": "Episodio 10",
+        "release_date": "2013-06-09T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 10
+      },
+      {
+        "chapter_id": "chap-snk-11",
+        "name": "Episodio 11",
+        "release_date": "2013-06-16T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 11
+      },
+      {
+        "chapter_id": "chap-snk-12",
+        "name": "Episodio 12",
+        "release_date": "2013-06-23T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 12
+      },
+      {
+        "chapter_id": "chap-snk-13",
+        "name": "Episodio 13",
+        "release_date": "2013-06-30T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 13
+      },
+      {
+        "chapter_id": "chap-snk-14",
+        "name": "Episodio 14",
+        "release_date": "2013-07-07T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 14
+      },
+      {
+        "chapter_id": "chap-snk-15",
+        "name": "Episodio 15",
+        "release_date": "2013-07-14T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 15
+      },
+      {
+        "chapter_id": "chap-snk-16",
+        "name": "Episodio 16",
+        "release_date": "2013-07-21T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 16
+      },
+      {
+        "chapter_id": "chap-snk-17",
+        "name": "Episodio 17",
+        "release_date": "2013-07-28T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 17
+      },
+      {
+        "chapter_id": "chap-snk-18",
+        "name": "Episodio 18",
+        "release_date": "2013-08-04T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 18
+      },
+      {
+        "chapter_id": "chap-snk-19",
+        "name": "Episodio 19",
+        "release_date": "2013-08-11T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 19
+      },
+      {
+        "chapter_id": "chap-snk-20",
+        "name": "Episodio 20",
+        "release_date": "2013-08-18T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 20
+      },
+      {
+        "chapter_id": "chap-snk-21",
+        "name": "Episodio 21",
+        "release_date": "2013-08-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 21
+      },
+      {
+        "chapter_id": "chap-snk-22",
+        "name": "Episodio 22",
+        "release_date": "2013-09-01T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 22
+      },
+      {
+        "chapter_id": "chap-snk-23",
+        "name": "Episodio 23",
+        "release_date": "2013-09-08T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 23
+      },
+      {
+        "chapter_id": "chap-snk-24",
+        "name": "Episodio 24",
+        "release_date": "2013-09-15T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 24
+      },
+      {
+        "chapter_id": "chap-snk-25",
+        "name": "Episodio 25",
+        "release_date": "2013-09-22T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 25
+      },
+      {
+        "chapter_id": "chap-snk-26",
+        "name": "Episodio 26",
+        "release_date": "2013-09-29T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 26
+      },
+      {
+        "chapter_id": "chap-snk-27",
+        "name": "Episodio 27",
+        "release_date": "2013-10-06T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 27
+      },
+      {
+        "chapter_id": "chap-snk-28",
+        "name": "Episodio 28",
+        "release_date": "2013-10-13T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 28
+      },
+      {
+        "chapter_id": "chap-snk-29",
+        "name": "Episodio 29",
+        "release_date": "2013-10-20T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 29
+      },
+      {
+        "chapter_id": "chap-snk-30",
+        "name": "Episodio 30",
+        "release_date": "2013-10-27T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 30
+      },
+      {
+        "chapter_id": "chap-snk-31",
+        "name": "Episodio 31",
+        "release_date": "2013-11-03T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 31
+      },
+      {
+        "chapter_id": "chap-snk-32",
+        "name": "Episodio 32",
+        "release_date": "2013-11-10T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 32
+      },
+      {
+        "chapter_id": "chap-snk-33",
+        "name": "Episodio 33",
+        "release_date": "2013-11-17T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 33
+      },
+      {
+        "chapter_id": "chap-snk-34",
+        "name": "Episodio 34",
+        "release_date": "2013-11-24T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 34
+      },
+      {
+        "chapter_id": "chap-snk-35",
+        "name": "Episodio 35",
+        "release_date": "2013-12-01T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 35
+      },
+      {
+        "chapter_id": "chap-snk-36",
+        "name": "Episodio 36",
+        "release_date": "2013-12-08T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 36
+      },
+      {
+        "chapter_id": "chap-snk-37",
+        "name": "Episodio 37",
+        "release_date": "2013-12-15T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 37
+      },
+      {
+        "chapter_id": "chap-snk-38",
+        "name": "Episodio 38",
+        "release_date": "2013-12-22T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 38
+      },
+      {
+        "chapter_id": "chap-snk-39",
+        "name": "Episodio 39",
+        "release_date": "2013-12-29T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 39
+      },
+      {
+        "chapter_id": "chap-snk-40",
+        "name": "Episodio 40",
+        "release_date": "2014-01-05T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 40
+      },
+      {
+        "chapter_id": "chap-snk-41",
+        "name": "Episodio 41",
+        "release_date": "2014-01-12T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 41
+      },
+      {
+        "chapter_id": "chap-snk-42",
+        "name": "Episodio 42",
+        "release_date": "2014-01-19T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 42
+      },
+      {
+        "chapter_id": "chap-snk-43",
+        "name": "Episodio 43",
+        "release_date": "2014-01-26T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 43
+      },
+      {
+        "chapter_id": "chap-snk-44",
+        "name": "Episodio 44",
+        "release_date": "2014-02-02T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 44
+      },
+      {
+        "chapter_id": "chap-snk-45",
+        "name": "Episodio 45",
+        "release_date": "2014-02-09T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 45
+      },
+      {
+        "chapter_id": "chap-snk-46",
+        "name": "Episodio 46",
+        "release_date": "2014-02-16T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 46
+      },
+      {
+        "chapter_id": "chap-snk-47",
+        "name": "Episodio 47",
+        "release_date": "2014-02-23T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 47
+      },
+      {
+        "chapter_id": "chap-snk-48",
+        "name": "Episodio 48",
+        "release_date": "2014-03-02T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 48
+      },
+      {
+        "chapter_id": "chap-snk-49",
+        "name": "Episodio 49",
+        "release_date": "2014-03-09T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 49
+      },
+      {
+        "chapter_id": "chap-snk-50",
+        "name": "Episodio 50",
+        "release_date": "2014-03-16T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 50
+      }
+    ]
+  },
+  {
+    "title_id": "f0e9d8c7-b6a5-4321-fedc-ba9876543210",
+    "name": "Berserk",
+    "description": "La historia sigue a Guts, un solitario guerrero mercenario, y su tumultuosa relación con Griffith, el líder de la Banda del Halcón. Ambientada en un mundo de fantasía oscura inspirado en la Europa medieval, la trama explora temas de amistad, traición y la lucha humana por la supervivencia.",
+    "author": "Kentaro Miura",
+    "type": "manga",
+    "status": "En emisión",
+    "publication_date": "1989-08-25T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/000000/FFFFFF?text=Berserk",
+    "category": "Seinen",
+    "genres": ["Fantasía Oscura", "Acción", "Aventura"],
+    "chapters": [
+      {
+        "chapter_id": "chap-ber-01",
+        "name": "El Guerrero Negro",
+        "release_date": "1989-08-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Berserk+Cap+1+Pag+1"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-ber-02",
+        "name": "La Marca",
+        "release_date": "1989-09-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-ber-03",
+        "name": "Capítulo 3",
+        "release_date": "1989-10-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-ber-04",
+        "name": "Capítulo 4",
+        "release_date": "1989-11-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-ber-05",
+        "name": "Capítulo 5",
+        "release_date": "1989-12-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 5
+      },
+      {
+        "chapter_id": "chap-ber-06",
+        "name": "Capítulo 6",
+        "release_date": "1990-01-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 6
+      },
+      {
+        "chapter_id": "chap-ber-07",
+        "name": "Capítulo 7",
+        "release_date": "1990-02-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 7
+      },
+      {
+        "chapter_id": "chap-ber-08",
+        "name": "Capítulo 8",
+        "release_date": "1990-03-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 8
+      },
+      {
+        "chapter_id": "chap-ber-09",
+        "name": "Capítulo 9",
+        "release_date": "1990-04-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 9
+      },
+      {
+        "chapter_id": "chap-ber-10",
+        "name": "Capítulo 10",
+        "release_date": "1990-05-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 10
+      },
+      {
+        "chapter_id": "chap-ber-11",
+        "name": "Capítulo 11",
+        "release_date": "1990-06-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 11
+      },
+      {
+        "chapter_id": "chap-ber-12",
+        "name": "Capítulo 12",
+        "release_date": "1990-07-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 12
+      },
+      {
+        "chapter_id": "chap-ber-13",
+        "name": "Capítulo 13",
+        "release_date": "1990-08-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 13
+      },
+      {
+        "chapter_id": "chap-ber-14",
+        "name": "Capítulo 14",
+        "release_date": "1990-09-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 14
+      },
+      {
+        "chapter_id": "chap-ber-15",
+        "name": "Capítulo 15",
+        "release_date": "1990-10-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 15
+      },
+      {
+        "chapter_id": "chap-ber-16",
+        "name": "Capítulo 16",
+        "release_date": "1990-11-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 16
+      },
+      {
+        "chapter_id": "chap-ber-17",
+        "name": "Capítulo 17",
+        "release_date": "1990-12-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 17
+      },
+      {
+        "chapter_id": "chap-ber-18",
+        "name": "Capítulo 18",
+        "release_date": "1991-01-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 18
+      },
+      {
+        "chapter_id": "chap-ber-19",
+        "name": "Capítulo 19",
+        "release_date": "1991-02-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 19
+      },
+      {
+        "chapter_id": "chap-ber-20",
+        "name": "Capítulo 20",
+        "release_date": "1991-03-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 20
+      },
+      {
+        "chapter_id": "chap-ber-21",
+        "name": "Capítulo 21",
+        "release_date": "1991-04-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 21
+      },
+      {
+        "chapter_id": "chap-ber-22",
+        "name": "Capítulo 22",
+        "release_date": "1991-05-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 22
+      },
+      {
+        "chapter_id": "chap-ber-23",
+        "name": "Capítulo 23",
+        "release_date": "1991-06-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 23
+      },
+      {
+        "chapter_id": "chap-ber-24",
+        "name": "Capítulo 24",
+        "release_date": "1991-07-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 24
+      },
+      {
+        "chapter_id": "chap-ber-25",
+        "name": "Capítulo 25",
+        "release_date": "1991-08-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 25
+      },
+      {
+        "chapter_id": "chap-ber-26",
+        "name": "Capítulo 26",
+        "release_date": "1991-09-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 26
+      },
+      {
+        "chapter_id": "chap-ber-27",
+        "name": "Capítulo 27",
+        "release_date": "1991-10-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 27
+      },
+      {
+        "chapter_id": "chap-ber-28",
+        "name": "Capítulo 28",
+        "release_date": "1991-11-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 28
+      },
+      {
+        "chapter_id": "chap-ber-29",
+        "name": "Capítulo 29",
+        "release_date": "1991-12-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 29
+      },
+      {
+        "chapter_id": "chap-ber-30",
+        "name": "Capítulo 30",
+        "release_date": "1992-01-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 30
+      },
+      {
+        "chapter_id": "chap-ber-31",
+        "name": "Capítulo 31",
+        "release_date": "1992-02-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 31
+      },
+      {
+        "chapter_id": "chap-ber-32",
+        "name": "Capítulo 32",
+        "release_date": "1992-03-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 32
+      },
+      {
+        "chapter_id": "chap-ber-33",
+        "name": "Capítulo 33",
+        "release_date": "1992-04-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 33
+      },
+      {
+        "chapter_id": "chap-ber-34",
+        "name": "Capítulo 34",
+        "release_date": "1992-05-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 34
+      },
+      {
+        "chapter_id": "chap-ber-35",
+        "name": "Capítulo 35",
+        "release_date": "1992-06-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 35
+      },
+      {
+        "chapter_id": "chap-ber-36",
+        "name": "Capítulo 36",
+        "release_date": "1992-07-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 36
+      },
+      {
+        "chapter_id": "chap-ber-37",
+        "name": "Capítulo 37",
+        "release_date": "1992-08-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 37
+      },
+      {
+        "chapter_id": "chap-ber-38",
+        "name": "Capítulo 38",
+        "release_date": "1992-09-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 38
+      },
+      {
+        "chapter_id": "chap-ber-39",
+        "name": "Capítulo 39",
+        "release_date": "1992-10-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 39
+      },
+      {
+        "chapter_id": "chap-ber-40",
+        "name": "Capítulo 40",
+        "release_date": "1992-11-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 40
+      },
+      {
+        "chapter_id": "chap-ber-41",
+        "name": "Capítulo 41",
+        "release_date": "1992-12-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 41
+      },
+      {
+        "chapter_id": "chap-ber-42",
+        "name": "Capítulo 42",
+        "release_date": "1993-01-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 42
+      },
+      {
+        "chapter_id": "chap-ber-43",
+        "name": "Capítulo 43",
+        "release_date": "1993-02-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 43
+      },
+      {
+        "chapter_id": "chap-ber-44",
+        "name": "Capítulo 44",
+        "release_date": "1993-03-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 44
+      },
+      {
+        "chapter_id": "chap-ber-45",
+        "name": "Capítulo 45",
+        "release_date": "1993-04-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 45
+      },
+      {
+        "chapter_id": "chap-ber-46",
+        "name": "Capítulo 46",
+        "release_date": "1993-05-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 46
+      },
+      {
+        "chapter_id": "chap-ber-47",
+        "name": "Capítulo 47",
+        "release_date": "1993-06-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 47
+      },
+      {
+        "chapter_id": "chap-ber-48",
+        "name": "Capítulo 48",
+        "release_date": "1993-07-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 48
+      },
+      {
+        "chapter_id": "chap-ber-49",
+        "name": "Capítulo 49",
+        "release_date": "1993-08-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 49
+      },
+      {
+        "chapter_id": "chap-ber-50",
+        "name": "Capítulo 50",
+        "release_date": "1993-09-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 50
+      }
+    ]
+  },
+  {
+    "title_id": "12345678-90ab-cdef-0123-456789abcdef",
+    "name": "Batman: The Killing Joke",
+    "description": "Una novela gráfica one-shot que presenta una de las historias de origen más famosas del Joker. En un intento por demostrar que un mal día puede volver loco a cualquiera, el Joker aterroriza al Comisionado Gordon.",
+    "author": "Alan Moore, Brian Bolland",
+    "type": "comic",
+    "status": "Finalizado",
+    "publication_date": "1988-03-29T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/7027A0/FFFFFF?text=The+Killing+Joke",
+    "category": "DC Comics",
+    "genres": ["Superhéroes", "Terror Psicológico", "Crimen"],
+    "chapters": [
+      {
+        "chapter_id": "chap-tkj-01",
+        "name": "The Killing Joke",
+        "release_date": "1988-03-29T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 1
+      }
+    ]
+  },
+  {
+    "title_id": "fedcba98-7654-3210-f0e9-d8c7b6a54321",
+    "name": "Naruto",
+    "description": "Naruto Uzumaki, un joven ninja marginado que busca el reconocimiento de sus compañeros y sueña con convertirse en el Hokage, el líder de su aldea.",
+    "author": "Masashi Kishimoto",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2002-10-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF7F00/000000?text=Naruto",
+    "category": "Shonen",
+    "genres": ["Aventura", "Fantasía", "Artes Marciales"],
+    "chapters": [
+      {
+        "chapter_id": "chap-nar-01",
+        "name": "¡Entra! ¡Naruto Uzumaki!",
+        "release_date": "2002-10-03T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-nar-02",
+        "name": "¡Mi nombre es Konohamaru!",
+        "release_date": "2002-10-10T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-nar-03",
+        "name": "Episodio 3",
+        "release_date": "2002-10-17T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-nar-04",
+        "name": "Episodio 4",
+        "release_date": "2002-10-24T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-nar-05",
+        "name": "Episodio 5",
+        "release_date": "2002-10-31T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 5
+      },
+      {
+        "chapter_id": "chap-nar-06",
+        "name": "Episodio 6",
+        "release_date": "2002-11-07T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 6
+      },
+      {
+        "chapter_id": "chap-nar-07",
+        "name": "Episodio 7",
+        "release_date": "2002-11-14T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 7
+      },
+      {
+        "chapter_id": "chap-nar-08",
+        "name": "Episodio 8",
+        "release_date": "2002-11-21T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 8
+      },
+      {
+        "chapter_id": "chap-nar-09",
+        "name": "Episodio 9",
+        "release_date": "2002-11-28T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 9
+      },
+      {
+        "chapter_id": "chap-nar-10",
+        "name": "Episodio 10",
+        "release_date": "2002-12-05T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 10
+      },
+      {
+        "chapter_id": "chap-nar-11",
+        "name": "Episodio 11",
+        "release_date": "2002-12-12T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 11
+      },
+      {
+        "chapter_id": "chap-nar-12",
+        "name": "Episodio 12",
+        "release_date": "2002-12-19T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 12
+      },
+      {
+        "chapter_id": "chap-nar-13",
+        "name": "Episodio 13",
+        "release_date": "2002-12-26T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 13
+      },
+      {
+        "chapter_id": "chap-nar-14",
+        "name": "Episodio 14",
+        "release_date": "2003-01-02T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 14
+      },
+      {
+        "chapter_id": "chap-nar-15",
+        "name": "Episodio 15",
+        "release_date": "2003-01-09T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 15
+      },
+      {
+        "chapter_id": "chap-nar-16",
+        "name": "Episodio 16",
+        "release_date": "2003-01-16T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 16
+      },
+      {
+        "chapter_id": "chap-nar-17",
+        "name": "Episodio 17",
+        "release_date": "2003-01-23T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 17
+      },
+      {
+        "chapter_id": "chap-nar-18",
+        "name": "Episodio 18",
+        "release_date": "2003-01-30T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 18
+      },
+      {
+        "chapter_id": "chap-nar-19",
+        "name": "Episodio 19",
+        "release_date": "2003-02-06T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 19
+      },
+      {
+        "chapter_id": "chap-nar-20",
+        "name": "Episodio 20",
+        "release_date": "2003-02-13T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 20
+      },
+      {
+        "chapter_id": "chap-nar-21",
+        "name": "Episodio 21",
+        "release_date": "2003-02-20T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 21
+      },
+      {
+        "chapter_id": "chap-nar-22",
+        "name": "Episodio 22",
+        "release_date": "2003-02-27T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 22
+      },
+      {
+        "chapter_id": "chap-nar-23",
+        "name": "Episodio 23",
+        "release_date": "2003-03-06T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 23
+      },
+      {
+        "chapter_id": "chap-nar-24",
+        "name": "Episodio 24",
+        "release_date": "2003-03-13T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 24
+      },
+      {
+        "chapter_id": "chap-nar-25",
+        "name": "Episodio 25",
+        "release_date": "2003-03-20T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 25
+      },
+      {
+        "chapter_id": "chap-nar-26",
+        "name": "Episodio 26",
+        "release_date": "2003-03-27T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 26
+      },
+      {
+        "chapter_id": "chap-nar-27",
+        "name": "Episodio 27",
+        "release_date": "2003-04-03T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 27
+      },
+      {
+        "chapter_id": "chap-nar-28",
+        "name": "Episodio 28",
+        "release_date": "2003-04-10T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 28
+      },
+      {
+        "chapter_id": "chap-nar-29",
+        "name": "Episodio 29",
+        "release_date": "2003-04-17T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 29
+      },
+      {
+        "chapter_id": "chap-nar-30",
+        "name": "Episodio 30",
+        "release_date": "2003-04-24T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 30
+      },
+      {
+        "chapter_id": "chap-nar-31",
+        "name": "Episodio 31",
+        "release_date": "2003-05-01T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 31
+      },
+      {
+        "chapter_id": "chap-nar-32",
+        "name": "Episodio 32",
+        "release_date": "2003-05-08T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 32
+      },
+      {
+        "chapter_id": "chap-nar-33",
+        "name": "Episodio 33",
+        "release_date": "2003-05-15T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 33
+      },
+      {
+        "chapter_id": "chap-nar-34",
+        "name": "Episodio 34",
+        "release_date": "2003-05-22T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 34
+      },
+      {
+        "chapter_id": "chap-nar-35",
+        "name": "Episodio 35",
+        "release_date": "2003-05-29T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 35
+      },
+      {
+        "chapter_id": "chap-nar-36",
+        "name": "Episodio 36",
+        "release_date": "2003-06-05T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 36
+      },
+      {
+        "chapter_id": "chap-nar-37",
+        "name": "Episodio 37",
+        "release_date": "2003-06-12T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 37
+      },
+      {
+        "chapter_id": "chap-nar-38",
+        "name": "Episodio 38",
+        "release_date": "2003-06-19T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 38
+      },
+      {
+        "chapter_id": "chap-nar-39",
+        "name": "Episodio 39",
+        "release_date": "2003-06-26T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 39
+      },
+      {
+        "chapter_id": "chap-nar-40",
+        "name": "Episodio 40",
+        "release_date": "2003-07-03T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 40
+      },
+      {
+        "chapter_id": "chap-nar-41",
+        "name": "Episodio 41",
+        "release_date": "2003-07-10T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 41
+      },
+      {
+        "chapter_id": "chap-nar-42",
+        "name": "Episodio 42",
+        "release_date": "2003-07-17T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 42
+      },
+      {
+        "chapter_id": "chap-nar-43",
+        "name": "Episodio 43",
+        "release_date": "2003-07-24T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 43
+      },
+      {
+        "chapter_id": "chap-nar-44",
+        "name": "Episodio 44",
+        "release_date": "2003-07-31T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 44
+      },
+      {
+        "chapter_id": "chap-nar-45",
+        "name": "Episodio 45",
+        "release_date": "2003-08-07T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 45
+      },
+      {
+        "chapter_id": "chap-nar-46",
+        "name": "Episodio 46",
+        "release_date": "2003-08-14T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 46
+      },
+      {
+        "chapter_id": "chap-nar-47",
+        "name": "Episodio 47",
+        "release_date": "2003-08-21T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 47
+      },
+      {
+        "chapter_id": "chap-nar-48",
+        "name": "Episodio 48",
+        "release_date": "2003-08-28T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 48
+      },
+      {
+        "chapter_id": "chap-nar-49",
+        "name": "Episodio 49",
+        "release_date": "2003-09-04T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 49
+      },
+      {
+        "chapter_id": "chap-nar-50",
+        "name": "Episodio 50",
+        "release_date": "2003-09-11T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 50
+      }
+    ]
+  },
+  {
+    "title_id": "11111111-2222-3333-4444-555555555555",
+    "name": "One Piece",
+    "description": "Sigue las aventuras de Monkey D. Luffy, un joven cuyo cuerpo adquiere las propiedades de la goma después de comer una Fruta del Diablo. Con su tripulación de piratas, los Piratas del Sombrero de Paja, Luffy explora el Grand Line en busca del tesoro supremo del mundo conocido como el 'One Piece' para convertirse en el próximo Rey de los Piratas.",
+    "author": "Eiichiro Oda",
+    "type": "manga",
+    "status": "En emisión",
+    "publication_date": "1997-07-22T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF0000/FFFFFF?text=One+Piece",
+    "category": "Shonen",
+    "genres": ["Aventura", "Fantasía", "Comedia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-op-01",
+        "name": "Romance Dawn",
+        "release_date": "1997-07-22T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-op-02",
+        "name": "Capítulo 2",
+        "release_date": "1997-07-29T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-op-03",
+        "name": "Capítulo 3",
+        "release_date": "1997-08-05T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-op-04",
+        "name": "Capítulo 4",
+        "release_date": "1997-08-12T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-op-05",
+        "name": "Capítulo 5",
+        "release_date": "1997-08-19T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 5
+      },
+      {
+        "chapter_id": "chap-op-06",
+        "name": "Capítulo 6",
+        "release_date": "1997-08-26T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 6
+      },
+      {
+        "chapter_id": "chap-op-07",
+        "name": "Capítulo 7",
+        "release_date": "1997-09-02T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 7
+      },
+      {
+        "chapter_id": "chap-op-08",
+        "name": "Capítulo 8",
+        "release_date": "1997-09-09T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 8
+      },
+      {
+        "chapter_id": "chap-op-09",
+        "name": "Capítulo 9",
+        "release_date": "1997-09-16T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 9
+      },
+      {
+        "chapter_id": "chap-op-10",
+        "name": "Capítulo 10",
+        "release_date": "1997-09-23T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 10
+      },
+      {
+        "chapter_id": "chap-op-11",
+        "name": "Capítulo 11",
+        "release_date": "1997-09-30T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 11
+      },
+      {
+        "chapter_id": "chap-op-12",
+        "name": "Capítulo 12",
+        "release_date": "1997-10-07T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 12
+      },
+      {
+        "chapter_id": "chap-op-13",
+        "name": "Capítulo 13",
+        "release_date": "1997-10-14T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 13
+      },
+      {
+        "chapter_id": "chap-op-14",
+        "name": "Capítulo 14",
+        "release_date": "1997-10-21T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 14
+      },
+      {
+        "chapter_id": "chap-op-15",
+        "name": "Capítulo 15",
+        "release_date": "1997-10-28T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 15
+      },
+      {
+        "chapter_id": "chap-op-16",
+        "name": "Capítulo 16",
+        "release_date": "1997-11-04T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 16
+      },
+      {
+        "chapter_id": "chap-op-17",
+        "name": "Capítulo 17",
+        "release_date": "1997-11-11T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 17
+      },
+      {
+        "chapter_id": "chap-op-18",
+        "name": "Capítulo 18",
+        "release_date": "1997-11-18T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 18
+      },
+      {
+        "chapter_id": "chap-op-19",
+        "name": "Capítulo 19",
+        "release_date": "1997-11-25T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 19
+      },
+      {
+        "chapter_id": "chap-op-20",
+        "name": "Capítulo 20",
+        "release_date": "1997-12-02T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 20
+      },
+      {
+        "chapter_id": "chap-op-21",
+        "name": "Capítulo 21",
+        "release_date": "1997-12-09T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 21
+      },
+      {
+        "chapter_id": "chap-op-22",
+        "name": "Capítulo 22",
+        "release_date": "1997-12-16T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 22
+      },
+      {
+        "chapter_id": "chap-op-23",
+        "name": "Capítulo 23",
+        "release_date": "1997-12-23T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 23
+      },
+      {
+        "chapter_id": "chap-op-24",
+        "name": "Capítulo 24",
+        "release_date": "1997-12-30T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 24
+      },
+      {
+        "chapter_id": "chap-op-25",
+        "name": "Capítulo 25",
+        "release_date": "1998-01-06T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 25
+      },
+      {
+        "chapter_id": "chap-op-26",
+        "name": "Capítulo 26",
+        "release_date": "1998-01-13T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 26
+      },
+      {
+        "chapter_id": "chap-op-27",
+        "name": "Capítulo 27",
+        "release_date": "1998-01-20T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 27
+      },
+      {
+        "chapter_id": "chap-op-28",
+        "name": "Capítulo 28",
+        "release_date": "1998-01-27T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 28
+      },
+      {
+        "chapter_id": "chap-op-29",
+        "name": "Capítulo 29",
+        "release_date": "1998-02-03T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 29
+      },
+      {
+        "chapter_id": "chap-op-30",
+        "name": "Capítulo 30",
+        "release_date": "1998-02-10T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 30
+      },
+      {
+        "chapter_id": "chap-op-31",
+        "name": "Capítulo 31",
+        "release_date": "1998-02-17T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 31
+      },
+      {
+        "chapter_id": "chap-op-32",
+        "name": "Capítulo 32",
+        "release_date": "1998-02-24T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 32
+      },
+      {
+        "chapter_id": "chap-op-33",
+        "name": "Capítulo 33",
+        "release_date": "1998-03-03T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 33
+      },
+      {
+        "chapter_id": "chap-op-34",
+        "name": "Capítulo 34",
+        "release_date": "1998-03-10T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 34
+      },
+      {
+        "chapter_id": "chap-op-35",
+        "name": "Capítulo 35",
+        "release_date": "1998-03-17T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 35
+      },
+      {
+        "chapter_id": "chap-op-36",
+        "name": "Capítulo 36",
+        "release_date": "1998-03-24T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 36
+      },
+      {
+        "chapter_id": "chap-op-37",
+        "name": "Capítulo 37",
+        "release_date": "1998-03-31T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 37
+      },
+      {
+        "chapter_id": "chap-op-38",
+        "name": "Capítulo 38",
+        "release_date": "1998-04-07T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 38
+      },
+      {
+        "chapter_id": "chap-op-39",
+        "name": "Capítulo 39",
+        "release_date": "1998-04-14T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 39
+      },
+      {
+        "chapter_id": "chap-op-40",
+        "name": "Capítulo 40",
+        "release_date": "1998-04-21T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 40
+      },
+      {
+        "chapter_id": "chap-op-41",
+        "name": "Capítulo 41",
+        "release_date": "1998-04-28T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 41
+      },
+      {
+        "chapter_id": "chap-op-42",
+        "name": "Capítulo 42",
+        "release_date": "1998-05-05T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 42
+      },
+      {
+        "chapter_id": "chap-op-43",
+        "name": "Capítulo 43",
+        "release_date": "1998-05-12T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 43
+      },
+      {
+        "chapter_id": "chap-op-44",
+        "name": "Capítulo 44",
+        "release_date": "1998-05-19T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 44
+      },
+      {
+        "chapter_id": "chap-op-45",
+        "name": "Capítulo 45",
+        "release_date": "1998-05-26T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 45
+      },
+      {
+        "chapter_id": "chap-op-46",
+        "name": "Capítulo 46",
+        "release_date": "1998-06-02T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 46
+      },
+      {
+        "chapter_id": "chap-op-47",
+        "name": "Capítulo 47",
+        "release_date": "1998-06-09T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 47
+      },
+      {
+        "chapter_id": "chap-op-48",
+        "name": "Capítulo 48",
+        "release_date": "1998-06-16T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 48
+      },
+      {
+        "chapter_id": "chap-op-49",
+        "name": "Capítulo 49",
+        "release_date": "1998-06-23T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 49
+      },
+      {
+        "chapter_id": "chap-op-50",
+        "name": "Capítulo 50",
+        "release_date": "1998-06-30T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 50
+      }
+    ]
+  },
+  {
+    "title_id": "66666666-7777-8888-9999-000000000000",
+    "name": "Death Note",
+    "description": "Un brillante estudiante de secundaria descubre un cuaderno místico que le permite matar a cualquiera cuyo nombre escriba en él. Decide usarlo para librar al mundo de criminales, pero pronto se encuentra en un juego del gato y el ratón con un enigmático detective que intenta detenerlo.",
+    "author": "Tsugumi Ohba, Takeshi Obata",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2006-10-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/1C1C1C/FFFFFF?text=Death+Note",
+    "category": "Shonen",
+    "genres": ["Misterio", "Sobrenatural", "Thriller Psicológico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-dn-01",
+        "name": "Renacimiento",
+        "release_date": "2006-10-03T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-dn-02",
+        "name": "Episodio 2",
+        "release_date": "2006-10-10T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-dn-03",
+        "name": "Episodio 3",
+        "release_date": "2006-10-17T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-dn-04",
+        "name": "Episodio 4",
+        "release_date": "2006-10-24T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-dn-05",
+        "name": "Episodio 5",
+        "release_date": "2006-10-31T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 5
+      },
+      {
+        "chapter_id": "chap-dn-06",
+        "name": "Episodio 6",
+        "release_date": "2006-11-07T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 6
+      },
+      {
+        "chapter_id": "chap-dn-07",
+        "name": "Episodio 7",
+        "release_date": "2006-11-14T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 7
+      },
+      {
+        "chapter_id": "chap-dn-08",
+        "name": "Episodio 8",
+        "release_date": "2006-11-21T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 8
+      },
+      {
+        "chapter_id": "chap-dn-09",
+        "name": "Episodio 9",
+        "release_date": "2006-11-28T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 9
+      },
+      {
+        "chapter_id": "chap-dn-10",
+        "name": "Episodio 10",
+        "release_date": "2006-12-05T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 10
+      },
+      {
+        "chapter_id": "chap-dn-11",
+        "name": "Episodio 11",
+        "release_date": "2006-12-12T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 11
+      },
+      {
+        "chapter_id": "chap-dn-12",
+        "name": "Episodio 12",
+        "release_date": "2006-12-19T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 12
+      },
+      {
+        "chapter_id": "chap-dn-13",
+        "name": "Episodio 13",
+        "release_date": "2006-12-26T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 13
+      },
+      {
+        "chapter_id": "chap-dn-14",
+        "name": "Episodio 14",
+        "release_date": "2007-01-02T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 14
+      },
+      {
+        "chapter_id": "chap-dn-15",
+        "name": "Episodio 15",
+        "release_date": "2007-01-09T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 15
+      },
+      {
+        "chapter_id": "chap-dn-16",
+        "name": "Episodio 16",
+        "release_date": "2007-01-16T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 16
+      },
+      {
+        "chapter_id": "chap-dn-17",
+        "name": "Episodio 17",
+        "release_date": "2007-01-23T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 17
+      },
+      {
+        "chapter_id": "chap-dn-18",
+        "name": "Episodio 18",
+        "release_date": "2007-01-30T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 18
+      },
+      {
+        "chapter_id": "chap-dn-19",
+        "name": "Episodio 19",
+        "release_date": "2007-02-06T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 19
+      },
+      {
+        "chapter_id": "chap-dn-20",
+        "name": "Episodio 20",
+        "release_date": "2007-02-13T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 20
+      },
+      {
+        "chapter_id": "chap-dn-21",
+        "name": "Episodio 21",
+        "release_date": "2007-02-20T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 21
+      },
+      {
+        "chapter_id": "chap-dn-22",
+        "name": "Episodio 22",
+        "release_date": "2007-02-27T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 22
+      },
+      {
+        "chapter_id": "chap-dn-23",
+        "name": "Episodio 23",
+        "release_date": "2007-03-06T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 23
+      },
+      {
+        "chapter_id": "chap-dn-24",
+        "name": "Episodio 24",
+        "release_date": "2007-03-13T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 24
+      },
+      {
+        "chapter_id": "chap-dn-25",
+        "name": "Episodio 25",
+        "release_date": "2007-03-20T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 25
+      },
+      {
+        "chapter_id": "chap-dn-26",
+        "name": "Episodio 26",
+        "release_date": "2007-03-27T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 26
+      },
+      {
+        "chapter_id": "chap-dn-27",
+        "name": "Episodio 27",
+        "release_date": "2007-04-03T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 27
+      },
+      {
+        "chapter_id": "chap-dn-28",
+        "name": "Episodio 28",
+        "release_date": "2007-04-10T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 28
+      },
+      {
+        "chapter_id": "chap-dn-29",
+        "name": "Episodio 29",
+        "release_date": "2007-04-17T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 29
+      },
+      {
+        "chapter_id": "chap-dn-30",
+        "name": "Episodio 30",
+        "release_date": "2007-04-24T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 30
+      },
+      {
+        "chapter_id": "chap-dn-31",
+        "name": "Episodio 31",
+        "release_date": "2007-05-01T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 31
+      },
+      {
+        "chapter_id": "chap-dn-32",
+        "name": "Episodio 32",
+        "release_date": "2007-05-08T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 32
+      },
+      {
+        "chapter_id": "chap-dn-33",
+        "name": "Episodio 33",
+        "release_date": "2007-05-15T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 33
+      },
+      {
+        "chapter_id": "chap-dn-34",
+        "name": "Episodio 34",
+        "release_date": "2007-05-22T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 34
+      },
+      {
+        "chapter_id": "chap-dn-35",
+        "name": "Episodio 35",
+        "release_date": "2007-05-29T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 35
+      },
+      {
+        "chapter_id": "chap-dn-36",
+        "name": "Episodio 36",
+        "release_date": "2007-06-05T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 36
+      },
+      {
+        "chapter_id": "chap-dn-37",
+        "name": "Episodio 37",
+        "release_date": "2007-06-12T00:00:00.000Z",
+        "pages": [],
+        "chapter_number": 37
+      }
+    ]
+  }
+]

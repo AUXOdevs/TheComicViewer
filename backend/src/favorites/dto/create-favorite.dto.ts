@@ -1,42 +1,23 @@
-import { IsUUID, IsNotEmpty, IsOptional, IsDateString } from 'class-validator';
+import { IsUUID, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateFavoriteDto {
-  @IsUUID()
-  @IsNotEmpty()
-  @ApiProperty({
-    description: 'ID del usuario que marca el favorito.',
-    example: 'a1b2c3d4-e5f6-7890-1234-567890abcdef',
-  })
-  user_id: string;
+  // user_id no se incluye aquí porque se obtendrá del token JWT del usuario autenticado (req.user)
+  // title_id o chapter_id deben ser proporcionados, pero no ambos
 
-  @IsOptional()
   @IsUUID()
+  @IsOptional() // Opcional, si se proporciona chapter_id
   @ApiProperty({
-    description:
-      'ID del título favorito (opcional si se especifica chapter_id).',
+    description: 'ID del título a añadir a favoritos.',
     required: false,
-    example: 'b2c3d4e5-f6a7-8901-2345-67890abcdef0',
   })
   title_id?: string;
 
-  @IsOptional()
   @IsUUID()
+  @IsOptional() // Opcional, si se proporciona title_id
   @ApiProperty({
-    description:
-      'ID del capítulo favorito (opcional si se especifica title_id).',
+    description: 'ID del capítulo a añadir a favoritos.',
     required: false,
-    example: 'c3d4e5f6-a7b8-9012-3456-7890abcdef12',
   })
   chapter_id?: string;
-
-  @IsOptional()
-  @IsDateString()
-  @ApiProperty({
-    description:
-      'Fecha en que se añadió a favoritos (formato ISO 8601). Se establecerá automáticamente si no se envía.',
-    required: false,
-    example: '2024-06-01T17:00:00Z',
-  })
-  date_added?: string; // Se usa string para la entrada, luego se convierte a Date en el servicio
 }
