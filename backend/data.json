@@ -7,7 +7,7 @@
     "type": "anime",
     "status": "Finalizado",
     "publication_date": "2013-04-07T00:00:00.000Z",
-    "image_url": "https://placehold.co/400x600/E50914/FFFFFF?text=Shingeki+no+Kyojin",
+    "image_url": "https://placehold.co/400x600/E50914/FFFFFF?text=Attack+on+Titan",
     "category": "Shonen",
     "genres": ["Acción", "Fantasía Oscura", "Post-apocalíptico"],
     "chapters": [
@@ -15,1739 +15,3727 @@
         "chapter_id": "chap-snk-01",
         "name": "A ti, 2000 años en el futuro: La caída de Shiganshina, parte 1",
         "release_date": "2013-04-07T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+1+Pag+2"
+        ],
         "chapter_number": 1
       },
       {
         "chapter_id": "chap-snk-02",
         "name": "Ese día: La caída de Shiganshina, parte 2",
         "release_date": "2013-04-14T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+2+Pag+2"
+        ],
         "chapter_number": 2
       },
       {
         "chapter_id": "chap-snk-03",
-        "name": "Episodio 3",
+        "name": "Una pequeña cuchilla: La batalla de Trost, parte 1",
         "release_date": "2013-04-21T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+3+Pag+2"
+        ],
         "chapter_number": 3
       },
       {
         "chapter_id": "chap-snk-04",
-        "name": "Episodio 4",
+        "name": "La noche de la ceremonia de graduación: Superando la desesperación",
         "release_date": "2013-04-28T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+4+Pag+2"
+        ],
         "chapter_number": 4
       },
       {
         "chapter_id": "chap-snk-05",
-        "name": "Episodio 5",
+        "name": "El primer escuadrón: La batalla de Trost, parte 3",
         "release_date": "2013-05-05T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+5+Pag+2"
+        ],
         "chapter_number": 5
-      },
-      {
-        "chapter_id": "chap-snk-06",
-        "name": "Episodio 6",
-        "release_date": "2013-05-12T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 6
-      },
-      {
-        "chapter_id": "chap-snk-07",
-        "name": "Episodio 7",
-        "release_date": "2013-05-19T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 7
-      },
-      {
-        "chapter_id": "chap-snk-08",
-        "name": "Episodio 8",
-        "release_date": "2013-05-26T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 8
-      },
-      {
-        "chapter_id": "chap-snk-09",
-        "name": "Episodio 9",
-        "release_date": "2013-06-02T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 9
-      },
-      {
-        "chapter_id": "chap-snk-10",
-        "name": "Episodio 10",
-        "release_date": "2013-06-09T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 10
-      },
-      {
-        "chapter_id": "chap-snk-11",
-        "name": "Episodio 11",
-        "release_date": "2013-06-16T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 11
-      },
-      {
-        "chapter_id": "chap-snk-12",
-        "name": "Episodio 12",
-        "release_date": "2013-06-23T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 12
-      },
-      {
-        "chapter_id": "chap-snk-13",
-        "name": "Episodio 13",
-        "release_date": "2013-06-30T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 13
-      },
-      {
-        "chapter_id": "chap-snk-14",
-        "name": "Episodio 14",
-        "release_date": "2013-07-07T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 14
-      },
-      {
-        "chapter_id": "chap-snk-15",
-        "name": "Episodio 15",
-        "release_date": "2013-07-14T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 15
-      },
-      {
-        "chapter_id": "chap-snk-16",
-        "name": "Episodio 16",
-        "release_date": "2013-07-21T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 16
-      },
-      {
-        "chapter_id": "chap-snk-17",
-        "name": "Episodio 17",
-        "release_date": "2013-07-28T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 17
-      },
-      {
-        "chapter_id": "chap-snk-18",
-        "name": "Episodio 18",
-        "release_date": "2013-08-04T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 18
-      },
-      {
-        "chapter_id": "chap-snk-19",
-        "name": "Episodio 19",
-        "release_date": "2013-08-11T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 19
-      },
-      {
-        "chapter_id": "chap-snk-20",
-        "name": "Episodio 20",
-        "release_date": "2013-08-18T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 20
-      },
-      {
-        "chapter_id": "chap-snk-21",
-        "name": "Episodio 21",
-        "release_date": "2013-08-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 21
-      },
-      {
-        "chapter_id": "chap-snk-22",
-        "name": "Episodio 22",
-        "release_date": "2013-09-01T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 22
-      },
-      {
-        "chapter_id": "chap-snk-23",
-        "name": "Episodio 23",
-        "release_date": "2013-09-08T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 23
-      },
-      {
-        "chapter_id": "chap-snk-24",
-        "name": "Episodio 24",
-        "release_date": "2013-09-15T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 24
-      },
-      {
-        "chapter_id": "chap-snk-25",
-        "name": "Episodio 25",
-        "release_date": "2013-09-22T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 25
-      },
-      {
-        "chapter_id": "chap-snk-26",
-        "name": "Episodio 26",
-        "release_date": "2013-09-29T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 26
-      },
-      {
-        "chapter_id": "chap-snk-27",
-        "name": "Episodio 27",
-        "release_date": "2013-10-06T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 27
-      },
-      {
-        "chapter_id": "chap-snk-28",
-        "name": "Episodio 28",
-        "release_date": "2013-10-13T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 28
-      },
-      {
-        "chapter_id": "chap-snk-29",
-        "name": "Episodio 29",
-        "release_date": "2013-10-20T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 29
-      },
-      {
-        "chapter_id": "chap-snk-30",
-        "name": "Episodio 30",
-        "release_date": "2013-10-27T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 30
-      },
-      {
-        "chapter_id": "chap-snk-31",
-        "name": "Episodio 31",
-        "release_date": "2013-11-03T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 31
-      },
-      {
-        "chapter_id": "chap-snk-32",
-        "name": "Episodio 32",
-        "release_date": "2013-11-10T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 32
-      },
-      {
-        "chapter_id": "chap-snk-33",
-        "name": "Episodio 33",
-        "release_date": "2013-11-17T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 33
-      },
-      {
-        "chapter_id": "chap-snk-34",
-        "name": "Episodio 34",
-        "release_date": "2013-11-24T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 34
-      },
-      {
-        "chapter_id": "chap-snk-35",
-        "name": "Episodio 35",
-        "release_date": "2013-12-01T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 35
-      },
-      {
-        "chapter_id": "chap-snk-36",
-        "name": "Episodio 36",
-        "release_date": "2013-12-08T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 36
-      },
-      {
-        "chapter_id": "chap-snk-37",
-        "name": "Episodio 37",
-        "release_date": "2013-12-15T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 37
-      },
-      {
-        "chapter_id": "chap-snk-38",
-        "name": "Episodio 38",
-        "release_date": "2013-12-22T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 38
-      },
-      {
-        "chapter_id": "chap-snk-39",
-        "name": "Episodio 39",
-        "release_date": "2013-12-29T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 39
-      },
-      {
-        "chapter_id": "chap-snk-40",
-        "name": "Episodio 40",
-        "release_date": "2014-01-05T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 40
-      },
-      {
-        "chapter_id": "chap-snk-41",
-        "name": "Episodio 41",
-        "release_date": "2014-01-12T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 41
-      },
-      {
-        "chapter_id": "chap-snk-42",
-        "name": "Episodio 42",
-        "release_date": "2014-01-19T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 42
-      },
-      {
-        "chapter_id": "chap-snk-43",
-        "name": "Episodio 43",
-        "release_date": "2014-01-26T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 43
-      },
-      {
-        "chapter_id": "chap-snk-44",
-        "name": "Episodio 44",
-        "release_date": "2014-02-02T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 44
-      },
-      {
-        "chapter_id": "chap-snk-45",
-        "name": "Episodio 45",
-        "release_date": "2014-02-09T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 45
-      },
-      {
-        "chapter_id": "chap-snk-46",
-        "name": "Episodio 46",
-        "release_date": "2014-02-16T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 46
-      },
-      {
-        "chapter_id": "chap-snk-47",
-        "name": "Episodio 47",
-        "release_date": "2014-02-23T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 47
-      },
-      {
-        "chapter_id": "chap-snk-48",
-        "name": "Episodio 48",
-        "release_date": "2014-03-02T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 48
-      },
-      {
-        "chapter_id": "chap-snk-49",
-        "name": "Episodio 49",
-        "release_date": "2014-03-09T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 49
-      },
-      {
-        "chapter_id": "chap-snk-50",
-        "name": "Episodio 50",
-        "release_date": "2014-03-16T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 50
       }
     ]
   },
   {
-    "title_id": "f0e9d8c7-b6a5-4321-fedc-ba9876543210",
-    "name": "Berserk",
-    "description": "La historia sigue a Guts, un solitario guerrero mercenario, y su tumultuosa relación con Griffith, el líder de la Banda del Halcón. Ambientada en un mundo de fantasía oscura inspirado en la Europa medieval, la trama explora temas de amistad, traición y la lucha humana por la supervivencia.",
-    "author": "Kentaro Miura",
-    "type": "manga",
-    "status": "En emisión",
-    "publication_date": "1989-08-25T00:00:00.000Z",
-    "image_url": "https://placehold.co/400x600/000000/FFFFFF?text=Berserk",
-    "category": "Seinen",
-    "genres": ["Fantasía Oscura", "Acción", "Aventura"],
+    "title_id": "b2c3d4e5-f6a7-8901-2345-67890abcdef0",
+    "name": "Jujutsu Kaisen",
+    "description": "Yuji Itadori es un estudiante de instituto con habilidades físicas excepcionales que se une al Club de Ocultismo. Un día, sus amigos abren un objeto maldito que atrae a las maldiciones. Para salvarlos, Yuji se traga el objeto y se convierte en el anfitrión de una poderosa maldición, Sukuna.",
+    "author": "Gege Akutami",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2020-10-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/1E1E1E/FFFFFF?text=Jujutsu+Kaisen",
+    "category": "Shonen",
+    "genres": ["Acción", "Sobrenatural", "Fantasía Oscura"],
     "chapters": [
       {
-        "chapter_id": "chap-ber-01",
-        "name": "El Guerrero Negro",
-        "release_date": "1989-08-25T00:00:00.000Z",
+        "chapter_id": "chap-jjk-01",
+        "name": "Ryomen Sukuna",
+        "release_date": "2020-10-03T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=Berserk+Cap+1+Pag+1"
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+1+Pag+2"
         ],
         "chapter_number": 1
       },
       {
-        "chapter_id": "chap-ber-02",
-        "name": "La Marca",
-        "release_date": "1989-09-25T00:00:00.000Z",
-        "pages": [],
+        "chapter_id": "chap-jjk-02",
+        "name": "Para lo que él es",
+        "release_date": "2020-10-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+2+Pag+2"
+        ],
         "chapter_number": 2
       },
       {
-        "chapter_id": "chap-ber-03",
-        "name": "Capítulo 3",
-        "release_date": "1989-10-25T00:00:00.000Z",
-        "pages": [],
+        "chapter_id": "chap-jjk-03",
+        "name": "Juventud",
+        "release_date": "2020-10-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+3+Pag+2"
+        ],
         "chapter_number": 3
       },
       {
-        "chapter_id": "chap-ber-04",
-        "name": "Capítulo 4",
-        "release_date": "1989-11-25T00:00:00.000Z",
-        "pages": [],
+        "chapter_id": "chap-jjk-04",
+        "name": "Un trago amargo",
+        "release_date": "2020-10-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+4+Pag+2"
+        ],
         "chapter_number": 4
       },
       {
-        "chapter_id": "chap-ber-05",
-        "name": "Capítulo 5",
-        "release_date": "1989-12-25T00:00:00.000Z",
-        "pages": [],
+        "chapter_id": "chap-jjk-05",
+        "name": "Intercambio de Ki",
+        "release_date": "2020-10-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+5+Pag+2"
+        ],
         "chapter_number": 5
-      },
-      {
-        "chapter_id": "chap-ber-06",
-        "name": "Capítulo 6",
-        "release_date": "1990-01-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 6
-      },
-      {
-        "chapter_id": "chap-ber-07",
-        "name": "Capítulo 7",
-        "release_date": "1990-02-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 7
-      },
-      {
-        "chapter_id": "chap-ber-08",
-        "name": "Capítulo 8",
-        "release_date": "1990-03-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 8
-      },
-      {
-        "chapter_id": "chap-ber-09",
-        "name": "Capítulo 9",
-        "release_date": "1990-04-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 9
-      },
-      {
-        "chapter_id": "chap-ber-10",
-        "name": "Capítulo 10",
-        "release_date": "1990-05-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 10
-      },
-      {
-        "chapter_id": "chap-ber-11",
-        "name": "Capítulo 11",
-        "release_date": "1990-06-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 11
-      },
-      {
-        "chapter_id": "chap-ber-12",
-        "name": "Capítulo 12",
-        "release_date": "1990-07-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 12
-      },
-      {
-        "chapter_id": "chap-ber-13",
-        "name": "Capítulo 13",
-        "release_date": "1990-08-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 13
-      },
-      {
-        "chapter_id": "chap-ber-14",
-        "name": "Capítulo 14",
-        "release_date": "1990-09-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 14
-      },
-      {
-        "chapter_id": "chap-ber-15",
-        "name": "Capítulo 15",
-        "release_date": "1990-10-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 15
-      },
-      {
-        "chapter_id": "chap-ber-16",
-        "name": "Capítulo 16",
-        "release_date": "1990-11-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 16
-      },
-      {
-        "chapter_id": "chap-ber-17",
-        "name": "Capítulo 17",
-        "release_date": "1990-12-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 17
-      },
-      {
-        "chapter_id": "chap-ber-18",
-        "name": "Capítulo 18",
-        "release_date": "1991-01-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 18
-      },
-      {
-        "chapter_id": "chap-ber-19",
-        "name": "Capítulo 19",
-        "release_date": "1991-02-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 19
-      },
-      {
-        "chapter_id": "chap-ber-20",
-        "name": "Capítulo 20",
-        "release_date": "1991-03-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 20
-      },
-      {
-        "chapter_id": "chap-ber-21",
-        "name": "Capítulo 21",
-        "release_date": "1991-04-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 21
-      },
-      {
-        "chapter_id": "chap-ber-22",
-        "name": "Capítulo 22",
-        "release_date": "1991-05-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 22
-      },
-      {
-        "chapter_id": "chap-ber-23",
-        "name": "Capítulo 23",
-        "release_date": "1991-06-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 23
-      },
-      {
-        "chapter_id": "chap-ber-24",
-        "name": "Capítulo 24",
-        "release_date": "1991-07-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 24
-      },
-      {
-        "chapter_id": "chap-ber-25",
-        "name": "Capítulo 25",
-        "release_date": "1991-08-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 25
-      },
-      {
-        "chapter_id": "chap-ber-26",
-        "name": "Capítulo 26",
-        "release_date": "1991-09-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 26
-      },
-      {
-        "chapter_id": "chap-ber-27",
-        "name": "Capítulo 27",
-        "release_date": "1991-10-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 27
-      },
-      {
-        "chapter_id": "chap-ber-28",
-        "name": "Capítulo 28",
-        "release_date": "1991-11-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 28
-      },
-      {
-        "chapter_id": "chap-ber-29",
-        "name": "Capítulo 29",
-        "release_date": "1991-12-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 29
-      },
-      {
-        "chapter_id": "chap-ber-30",
-        "name": "Capítulo 30",
-        "release_date": "1992-01-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 30
-      },
-      {
-        "chapter_id": "chap-ber-31",
-        "name": "Capítulo 31",
-        "release_date": "1992-02-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 31
-      },
-      {
-        "chapter_id": "chap-ber-32",
-        "name": "Capítulo 32",
-        "release_date": "1992-03-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 32
-      },
-      {
-        "chapter_id": "chap-ber-33",
-        "name": "Capítulo 33",
-        "release_date": "1992-04-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 33
-      },
-      {
-        "chapter_id": "chap-ber-34",
-        "name": "Capítulo 34",
-        "release_date": "1992-05-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 34
-      },
-      {
-        "chapter_id": "chap-ber-35",
-        "name": "Capítulo 35",
-        "release_date": "1992-06-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 35
-      },
-      {
-        "chapter_id": "chap-ber-36",
-        "name": "Capítulo 36",
-        "release_date": "1992-07-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 36
-      },
-      {
-        "chapter_id": "chap-ber-37",
-        "name": "Capítulo 37",
-        "release_date": "1992-08-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 37
-      },
-      {
-        "chapter_id": "chap-ber-38",
-        "name": "Capítulo 38",
-        "release_date": "1992-09-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 38
-      },
-      {
-        "chapter_id": "chap-ber-39",
-        "name": "Capítulo 39",
-        "release_date": "1992-10-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 39
-      },
-      {
-        "chapter_id": "chap-ber-40",
-        "name": "Capítulo 40",
-        "release_date": "1992-11-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 40
-      },
-      {
-        "chapter_id": "chap-ber-41",
-        "name": "Capítulo 41",
-        "release_date": "1992-12-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 41
-      },
-      {
-        "chapter_id": "chap-ber-42",
-        "name": "Capítulo 42",
-        "release_date": "1993-01-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 42
-      },
-      {
-        "chapter_id": "chap-ber-43",
-        "name": "Capítulo 43",
-        "release_date": "1993-02-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 43
-      },
-      {
-        "chapter_id": "chap-ber-44",
-        "name": "Capítulo 44",
-        "release_date": "1993-03-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 44
-      },
-      {
-        "chapter_id": "chap-ber-45",
-        "name": "Capítulo 45",
-        "release_date": "1993-04-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 45
-      },
-      {
-        "chapter_id": "chap-ber-46",
-        "name": "Capítulo 46",
-        "release_date": "1993-05-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 46
-      },
-      {
-        "chapter_id": "chap-ber-47",
-        "name": "Capítulo 47",
-        "release_date": "1993-06-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 47
-      },
-      {
-        "chapter_id": "chap-ber-48",
-        "name": "Capítulo 48",
-        "release_date": "1993-07-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 48
-      },
-      {
-        "chapter_id": "chap-ber-49",
-        "name": "Capítulo 49",
-        "release_date": "1993-08-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 49
-      },
-      {
-        "chapter_id": "chap-ber-50",
-        "name": "Capítulo 50",
-        "release_date": "1993-09-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 50
       }
     ]
   },
   {
-    "title_id": "12345678-90ab-cdef-0123-456789abcdef",
-    "name": "Batman: The Killing Joke",
-    "description": "Una novela gráfica one-shot que presenta una de las historias de origen más famosas del Joker. En un intento por demostrar que un mal día puede volver loco a cualquiera, el Joker aterroriza al Comisionado Gordon.",
-    "author": "Alan Moore, Brian Bolland",
-    "type": "comic",
-    "status": "Finalizado",
-    "publication_date": "1988-03-29T00:00:00.000Z",
-    "image_url": "https://placehold.co/400x600/7027A0/FFFFFF?text=The+Killing+Joke",
-    "category": "DC Comics",
-    "genres": ["Superhéroes", "Terror Psicológico", "Crimen"],
-    "chapters": [
-      {
-        "chapter_id": "chap-tkj-01",
-        "name": "The Killing Joke",
-        "release_date": "1988-03-29T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 1
-      }
-    ]
-  },
-  {
-    "title_id": "fedcba98-7654-3210-f0e9-d8c7b6a54321",
-    "name": "Naruto",
-    "description": "Naruto Uzumaki, un joven ninja marginado que busca el reconocimiento de sus compañeros y sueña con convertirse en el Hokage, el líder de su aldea.",
-    "author": "Masashi Kishimoto",
-    "type": "anime",
-    "status": "Finalizado",
-    "publication_date": "2002-10-03T00:00:00.000Z",
-    "image_url": "https://placehold.co/400x600/FF7F00/000000?text=Naruto",
-    "category": "Shonen",
-    "genres": ["Aventura", "Fantasía", "Artes Marciales"],
-    "chapters": [
-      {
-        "chapter_id": "chap-nar-01",
-        "name": "¡Entra! ¡Naruto Uzumaki!",
-        "release_date": "2002-10-03T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 1
-      },
-      {
-        "chapter_id": "chap-nar-02",
-        "name": "¡Mi nombre es Konohamaru!",
-        "release_date": "2002-10-10T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 2
-      },
-      {
-        "chapter_id": "chap-nar-03",
-        "name": "Episodio 3",
-        "release_date": "2002-10-17T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 3
-      },
-      {
-        "chapter_id": "chap-nar-04",
-        "name": "Episodio 4",
-        "release_date": "2002-10-24T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 4
-      },
-      {
-        "chapter_id": "chap-nar-05",
-        "name": "Episodio 5",
-        "release_date": "2002-10-31T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 5
-      },
-      {
-        "chapter_id": "chap-nar-06",
-        "name": "Episodio 6",
-        "release_date": "2002-11-07T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 6
-      },
-      {
-        "chapter_id": "chap-nar-07",
-        "name": "Episodio 7",
-        "release_date": "2002-11-14T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 7
-      },
-      {
-        "chapter_id": "chap-nar-08",
-        "name": "Episodio 8",
-        "release_date": "2002-11-21T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 8
-      },
-      {
-        "chapter_id": "chap-nar-09",
-        "name": "Episodio 9",
-        "release_date": "2002-11-28T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 9
-      },
-      {
-        "chapter_id": "chap-nar-10",
-        "name": "Episodio 10",
-        "release_date": "2002-12-05T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 10
-      },
-      {
-        "chapter_id": "chap-nar-11",
-        "name": "Episodio 11",
-        "release_date": "2002-12-12T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 11
-      },
-      {
-        "chapter_id": "chap-nar-12",
-        "name": "Episodio 12",
-        "release_date": "2002-12-19T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 12
-      },
-      {
-        "chapter_id": "chap-nar-13",
-        "name": "Episodio 13",
-        "release_date": "2002-12-26T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 13
-      },
-      {
-        "chapter_id": "chap-nar-14",
-        "name": "Episodio 14",
-        "release_date": "2003-01-02T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 14
-      },
-      {
-        "chapter_id": "chap-nar-15",
-        "name": "Episodio 15",
-        "release_date": "2003-01-09T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 15
-      },
-      {
-        "chapter_id": "chap-nar-16",
-        "name": "Episodio 16",
-        "release_date": "2003-01-16T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 16
-      },
-      {
-        "chapter_id": "chap-nar-17",
-        "name": "Episodio 17",
-        "release_date": "2003-01-23T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 17
-      },
-      {
-        "chapter_id": "chap-nar-18",
-        "name": "Episodio 18",
-        "release_date": "2003-01-30T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 18
-      },
-      {
-        "chapter_id": "chap-nar-19",
-        "name": "Episodio 19",
-        "release_date": "2003-02-06T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 19
-      },
-      {
-        "chapter_id": "chap-nar-20",
-        "name": "Episodio 20",
-        "release_date": "2003-02-13T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 20
-      },
-      {
-        "chapter_id": "chap-nar-21",
-        "name": "Episodio 21",
-        "release_date": "2003-02-20T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 21
-      },
-      {
-        "chapter_id": "chap-nar-22",
-        "name": "Episodio 22",
-        "release_date": "2003-02-27T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 22
-      },
-      {
-        "chapter_id": "chap-nar-23",
-        "name": "Episodio 23",
-        "release_date": "2003-03-06T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 23
-      },
-      {
-        "chapter_id": "chap-nar-24",
-        "name": "Episodio 24",
-        "release_date": "2003-03-13T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 24
-      },
-      {
-        "chapter_id": "chap-nar-25",
-        "name": "Episodio 25",
-        "release_date": "2003-03-20T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 25
-      },
-      {
-        "chapter_id": "chap-nar-26",
-        "name": "Episodio 26",
-        "release_date": "2003-03-27T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 26
-      },
-      {
-        "chapter_id": "chap-nar-27",
-        "name": "Episodio 27",
-        "release_date": "2003-04-03T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 27
-      },
-      {
-        "chapter_id": "chap-nar-28",
-        "name": "Episodio 28",
-        "release_date": "2003-04-10T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 28
-      },
-      {
-        "chapter_id": "chap-nar-29",
-        "name": "Episodio 29",
-        "release_date": "2003-04-17T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 29
-      },
-      {
-        "chapter_id": "chap-nar-30",
-        "name": "Episodio 30",
-        "release_date": "2003-04-24T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 30
-      },
-      {
-        "chapter_id": "chap-nar-31",
-        "name": "Episodio 31",
-        "release_date": "2003-05-01T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 31
-      },
-      {
-        "chapter_id": "chap-nar-32",
-        "name": "Episodio 32",
-        "release_date": "2003-05-08T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 32
-      },
-      {
-        "chapter_id": "chap-nar-33",
-        "name": "Episodio 33",
-        "release_date": "2003-05-15T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 33
-      },
-      {
-        "chapter_id": "chap-nar-34",
-        "name": "Episodio 34",
-        "release_date": "2003-05-22T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 34
-      },
-      {
-        "chapter_id": "chap-nar-35",
-        "name": "Episodio 35",
-        "release_date": "2003-05-29T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 35
-      },
-      {
-        "chapter_id": "chap-nar-36",
-        "name": "Episodio 36",
-        "release_date": "2003-06-05T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 36
-      },
-      {
-        "chapter_id": "chap-nar-37",
-        "name": "Episodio 37",
-        "release_date": "2003-06-12T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 37
-      },
-      {
-        "chapter_id": "chap-nar-38",
-        "name": "Episodio 38",
-        "release_date": "2003-06-19T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 38
-      },
-      {
-        "chapter_id": "chap-nar-39",
-        "name": "Episodio 39",
-        "release_date": "2003-06-26T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 39
-      },
-      {
-        "chapter_id": "chap-nar-40",
-        "name": "Episodio 40",
-        "release_date": "2003-07-03T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 40
-      },
-      {
-        "chapter_id": "chap-nar-41",
-        "name": "Episodio 41",
-        "release_date": "2003-07-10T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 41
-      },
-      {
-        "chapter_id": "chap-nar-42",
-        "name": "Episodio 42",
-        "release_date": "2003-07-17T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 42
-      },
-      {
-        "chapter_id": "chap-nar-43",
-        "name": "Episodio 43",
-        "release_date": "2003-07-24T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 43
-      },
-      {
-        "chapter_id": "chap-nar-44",
-        "name": "Episodio 44",
-        "release_date": "2003-07-31T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 44
-      },
-      {
-        "chapter_id": "chap-nar-45",
-        "name": "Episodio 45",
-        "release_date": "2003-08-07T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 45
-      },
-      {
-        "chapter_id": "chap-nar-46",
-        "name": "Episodio 46",
-        "release_date": "2003-08-14T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 46
-      },
-      {
-        "chapter_id": "chap-nar-47",
-        "name": "Episodio 47",
-        "release_date": "2003-08-21T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 47
-      },
-      {
-        "chapter_id": "chap-nar-48",
-        "name": "Episodio 48",
-        "release_date": "2003-08-28T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 48
-      },
-      {
-        "chapter_id": "chap-nar-49",
-        "name": "Episodio 49",
-        "release_date": "2003-09-04T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 49
-      },
-      {
-        "chapter_id": "chap-nar-50",
-        "name": "Episodio 50",
-        "release_date": "2003-09-11T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 50
-      }
-    ]
-  },
-  {
-    "title_id": "11111111-2222-3333-4444-555555555555",
+    "title_id": "c3d4e5f6-a7b8-9012-3456-7890abcdef01",
     "name": "One Piece",
-    "description": "Sigue las aventuras de Monkey D. Luffy, un joven cuyo cuerpo adquiere las propiedades de la goma después de comer una Fruta del Diablo. Con su tripulación de piratas, los Piratas del Sombrero de Paja, Luffy explora el Grand Line en busca del tesoro supremo del mundo conocido como el 'One Piece' para convertirse en el próximo Rey de los Piratas.",
+    "description": "Monkey D. Luffy, un joven con un cuerpo elástico tras comer una Fruta del Diablo, se embarca en un viaje para encontrar el tesoro legendario One Piece y convertirse en el Rey de los Piratas.",
     "author": "Eiichiro Oda",
     "type": "manga",
-    "status": "En emisión",
+    "status": "En Curso",
     "publication_date": "1997-07-22T00:00:00.000Z",
     "image_url": "https://placehold.co/400x600/FF0000/FFFFFF?text=One+Piece",
     "category": "Shonen",
-    "genres": ["Aventura", "Fantasía", "Comedia"],
+    "genres": ["Aventura", "Acción", "Fantasía", "Comedia"],
     "chapters": [
       {
-        "chapter_id": "chap-op-01",
-        "name": "Romance Dawn",
+        "chapter_id": "chap-op-001",
+        "name": "Romance Dawn: El amanecer de una aventura",
         "release_date": "1997-07-22T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+1+Pag+2"
+        ],
         "chapter_number": 1
       },
       {
-        "chapter_id": "chap-op-02",
-        "name": "Capítulo 2",
+        "chapter_id": "chap-op-002",
+        "name": "Ese tipo: Roronoa Zoro",
         "release_date": "1997-07-29T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+2+Pag+2"
+        ],
         "chapter_number": 2
       },
       {
-        "chapter_id": "chap-op-03",
-        "name": "Capítulo 3",
+        "chapter_id": "chap-op-003",
+        "name": "¡Cazador de piratas Zoro!",
         "release_date": "1997-08-05T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+3+Pag+2"
+        ],
         "chapter_number": 3
       },
       {
-        "chapter_id": "chap-op-04",
-        "name": "Capítulo 4",
+        "chapter_id": "chap-op-004",
+        "name": "La pequeña sirena",
         "release_date": "1997-08-12T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+4+Pag+2"
+        ],
         "chapter_number": 4
       },
       {
-        "chapter_id": "chap-op-05",
-        "name": "Capítulo 5",
+        "chapter_id": "chap-op-005",
+        "name": "El Rey de los Piratas y el gran navegante",
         "release_date": "1997-08-19T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OP+Cap+5+Pag+2"
+        ],
         "chapter_number": 5
-      },
-      {
-        "chapter_id": "chap-op-06",
-        "name": "Capítulo 6",
-        "release_date": "1997-08-26T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 6
-      },
-      {
-        "chapter_id": "chap-op-07",
-        "name": "Capítulo 7",
-        "release_date": "1997-09-02T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 7
-      },
-      {
-        "chapter_id": "chap-op-08",
-        "name": "Capítulo 8",
-        "release_date": "1997-09-09T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 8
-      },
-      {
-        "chapter_id": "chap-op-09",
-        "name": "Capítulo 9",
-        "release_date": "1997-09-16T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 9
-      },
-      {
-        "chapter_id": "chap-op-10",
-        "name": "Capítulo 10",
-        "release_date": "1997-09-23T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 10
-      },
-      {
-        "chapter_id": "chap-op-11",
-        "name": "Capítulo 11",
-        "release_date": "1997-09-30T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 11
-      },
-      {
-        "chapter_id": "chap-op-12",
-        "name": "Capítulo 12",
-        "release_date": "1997-10-07T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 12
-      },
-      {
-        "chapter_id": "chap-op-13",
-        "name": "Capítulo 13",
-        "release_date": "1997-10-14T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 13
-      },
-      {
-        "chapter_id": "chap-op-14",
-        "name": "Capítulo 14",
-        "release_date": "1997-10-21T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 14
-      },
-      {
-        "chapter_id": "chap-op-15",
-        "name": "Capítulo 15",
-        "release_date": "1997-10-28T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 15
-      },
-      {
-        "chapter_id": "chap-op-16",
-        "name": "Capítulo 16",
-        "release_date": "1997-11-04T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 16
-      },
-      {
-        "chapter_id": "chap-op-17",
-        "name": "Capítulo 17",
-        "release_date": "1997-11-11T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 17
-      },
-      {
-        "chapter_id": "chap-op-18",
-        "name": "Capítulo 18",
-        "release_date": "1997-11-18T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 18
-      },
-      {
-        "chapter_id": "chap-op-19",
-        "name": "Capítulo 19",
-        "release_date": "1997-11-25T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 19
-      },
-      {
-        "chapter_id": "chap-op-20",
-        "name": "Capítulo 20",
-        "release_date": "1997-12-02T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 20
-      },
-      {
-        "chapter_id": "chap-op-21",
-        "name": "Capítulo 21",
-        "release_date": "1997-12-09T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 21
-      },
-      {
-        "chapter_id": "chap-op-22",
-        "name": "Capítulo 22",
-        "release_date": "1997-12-16T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 22
-      },
-      {
-        "chapter_id": "chap-op-23",
-        "name": "Capítulo 23",
-        "release_date": "1997-12-23T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 23
-      },
-      {
-        "chapter_id": "chap-op-24",
-        "name": "Capítulo 24",
-        "release_date": "1997-12-30T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 24
-      },
-      {
-        "chapter_id": "chap-op-25",
-        "name": "Capítulo 25",
-        "release_date": "1998-01-06T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 25
-      },
-      {
-        "chapter_id": "chap-op-26",
-        "name": "Capítulo 26",
-        "release_date": "1998-01-13T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 26
-      },
-      {
-        "chapter_id": "chap-op-27",
-        "name": "Capítulo 27",
-        "release_date": "1998-01-20T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 27
-      },
-      {
-        "chapter_id": "chap-op-28",
-        "name": "Capítulo 28",
-        "release_date": "1998-01-27T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 28
-      },
-      {
-        "chapter_id": "chap-op-29",
-        "name": "Capítulo 29",
-        "release_date": "1998-02-03T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 29
-      },
-      {
-        "chapter_id": "chap-op-30",
-        "name": "Capítulo 30",
-        "release_date": "1998-02-10T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 30
-      },
-      {
-        "chapter_id": "chap-op-31",
-        "name": "Capítulo 31",
-        "release_date": "1998-02-17T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 31
-      },
-      {
-        "chapter_id": "chap-op-32",
-        "name": "Capítulo 32",
-        "release_date": "1998-02-24T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 32
-      },
-      {
-        "chapter_id": "chap-op-33",
-        "name": "Capítulo 33",
-        "release_date": "1998-03-03T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 33
-      },
-      {
-        "chapter_id": "chap-op-34",
-        "name": "Capítulo 34",
-        "release_date": "1998-03-10T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 34
-      },
-      {
-        "chapter_id": "chap-op-35",
-        "name": "Capítulo 35",
-        "release_date": "1998-03-17T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 35
-      },
-      {
-        "chapter_id": "chap-op-36",
-        "name": "Capítulo 36",
-        "release_date": "1998-03-24T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 36
-      },
-      {
-        "chapter_id": "chap-op-37",
-        "name": "Capítulo 37",
-        "release_date": "1998-03-31T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 37
-      },
-      {
-        "chapter_id": "chap-op-38",
-        "name": "Capítulo 38",
-        "release_date": "1998-04-07T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 38
-      },
-      {
-        "chapter_id": "chap-op-39",
-        "name": "Capítulo 39",
-        "release_date": "1998-04-14T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 39
-      },
-      {
-        "chapter_id": "chap-op-40",
-        "name": "Capítulo 40",
-        "release_date": "1998-04-21T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 40
-      },
-      {
-        "chapter_id": "chap-op-41",
-        "name": "Capítulo 41",
-        "release_date": "1998-04-28T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 41
-      },
-      {
-        "chapter_id": "chap-op-42",
-        "name": "Capítulo 42",
-        "release_date": "1998-05-05T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 42
-      },
-      {
-        "chapter_id": "chap-op-43",
-        "name": "Capítulo 43",
-        "release_date": "1998-05-12T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 43
-      },
-      {
-        "chapter_id": "chap-op-44",
-        "name": "Capítulo 44",
-        "release_date": "1998-05-19T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 44
-      },
-      {
-        "chapter_id": "chap-op-45",
-        "name": "Capítulo 45",
-        "release_date": "1998-05-26T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 45
-      },
-      {
-        "chapter_id": "chap-op-46",
-        "name": "Capítulo 46",
-        "release_date": "1998-06-02T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 46
-      },
-      {
-        "chapter_id": "chap-op-47",
-        "name": "Capítulo 47",
-        "release_date": "1998-06-09T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 47
-      },
-      {
-        "chapter_id": "chap-op-48",
-        "name": "Capítulo 48",
-        "release_date": "1998-06-16T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 48
-      },
-      {
-        "chapter_id": "chap-op-49",
-        "name": "Capítulo 49",
-        "release_date": "1998-06-23T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 49
-      },
-      {
-        "chapter_id": "chap-op-50",
-        "name": "Capítulo 50",
-        "release_date": "1998-06-30T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 50
       }
     ]
   },
   {
-    "title_id": "66666666-7777-8888-9999-000000000000",
+    "title_id": "d4e5f6a7-b8c9-0123-4567-890abcdef012",
+    "name": "Dragon Ball",
+    "description": "Son Goku, un niño ingenuo y extraordinariamente fuerte, vive aventuras en busca de las siete Esferas del Dragón, que al reunirlas invocan a un dragón que concede deseos.",
+    "author": "Akira Toriyama",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "1986-02-26T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FFD700/000000?text=Dragon+Ball",
+    "category": "Shonen",
+    "genres": ["Aventura", "Acción", "Comedia", "Fantasía"],
+    "chapters": [
+      {
+        "chapter_id": "chap-db-01",
+        "name": "El secreto de las esferas del dragón",
+        "release_date": "1986-02-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-db-02",
+        "name": "La escasez del Dragón",
+        "release_date": "1986-03-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-db-03",
+        "name": "La nube voladora de Kame-Sen'nin",
+        "release_date": "1986-03-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-db-04",
+        "name": "El Gran Torneo de Artes Marciales",
+        "release_date": "1986-03-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-db-05",
+        "name": "El Poder de Oolong",
+        "release_date": "1986-03-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DB+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "e5f6a7b8-c9d0-1234-5678-90abcdef0123",
     "name": "Death Note",
-    "description": "Un brillante estudiante de secundaria descubre un cuaderno místico que le permite matar a cualquiera cuyo nombre escriba en él. Decide usarlo para librar al mundo de criminales, pero pronto se encuentra en un juego del gato y el ratón con un enigmático detective que intenta detenerlo.",
-    "author": "Tsugumi Ohba, Takeshi Obata",
+    "description": "Light Yagami, un brillante estudiante de instituto, encuentra un misterioso cuaderno que le permite matar a cualquier persona cuyo nombre escriba en él. Decide usarlo para crear un mundo 'perfecto' libre de criminales.",
+    "author": "Tsugumi Ohba (historia), Takeshi Obata (arte)",
     "type": "anime",
     "status": "Finalizado",
     "publication_date": "2006-10-03T00:00:00.000Z",
-    "image_url": "https://placehold.co/400x600/1C1C1C/FFFFFF?text=Death+Note",
+    "image_url": "https://placehold.co/400x600/000000/FFFFFF?text=Death+Note",
     "category": "Shonen",
-    "genres": ["Misterio", "Sobrenatural", "Thriller Psicológico"],
+    "genres": ["Misterio", "Thriller", "Sobrenatural", "Psicológico"],
     "chapters": [
       {
         "chapter_id": "chap-dn-01",
         "name": "Renacimiento",
         "release_date": "2006-10-03T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+1+Pag+2"
+        ],
         "chapter_number": 1
       },
       {
         "chapter_id": "chap-dn-02",
-        "name": "Episodio 2",
+        "name": "Encuentro",
         "release_date": "2006-10-10T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+2+Pag+2"
+        ],
         "chapter_number": 2
       },
       {
         "chapter_id": "chap-dn-03",
-        "name": "Episodio 3",
+        "name": "Trato",
         "release_date": "2006-10-17T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+3+Pag+2"
+        ],
         "chapter_number": 3
       },
       {
         "chapter_id": "chap-dn-04",
-        "name": "Episodio 4",
+        "name": "Búsqueda",
         "release_date": "2006-10-24T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+4+Pag+2"
+        ],
         "chapter_number": 4
       },
       {
         "chapter_id": "chap-dn-05",
-        "name": "Episodio 5",
+        "name": "Estrategia",
         "release_date": "2006-10-31T00:00:00.000Z",
-        "pages": [],
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DN+Cap+5+Pag+2"
+        ],
         "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "f6a7b8c9-d0e1-2345-6789-0abcdef01234",
+    "name": "Naruto",
+    "description": "Naruto Uzumaki, un joven ninja marginado que alberga un demonio zorro en su interior, sueña con convertirse en el Hokage, el líder de su aldea, y ganarse el respeto de todos.",
+    "author": "Masashi Kishimoto",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2002-10-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF8C00/FFFFFF?text=Naruto",
+    "category": "Shonen",
+    "genres": ["Aventura", "Acción", "Comedia", "Artes Marciales"],
+    "chapters": [
+      {
+        "chapter_id": "chap-nr-01",
+        "name": "Naruto Uzumaki",
+        "release_date": "2002-10-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
       },
       {
-        "chapter_id": "chap-dn-06",
-        "name": "Episodio 6",
-        "release_date": "2006-11-07T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 6
+        "chapter_id": "chap-nr-02",
+        "name": "¡Mi nombre es Konohamaru!",
+        "release_date": "2002-10-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
       },
       {
-        "chapter_id": "chap-dn-07",
-        "name": "Episodio 7",
-        "release_date": "2006-11-14T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 7
+        "chapter_id": "chap-nr-03",
+        "name": "¡Sasuke y Sakura!",
+        "release_date": "2002-10-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       },
       {
-        "chapter_id": "chap-dn-08",
-        "name": "Episodio 8",
-        "release_date": "2006-11-21T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 8
+        "chapter_id": "chap-nr-04",
+        "name": "El Equipo 7",
+        "release_date": "2002-10-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
       },
       {
-        "chapter_id": "chap-dn-09",
-        "name": "Episodio 9",
-        "release_date": "2006-11-28T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 9
+        "chapter_id": "chap-nr-05",
+        "name": "¡El desafío de Kakashi!",
+        "release_date": "2002-10-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Naruto+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "g7h8i9j0-k1l2-3456-7890-1234567890ab",
+    "name": "My Hero Academia",
+    "description": "En un mundo donde la mayoría de la población nace con superpoderes, Izuku Midoriya, un chico sin poderes, sueña con convertirse en un héroe. Su vida cambia cuando el mayor héroe, All Might, le transfiere su propio poder.",
+    "author": "Kohei Horikoshi",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2016-04-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/000080/FFFFFF?text=My+Hero+Academia",
+    "category": "Shonen",
+    "genres": ["Acción", "Superpoderes", "Comedia", "Escolar"],
+    "chapters": [
+      {
+        "chapter_id": "chap-mha-01",
+        "name": "Midoriya Izuku: Origen",
+        "release_date": "2016-04-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
       },
       {
-        "chapter_id": "chap-dn-10",
-        "name": "Episodio 10",
-        "release_date": "2006-12-05T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 10
+        "chapter_id": "chap-mha-02",
+        "name": "Lo que puedo hacer ahora",
+        "release_date": "2016-04-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
       },
       {
-        "chapter_id": "chap-dn-11",
-        "name": "Episodio 11",
-        "release_date": "2006-12-12T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 11
+        "chapter_id": "chap-mha-03",
+        "name": "Musculoso",
+        "release_date": "2016-04-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       },
       {
-        "chapter_id": "chap-dn-12",
-        "name": "Episodio 12",
-        "release_date": "2006-12-19T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 12
+        "chapter_id": "chap-mha-04",
+        "name": "La línea de salida del destino",
+        "release_date": "2016-04-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
       },
       {
-        "chapter_id": "chap-dn-13",
-        "name": "Episodio 13",
-        "release_date": "2006-12-26T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 13
+        "chapter_id": "chap-mha-05",
+        "name": "El examen de admisión",
+        "release_date": "2016-05-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHA+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "h8i9j0k1-l2m3-4567-8901-234567890abc",
+    "name": "Kimetsu no Yaiba (Demon Slayer)",
+    "description": "Tanjiro Kamado, un joven cuya familia ha sido masacrada por demonios y su hermana Nezuko transformada en uno, se embarca en un viaje para vengar a su familia y encontrar una cura para su hermana.",
+    "author": "Koyoharu Gotouge",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2019-04-06T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/8B0000/FFFFFF?text=Demon+Slayer",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía Oscura", "Aventura"],
+    "chapters": [
+      {
+        "chapter_id": "chap-kny-01",
+        "name": "Crueldad",
+        "release_date": "2019-04-06T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
       },
       {
-        "chapter_id": "chap-dn-14",
-        "name": "Episodio 14",
-        "release_date": "2007-01-02T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 14
+        "chapter_id": "chap-kny-02",
+        "name": "El entrenando de Sakonji Urokodaki",
+        "release_date": "2019-04-13T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
       },
       {
-        "chapter_id": "chap-dn-15",
-        "name": "Episodio 15",
-        "release_date": "2007-01-09T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 15
+        "chapter_id": "chap-kny-03",
+        "name": "Sabito y Makomo",
+        "release_date": "2019-04-20T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       },
       {
-        "chapter_id": "chap-dn-16",
-        "name": "Episodio 16",
-        "release_date": "2007-01-16T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 16
+        "chapter_id": "chap-kny-04",
+        "name": "La selección final",
+        "release_date": "2019-04-27T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
       },
       {
-        "chapter_id": "chap-dn-17",
-        "name": "Episodio 17",
-        "release_date": "2007-01-23T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 17
+        "chapter_id": "chap-kny-05",
+        "name": "Mi propia espada",
+        "release_date": "2019-05-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNY+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "i9j0k1l2-m3n4-5678-9012-34567890abcd",
+    "name": "Fullmetal Alchemist: Brotherhood",
+    "description": "Los hermanos Edward y Alphonse Elric, talentosos alquimistas, intentan revivir a su madre usando la alquimia, pero la Transmutación Humana está prohibida. Pagan un alto precio por ello y emprenden un viaje para recuperar sus cuerpos y descubrir los secretos de la Piedra Filosofal.",
+    "author": "Hiromu Arakawa",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2009-04-05T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/800080/FFFFFF?text=Fullmetal+Alchemist",
+    "category": "Shonen",
+    "genres": ["Aventura", "Fantasía", "Acción", "Militar"],
+    "chapters": [
+      {
+        "chapter_id": "chap-fma-01",
+        "name": "Fullmetal Alchemist",
+        "release_date": "2009-04-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
       },
       {
-        "chapter_id": "chap-dn-18",
-        "name": "Episodio 18",
-        "release_date": "2007-01-30T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 18
+        "chapter_id": "chap-fma-02",
+        "name": "El primer día",
+        "release_date": "2009-04-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
       },
       {
-        "chapter_id": "chap-dn-19",
-        "name": "Episodio 19",
-        "release_date": "2007-02-06T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 19
+        "chapter_id": "chap-fma-03",
+        "name": "La ciudad hereje",
+        "release_date": "2009-04-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       },
       {
-        "chapter_id": "chap-dn-20",
-        "name": "Episodio 20",
-        "release_date": "2007-02-13T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 20
+        "chapter_id": "chap-fma-04",
+        "name": "El alquimista militar",
+        "release_date": "2009-04-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
       },
       {
-        "chapter_id": "chap-dn-21",
-        "name": "Episodio 21",
-        "release_date": "2007-02-20T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 21
+        "chapter_id": "chap-fma-05",
+        "name": "Lluvia de acero",
+        "release_date": "2009-05-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FMA+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "j0k1l2m3-n4o5-6789-0123-4567890abcde",
+    "name": "Hunter x Hunter (2011)",
+    "description": "Gon Freecss, un joven que cree que su padre, un famoso 'Hunter', está muerto, descubre que en realidad está vivo. Decide convertirse en un Hunter para encontrarlo, lo que le lleva a embarcarse en una serie de peligrosas aventuras.",
+    "author": "Yoshihiro Togashi",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2011-10-02T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/006400/FFFFFF?text=Hunter+x+Hunter",
+    "category": "Shonen",
+    "genres": ["Aventura", "Fantasía", "Acción", "Artes Marciales"],
+    "chapters": [
+      {
+        "chapter_id": "chap-hxh-01",
+        "name": "Un comienzo y amigos",
+        "release_date": "2011-10-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
       },
       {
-        "chapter_id": "chap-dn-22",
-        "name": "Episodio 22",
-        "release_date": "2007-02-27T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 22
+        "chapter_id": "chap-hxh-02",
+        "name": "Prueba x Prueba",
+        "release_date": "2011-10-09T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
       },
       {
-        "chapter_id": "chap-dn-23",
-        "name": "Episodio 23",
-        "release_date": "2007-03-06T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 23
+        "chapter_id": "chap-hxh-03",
+        "name": "Rivales x Supervivencia",
+        "release_date": "2011-10-16T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       },
       {
-        "chapter_id": "chap-dn-24",
-        "name": "Episodio 24",
-        "release_date": "2007-03-13T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 24
+        "chapter_id": "chap-hxh-04",
+        "name": "Esperanzas x Ambición",
+        "release_date": "2011-10-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
       },
       {
-        "chapter_id": "chap-dn-25",
-        "name": "Episodio 25",
-        "release_date": "2007-03-20T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 25
+        "chapter_id": "chap-hxh-05",
+        "name": "Amigos x Trampas",
+        "release_date": "2011-10-30T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HxH+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "k1l2m3n4-o5p6-7890-1234-567890abcdef",
+    "name": "One-Punch Man",
+    "description": "Saitama es un héroe que puede derrotar a cualquier enemigo de un solo golpe. Debido a su abrumador poder, se siente frustrado por la falta de un desafío real, lo que le lleva a una vida de aburrimiento y apatía.",
+    "author": "ONE (historia), Yusuke Murata (arte)",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2015-10-05T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF4500/FFFFFF?text=One-Punch+Man",
+    "category": "Seinen",
+    "genres": ["Acción", "Comedia", "Superpoderes", "Parodia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-opm-01",
+        "name": "El hombre más fuerte",
+        "release_date": "2015-10-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
       },
       {
-        "chapter_id": "chap-dn-26",
-        "name": "Episodio 26",
-        "release_date": "2007-03-27T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 26
+        "chapter_id": "chap-opm-02",
+        "name": "El tipo con la barba de aguijón",
+        "release_date": "2015-10-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
       },
       {
-        "chapter_id": "chap-dn-27",
-        "name": "Episodio 27",
-        "release_date": "2007-04-03T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 27
+        "chapter_id": "chap-opm-03",
+        "name": "Un autoproclamado dios",
+        "release_date": "2015-10-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       },
       {
-        "chapter_id": "chap-dn-28",
-        "name": "Episodio 28",
-        "release_date": "2007-04-10T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 28
+        "chapter_id": "chap-opm-04",
+        "name": "El robot de carne y hueso",
+        "release_date": "2015-10-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
       },
       {
-        "chapter_id": "chap-dn-29",
-        "name": "Episodio 29",
-        "release_date": "2007-04-17T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 29
+        "chapter_id": "chap-opm-05",
+        "name": "El ataque de los genios",
+        "release_date": "2015-11-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "l2m3n4o5-p6q7-8901-2345-67890abcdefg",
+    "name": "Steins;Gate",
+    "description": "Rintaro Okabe, un autoproclamado 'científico loco', descubre un microondas que puede enviar mensajes de texto al pasado. Este descubrimiento lo arrastra a una intrincada red de conspiraciones y paradojas temporales.",
+    "author": "Chiyomaru Shikura (concepto original)",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2011-04-06T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/0000FF/FFFFFF?text=Steins;Gate",
+    "category": "Seinen",
+    "genres": ["Ciencia Ficción", "Thriller", "Drama", "Psicológico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-sg-01",
+        "name": "Prólogo de la distorsión del tiempo: Un reloj de arena",
+        "release_date": "2011-04-06T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
       },
       {
-        "chapter_id": "chap-dn-30",
-        "name": "Episodio 30",
-        "release_date": "2007-04-24T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 30
+        "chapter_id": "chap-sg-02",
+        "name": "Paranoia temporal: Desgracia de un reloj de arena",
+        "release_date": "2011-04-13T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
       },
       {
-        "chapter_id": "chap-dn-31",
-        "name": "Episodio 31",
-        "release_date": "2007-05-01T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 31
+        "chapter_id": "chap-sg-03",
+        "name": "Paranoia paralela: Reloj de arena del universo",
+        "release_date": "2011-04-20T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       },
       {
-        "chapter_id": "chap-dn-32",
-        "name": "Episodio 32",
-        "release_date": "2007-05-08T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 32
+        "chapter_id": "chap-sg-04",
+        "name": "Teoría de la divergencia: El tiempo se vuelve loco",
+        "release_date": "2011-04-27T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
       },
       {
-        "chapter_id": "chap-dn-33",
-        "name": "Episodio 33",
-        "release_date": "2007-05-15T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 33
+        "chapter_id": "chap-sg-05",
+        "name": "El tiempo-salto del cerebro: Reloj de arena del pasado",
+        "release_date": "2011-05-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SG+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "m3n4o5p6-q7r8-9012-3456-7890abcdefgh",
+    "name": "Attack on Titan: Before the Fall",
+    "description": "Ambientada 70 años antes de los eventos de la serie principal, esta precuela explora el mundo de Attack on Titan antes de la aparición de Eren y la Legión de Reconocimiento, centrándose en el desarrollo de los equipos de maniobras y los primeros enfrentamientos con los Titanes.",
+    "author": "Ryō Suzukaze (historia), Satoshi Shiki (arte)",
+    "type": "manga",
+    "status": "Finalizado",
+    "publication_date": "2013-09-02T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/505050/FFFFFF?text=AoT+Before+the+Fall",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía Oscura", "Post-apocalíptico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-aotf-01",
+        "name": "Historia de un pecador",
+        "release_date": "2013-09-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
       },
       {
-        "chapter_id": "chap-dn-34",
-        "name": "Episodio 34",
-        "release_date": "2007-05-22T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 34
+        "chapter_id": "chap-aotf-02",
+        "name": "El día en que el mundo cambió",
+        "release_date": "2013-10-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
       },
       {
-        "chapter_id": "chap-dn-35",
-        "name": "Episodio 35",
-        "release_date": "2007-05-29T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 35
+        "chapter_id": "chap-aotf-03",
+        "name": "El destino de un huérfano",
+        "release_date": "2013-11-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       },
       {
-        "chapter_id": "chap-dn-36",
-        "name": "Episodio 36",
-        "release_date": "2007-06-05T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 36
+        "chapter_id": "chap-aotf-04",
+        "name": "La humanidad contra los Titanes",
+        "release_date": "2013-12-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
       },
       {
-        "chapter_id": "chap-dn-37",
-        "name": "Episodio 37",
-        "release_date": "2007-06-12T00:00:00.000Z",
-        "pages": [],
-        "chapter_number": 37
+        "chapter_id": "chap-aotf-05",
+        "name": "El nacimiento de la maniobra tridimensional",
+        "release_date": "2014-01-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=AOTF+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "n4o5p6q7-r8s9-0123-4567-890abcdefghi",
+    "name": "Tokyo Ghoul",
+    "description": "Ken Kaneki, un estudiante universitario, apenas sobrevive a un encuentro mortal con una ghoul y es transformado en un híbrido mitad-humano, mitad-ghoul. Debe aprender a adaptarse a su nueva vida y sobrevivir en el oscuro mundo de los ghouls.",
+    "author": "Sui Ishida",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2014-07-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/C0C0C0/000000?text=Tokyo+Ghoul",
+    "category": "Seinen",
+    "genres": ["Fantasía Oscura", "Acción", "Terror", "Psicológico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-tg-01",
+        "name": "Tragedia",
+        "release_date": "2014-07-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-tg-02",
+        "name": "Extraños",
+        "release_date": "2014-07-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-tg-03",
+        "name": "Paloma",
+        "release_date": "2014-07-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-tg-04",
+        "name": "Café",
+        "release_date": "2014-07-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-tg-05",
+        "name": "Máscara",
+        "release_date": "2014-07-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TG+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "o5p6q7r8-s9t0-1234-5678-90abcdefghij",
+    "name": "Vinland Saga",
+    "description": "Thorfinn, un joven guerrero vikingo, busca venganza contra Askeladd, el líder mercenario que mató a su padre. Su viaje lo lleva a batallas épicas y a una profunda introspección sobre la verdadera naturaleza de un guerrero.",
+    "author": "Makoto Yukimura",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2019-07-07T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/36454F/FFFFFF?text=Vinland+Saga",
+    "category": "Seinen",
+    "genres": ["Aventura", "Histórico", "Drama", "Acción"],
+    "chapters": [
+      {
+        "chapter_id": "chap-vs-01",
+        "name": "Donde las tormentas rugen",
+        "release_date": "2019-07-07T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-vs-02",
+        "name": "Un muchacho",
+        "release_date": "2019-07-14T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-vs-03",
+        "name": "Tierra de hielo",
+        "release_date": "2019-07-21T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-vs-04",
+        "name": "El hombre al que llamaron 'demonio'",
+        "release_date": "2019-07-28T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-vs-05",
+        "name": "La espada del bandido",
+        "release_date": "2019-08-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VS+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "p6q7r8s9-t0u1-2345-6789-0abcdefghijk",
+    "name": "Berserk",
+    "description": "Guts, el espadachín negro, viaja por un mundo oscuro y de fantasía medieval, luchando contra demonios y seres grotescos mientras busca venganza contra su antiguo líder, Griffith.",
+    "author": "Kentaro Miura",
+    "type": "manga",
+    "status": "En Curso (Posthumo)",
+    "publication_date": "1989-08-25T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/111111/FFFFFF?text=Berserk",
+    "category": "Seinen",
+    "genres": ["Fantasía Oscura", "Acción", "Horror", "Gore"],
+    "chapters": [
+      {
+        "chapter_id": "chap-bsk-001",
+        "name": "El Espadachín Negro",
+        "release_date": "1989-08-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-bsk-002",
+        "name": "La Marca",
+        "release_date": "1989-09-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-bsk-003",
+        "name": "La Ceremonia",
+        "release_date": "1989-10-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-bsk-004",
+        "name": "La Era Dorada",
+        "release_date": "1989-11-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-bsk-005",
+        "name": "Primeras batallas",
+        "release_date": "1989-12-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BSK+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "q7r8s9t0-u1v2-3456-7890-1234567890akl",
+    "name": "Solo Leveling",
+    "description": "Sung Jinwoo, el 'cazador más débil de la humanidad', es abandonado para morir en una mazmorra de alto nivel. Al despertar, descubre que ha obtenido un sistema misterioso que le permite subir de nivel y volverse infinitamente más fuerte, embarcándose en un viaje para convertirse en el más poderoso de todos.",
+    "author": "Chugong (historia), DUBU (arte)",
+    "type": "manhwa",
+    "status": "Finalizado",
+    "publication_date": "2018-03-04T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/8B0000/FFFFFF?text=Solo+Leveling",
+    "category": "Seinen",
+    "genres": ["Acción", "Fantasía", "Aventura", "Videojuegos"],
+    "chapters": [
+      {
+        "chapter_id": "chap-sl-001",
+        "name": "El Cazador más Débil",
+        "release_date": "2018-03-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-sl-002",
+        "name": "Doble Mazmorra",
+        "release_date": "2018-03-11T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-sl-003",
+        "name": "El Regalo del Sistema",
+        "release_date": "2018-03-18T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-sl-004",
+        "name": "El Nivel Inicial",
+        "release_date": "2018-03-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-sl-005",
+        "name": "La Prueba de la Fuerza",
+        "release_date": "2018-04-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SL+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "r8s9t0u1-v2w3-4567-8901-234567890abcdlm",
+    "name": "Tower of God",
+    "description": "Un joven llamado Baam entra en la misteriosa Torre de Dios para seguir a su amiga Rachel, quien desea ver las estrellas. Dentro de la Torre, Baam se encuentra con desafíos mortales y extraños compañeros.",
+    "author": "SIU",
+    "type": "manhwa",
+    "status": "En Curso",
+    "publication_date": "2010-06-21T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/4682B4/FFFFFF?text=Tower+of+God",
+    "category": "Webtoon",
+    "genres": ["Fantasía", "Acción", "Aventura", "Misterio"],
+    "chapters": [
+      {
+        "chapter_id": "chap-tog-001",
+        "name": "El Primer Contacto",
+        "release_date": "2010-06-21T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-tog-002",
+        "name": "El Guardián del Primer Piso",
+        "release_date": "2010-06-28T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-tog-003",
+        "name": "El Test de la Corona",
+        "release_date": "2010-07-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-tog-004",
+        "name": "La Prueba de la Liga",
+        "release_date": "2010-07-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-tog-005",
+        "name": "La Pesca de Rachel",
+        "release_date": "2010-07-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ToG+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "s9t0u1v2-w3x4-5678-9012-34567890abcdefn",
+    "name": "Re:Zero - Starting Life in Another World",
+    "description": "Subaru Natsuki es teletransportado a un mundo de fantasía. Sin poderes especiales, su única habilidad es 'Retorno por Muerte', que le permite volver a un punto de guardado después de morir. Debe usar esta habilidad para proteger a sus seres queridos y resolver los misterios de este nuevo mundo.",
+    "author": "Tappei Nagatsuki",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2016-04-04T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/4B0082/FFFFFF?text=Re:Zero",
+    "category": "Isekai",
+    "genres": ["Fantasía", "Drama", "Thriller", "Psicológico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-rz-01",
+        "name": "El inicio de la vida en otro mundo",
+        "release_date": "2016-04-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-rz-02",
+        "name": "El significado del Retorno por Muerte",
+        "release_date": "2016-04-11T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-rz-03",
+        "name": "El caballero de la esquina",
+        "release_date": "2016-04-18T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-rz-04",
+        "name": "La familia de la mansión Roswaal",
+        "release_date": "2016-04-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-rz-05",
+        "name": "La mañana de la promesa rota",
+        "release_date": "2016-05-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZ+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "t0u1v2w3-x4y5-6789-0123-4567890abcdefop",
+    "name": "Mushoku Tensei: Jobless Reincarnation",
+    "description": "Un hombre sin esperanzas y sin trabajo muere y reencarna en un mundo de fantasía como el bebé Rudeus Greyrat. Decide aprovechar esta segunda oportunidad para vivir su vida al máximo, aprendiendo magia y forjando nuevas relaciones en este nuevo mundo.",
+    "author": "Rifujin na Magonote",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2021-01-11T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/808000/FFFFFF?text=Mushoku+Tensei",
+    "category": "Isekai",
+    "genres": ["Fantasía", "Aventura", "Drama", "Recuentos de la vida"],
+    "chapters": [
+      {
+        "chapter_id": "chap-mt-01",
+        "name": "La reencarnación del desempleado",
+        "release_date": "2021-01-11T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-mt-02",
+        "name": "El maestro",
+        "release_date": "2021-01-18T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-mt-03",
+        "name": "Un nuevo hogar",
+        "release_date": "2021-01-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-mt-04",
+        "name": "Primeros pasos",
+        "release_date": "2021-02-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-mt-05",
+        "name": "Una pequeña bendición",
+        "release_date": "2021-02-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MT+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "u1v2w3x4-y5z6-7890-1234-567890abcdefqp",
+    "name": "Chainsaw Man",
+    "description": "Denji, un joven empobrecido, es traicionado y asesinado. Al hacer un pacto con su demonio mascota Pochita, resucita como Chainsaw Man, un híbrido humano-demonio con sierras eléctricas en su cuerpo.",
+    "author": "Tatsuki Fujimoto",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2022-10-11T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF6347/FFFFFF?text=Chainsaw+Man",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía Oscura", "Comedia", "Horror"],
+    "chapters": [
+      {
+        "chapter_id": "chap-csm-01",
+        "name": "Perro y motosierra",
+        "release_date": "2022-10-11T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-csm-02",
+        "name": "El lugar de la resurrección",
+        "release_date": "2022-10-18T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-csm-03",
+        "name": "La misión en Tokio",
+        "release_date": "2022-10-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-csm-04",
+        "name": "El hotel del demonio infinito",
+        "release_date": "2022-11-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-csm-05",
+        "name": "El demonio del infinito y los ojos",
+        "release_date": "2022-11-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "v2w3x4y5-z6a7-8901-2345-67890abcdefqr",
+    "name": "Bleach",
+    "description": "Ichigo Kurosaki es un estudiante de instituto que puede ver fantasmas. Su vida da un giro radical cuando Rukia Kuchiki, una Shinigami (Dios de la Muerte), le transfiere sus poderes para luchar contra Hollows (espíritus malignos).",
+    "author": "Tite Kubo",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2004-10-05T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/000000/ADD8E6?text=Bleach",
+    "category": "Shonen",
+    "genres": ["Acción", "Aventura", "Sobrenatural", "Comedia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-bl-01",
+        "name": "El día en que me convertí en Shinigami",
+        "release_date": "2004-10-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-bl-02",
+        "name": "Shinigami",
+        "release_date": "2004-10-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-bl-03",
+        "name": "El secreto de la casa Kurosaki",
+        "release_date": "2004-10-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-bl-04",
+        "name": "El alma del león",
+        "release_date": "2004-10-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-bl-05",
+        "name": "La misión",
+        "release_date": "2004-11-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Bleach+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "w3x4y5z6-a7b8-9012-3456-7890abcdefqrs",
+    "name": "Demon Slayer: Kimetsu no Yaiba - The Hashira Training Arc",
+    "description": "Tanjiro y sus compañeros se someten a un entrenamiento intensivo con los Pilares, los espadachines más fuertes del Cuerpo de Cazadores de Demonios, para prepararse para la batalla final contra Muzan Kibutsuji.",
+    "author": "Koyoharu Gotouge",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2024-05-12T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/8B0000/FFFFFF?text=Demon+Slayer+Hashira",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía Oscura", "Aventura"],
+    "chapters": [
+      {
+        "chapter_id": "chap-dsht-01",
+        "name": "Para derrotar a Muzan Kibutsuji",
+        "release_date": "2024-05-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-dsht-02",
+        "name": "La fuerza de Giyu Tomioka",
+        "release_date": "2024-05-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-dsht-03",
+        "name": "El entrenamiento del Pilar de la Roca, Himejima Gyomei",
+        "release_date": "2024-05-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-dsht-04",
+        "name": "El entrenamiento del Pilar de la Serpiente, Obanai Iguro",
+        "release_date": "2024-06-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-dsht-05",
+        "name": "El entrenamiento del Pilar del Viento, Sanemi Shinazugawa",
+        "release_date": "2024-06-09T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHT+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "x4y5z6a7-b8c9-0123-4567-890abcdefqrst",
+    "name": "Spy x Family",
+    "description": "Twilight, un espía maestro, debe construir una 'familia' falsa para su última misión. Sin saberlo, su 'hija' Anya es una telepata y su 'esposa' Yor es una asesina. Juntos, deben mantener su farsa mientras navegan por sus dobles vidas.",
+    "author": "Tatsuya Endo",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2022-04-09T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/32CD32/FFFFFF?text=Spy+x+Family",
+    "category": "Comedia",
+    "genres": ["Acción", "Comedia", "Recuentos de la vida", "Espías"],
+    "chapters": [
+      {
+        "chapter_id": "chap-sxf-01",
+        "name": "Operación Strix",
+        "release_date": "2022-04-09T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-sxf-02",
+        "name": "Asegurar una esposa",
+        "release_date": "2022-04-16T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-sxf-03",
+        "name": "Empezando la Operación Strix",
+        "release_date": "2022-04-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-sxf-04",
+        "name": "El prestigioso instituto Eden",
+        "release_date": "2022-04-30T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-sxf-05",
+        "name": "Unión familiar",
+        "release_date": "2022-05-07T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SxFCap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "y5z6a7b8-c9d0-1234-5678-90abcdefqrstu",
+    "name": "Solo Leveling (Manga)",
+    "description": "La versión manga del popular manhwa coreano. Sung Jinwoo, el 'cazador más débil de la humanidad', es abandonado para morir en una mazmorra de alto nivel. Al despertar, descubre que ha obtenido un sistema misterioso que le permite subir de nivel y volverse infinitamente más fuerte, embarcándose en un viaje para convertirse en el más poderoso de todos.",
+    "author": "Chugong (historia), DUBU (arte)",
+    "type": "manga",
+    "status": "Finalizado",
+    "publication_date": "2018-03-04T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/8B0000/FFFFFF?text=Solo+Leveling+Manga",
+    "category": "Seinen",
+    "genres": ["Acción", "Fantasía", "Aventura", "Videojuegos"],
+    "chapters": [
+      {
+        "chapter_id": "chap-slm-001",
+        "name": "Capítulo 1: El Cazador más Débil",
+        "release_date": "2018-03-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-slm-002",
+        "name": "Capítulo 2: La Mazmorra Oculta",
+        "release_date": "2018-03-11T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-slm-003",
+        "name": "Capítulo 3: El Diario del Sistema",
+        "release_date": "2018-03-18T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-slm-004",
+        "name": "Capítulo 4: El Primer Monstruo",
+        "release_date": "2018-03-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-slm-005",
+        "name": "Capítulo 5: El Entrenamiento Diario",
+        "release_date": "2018-04-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "z6a7b8c9-d0e1-2345-6789-0abcdefqrstuv",
+    "name": "The Beginning After The End",
+    "description": "El Rey Grey, un monarca sin igual en un mundo moderno de artes marciales, muere y reencarna en un nuevo mundo de magia y espadas como Arthur Leywin. Con una segunda oportunidad, busca corregir sus errores pasados y proteger a sus seres queridos.",
+    "author": "TurtleMe",
+    "type": "manhwa",
+    "status": "En Curso",
+    "publication_date": "2018-07-01T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/800000/FFFFFF?text=TBATE",
+    "category": "Fantasía",
+    "genres": ["Fantasía", "Aventura", "Acción", "Isekai"],
+    "chapters": [
+      {
+        "chapter_id": "chap-tbate-001",
+        "name": "Prólogo: Un nuevo comienzo",
+        "release_date": "2018-07-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-tbate-002",
+        "name": "El Rey Grey",
+        "release_date": "2018-07-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-tbate-003",
+        "name": "El infante",
+        "release_date": "2018-07-15T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-tbate-004",
+        "name": "Primeros pasos en la magia",
+        "release_date": "2018-07-22T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-tbate-005",
+        "name": "La familia Leywin",
+        "release_date": "2018-07-29T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TBATE+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "a7b8c9d0-e1f2-3456-7890-1234567890abcde",
+    "name": "One-Punch Man (Manga)",
+    "description": "La versión manga del popular anime, ilustrada por Yusuke Murata. Sigue la historia de Saitama, un héroe que puede derrotar a cualquier enemigo de un solo golpe. Debido a su abrumador poder, se siente frustrado por la falta de un desafío real, lo que le lleva a una vida de aburrimiento y apatía.",
+    "author": "ONE (historia), Yusuke Murata (arte)",
+    "type": "manga",
+    "status": "En Curso",
+    "publication_date": "2012-06-14T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF4500/FFFFFF?text=One-Punch+Man+Manga",
+    "category": "Seinen",
+    "genres": ["Acción", "Comedia", "Superpoderes", "Parodia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-opmm-01",
+        "name": "Capítulo 1",
+        "release_date": "2012-06-14T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-opmm-02",
+        "name": "Capítulo 2: El tipo con la barba de aguijón",
+        "release_date": "2012-06-21T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-opmm-03",
+        "name": "Capítulo 3: Un autoproclamado dios",
+        "release_date": "2012-06-28T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-opmm-04",
+        "name": "Capítulo 4: El robot de carne y hueso",
+        "release_date": "2012-07-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-opmm-05",
+        "name": "Capítulo 5: El ataque de los genios",
+        "release_date": "2012-07-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPMM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "b8c9d0e1-f2a3-4567-8901-234567890abcdef",
+    "name": "Jujutsu Kaisen (Manga)",
+    "description": "La versión manga de Jujutsu Kaisen. Yuji Itadori es un estudiante de instituto con habilidades físicas excepcionales que se une al Club de Ocultismo. Un día, sus amigos abren un objeto maldito que atrae a las maldiciones. Para salvarlos, Yuji se traga el objeto y se convierte en el anfitrión de una poderosa maldición, Sukuna.",
+    "author": "Gege Akutami",
+    "type": "manga",
+    "status": "En Curso",
+    "publication_date": "2018-03-05T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/1E1E1E/FFFFFF?text=Jujutsu+Kaisen+Manga",
+    "category": "Shonen",
+    "genres": ["Acción", "Sobrenatural", "Fantasía Oscura"],
+    "chapters": [
+      {
+        "chapter_id": "chap-jjkm-01",
+        "name": "Capítulo 1: Ryomen Sukuna",
+        "release_date": "2018-03-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-jjkm-02",
+        "name": "Capítulo 2: Para lo que él es",
+        "release_date": "2018-03-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-jjkm-03",
+        "name": "Capítulo 3: Juventud",
+        "release_date": "2018-03-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-jjkm-04",
+        "name": "Capítulo 4: Un trago amargo",
+        "release_date": "2018-03-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-jjkm-05",
+        "name": "Capítulo 5: Intercambio de Ki",
+        "release_date": "2018-04-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJKM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "c9d0e1f2-a3b4-5678-9012-34567890abcdefg",
+    "name": "Dr. Stone",
+    "description": "En un futuro donde la humanidad se ha petrificado, el genio científico Senku Ishigami despierta miles de años después. Con su vasto conocimiento, se propone reconstruir la civilización desde cero utilizando el poder de la ciencia.",
+    "author": "Riichiro Inagaki (historia), Boichi (arte)",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2019-07-05T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/008080/FFFFFF?text=Dr+Stone",
+    "category": "Shonen",
+    "genres": ["Ciencia Ficción", "Aventura", "Comedia", "Post-apocalíptico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-ds-01",
+        "name": "Piedra y el amanecer",
+        "release_date": "2019-07-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-ds-02",
+        "name": "Rey de la ciencia",
+        "release_date": "2019-07-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-ds-03",
+        "name": "Armas de piedra",
+        "release_date": "2019-07-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-ds-04",
+        "name": "Antorcha de la ciencia",
+        "release_date": "2019-07-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-ds-05",
+        "name": "Los dos reinos",
+        "release_date": "2019-08-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DS+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "d0e1f2a3-b4c5-6789-0123-4567890abcdefgh",
+    "name": "Fairy Tail",
+    "description": "Lucy Heartfilia, una maga celestial, se une al infame gremio de magos Fairy Tail, donde forma un equipo con Natsu Dragneel, un mago de fuego, y sus compañeros mientras se embarcan en innumerables aventuras.",
+    "author": "Hiro Mashima",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2009-10-12T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/8A2BE2/FFFFFF?text=Fairy+Tail",
+    "category": "Shonen",
+    "genres": ["Aventura", "Fantasía", "Acción", "Comedia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-ft-01",
+        "name": "Fairy Tail",
+        "release_date": "2009-10-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-ft-02",
+        "name": "El Dragón y el Mono",
+        "release_date": "2009-10-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-ft-03",
+        "name": "La Mansión de Everlue",
+        "release_date": "2009-10-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-ft-04",
+        "name": "Querido Kaby",
+        "release_date": "2009-11-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-ft-05",
+        "name": "El Mago de Fuego y el Mago del Hielo",
+        "release_date": "2009-11-09T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "e1f2a3b4-c5d6-7890-1234-567890abcdefghi",
+    "name": "Black Clover",
+    "description": "En un mundo donde la magia lo es todo, Asta, un joven sin magia, sueña con convertirse en el Rey Mago, el líder más poderoso del Reino del Trébol. Con la ayuda de un grimorio inusual y sus amigos, se embarca en un viaje para alcanzar su meta.",
+    "author": "Yūki Tabata",
+    "type": "anime",
+    "status": "En Pausa",
+    "publication_date": "2017-10-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/000080/FFFFFF?text=Black+Clover",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía", "Comedia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-bc-01",
+        "name": "Asta y Yuno",
+        "release_date": "2017-10-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-bc-02",
+        "name": "El examen de entrada de los Caballeros Mágicos",
+        "release_date": "2017-10-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-bc-03",
+        "name": "El camino hacia el Rey Mago",
+        "release_date": "2017-10-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-bc-04",
+        "name": "Los Toros Negros",
+        "release_date": "2017-10-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-bc-05",
+        "name": "El Camino a la Realeza",
+        "release_date": "2017-10-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BC+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "f2a3b4c5-d6e7-8901-2345-67890abcdefghij",
+    "name": "My Dress-Up Darling",
+    "description": "Wakana Gojo es un estudiante de instituto que aspira a ser un artesano de muñecas Hina. Su vida da un giro inesperado cuando Marin Kitagawa, una popular y extrovertida compañera de clase, descubre su hobby y le pide ayuda para hacer sus propios trajes de cosplay.",
+    "author": "Shinichi Fukuda",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2022-01-08T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FFC0CB/000000?text=Dress-Up+Darling",
+    "category": "Romance",
+    "genres": ["Comedia", "Romance", "Recuentos de la vida", "Seinen"],
+    "chapters": [
+      {
+        "chapter_id": "chap-mdd-01",
+        "name": "Alguien que vive en el mundo opuesto al mío",
+        "release_date": "2022-01-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-mdd-02",
+        "name": "No está mal, ¿verdad?",
+        "release_date": "2022-01-15T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-mdd-03",
+        "name": "Gojo-kun es…",
+        "release_date": "2022-01-22T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-mdd-04",
+        "name": "Está bien si no es lo real",
+        "release_date": "2022-01-29T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-mdd-05",
+        "name": "Esas personas tienen algo para lo que se dedican",
+        "release_date": "2022-02-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MDD+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "g3h4i5j6-k7l8-9012-3456-7890abcdefghijk",
+    "name": "Rent-A-Girlfriend",
+    "description": "Kazuya Kinoshita, un estudiante universitario, es dejado por su novia y decide alquilar una 'novia' a través de una aplicación. Sin embargo, su vida se complica cuando descubre que la chica de alquiler es una compañera de su universidad.",
+    "author": "Reiji Miyajima",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2020-07-11T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/87CEEB/000000?text=Rent-A-Girlfriend",
+    "category": "Romance",
+    "genres": ["Comedia", "Romance", "Recuentos de la vida"],
+    "chapters": [
+      {
+        "chapter_id": "chap-rag-01",
+        "name": "Novia de alquiler y yo",
+        "release_date": "2020-07-11T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-rag-02",
+        "name": "Novia de alquiler y playa",
+        "release_date": "2020-07-18T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-rag-03",
+        "name": "Novia de alquiler y parque",
+        "release_date": "2020-07-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-rag-04",
+        "name": "Novia de alquiler y amigos",
+        "release_date": "2020-08-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-rag-05",
+        "name": "Novia de alquiler y novia real",
+        "release_date": "2020-08-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RAG+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "h4i5j6k7-l8m9-0123-4567-890abcdefghijk",
+    "name": "Horimiya",
+    "description": "Kyoko Hori es una chica de instituto popular y extrovertida, mientras que Izumi Miyamura es un chico tranquilo y otaku. Ambos tienen una vida secreta fuera de la escuela que descubren accidentalmente, lo que los lleva a formar un vínculo inesperado.",
+    "author": "Hero (historia), Daisuke Hagiwara (arte)",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2021-01-10T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF69B4/000000?text=Horimiya",
+    "category": "Romance",
+    "genres": ["Comedia", "Romance", "Recuentos de la vida", "Escolar"],
+    "chapters": [
+      {
+        "chapter_id": "chap-hrm-01",
+        "name": "Un pequeño encuentro",
+        "release_date": "2021-01-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-hrm-02",
+        "name": "Quiero ser de ayuda",
+        "release_date": "2021-01-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-hrm-03",
+        "name": "Por lo que es",
+        "release_date": "2021-01-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-hrm-04",
+        "name": "La persona que tengo que proteger",
+        "release_date": "2021-01-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-hrm-05",
+        "name": "Lo que puedo hacer",
+        "release_date": "2021-02-07T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=HRM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "i5j6k7l8-m9n0-1234-5678-90abcdefghijkl",
+    "name": "Mushoku Tensei (Manga)",
+    "description": "La versión manga de Mushoku Tensei. Un hombre sin esperanzas y sin trabajo muere y reencarna en un nuevo mundo de magia y espadas como el bebé Rudeus Greyrat. Decide aprovechar esta segunda oportunidad para vivir su vida al máximo, aprendiendo magia y forjando nuevas relaciones en este nuevo mundo.",
+    "author": "Rifujin na Magonote (historia), Yuka Fujikawa (arte)",
+    "type": "manga",
+    "status": "En Curso",
+    "publication_date": "2014-10-23T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/808000/FFFFFF?text=Mushoku+Tensei+Manga",
+    "category": "Isekai",
+    "genres": ["Fantasía", "Aventura", "Drama", "Recuentos de la vida"],
+    "chapters": [
+      {
+        "chapter_id": "chap-mtm-01",
+        "name": "Capítulo 1",
+        "release_date": "2014-10-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-mtm-02",
+        "name": "Capítulo 2: El Reencarnado",
+        "release_date": "2014-11-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-mtm-03",
+        "name": "Capítulo 3: Primeros pasos en la magia",
+        "release_date": "2014-12-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-mtm-04",
+        "name": "Capítulo 4: El hogar de los Greyrat",
+        "release_date": "2015-01-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-mtm-05",
+        "name": "Capítulo 5: El encuentro con Roxy",
+        "release_date": "2015-02-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "j6k7l8m9-n0o1-2345-6789-0abcdefghijklm",
+    "name": "The God of High School",
+    "description": "Jin Mori, un experto en Taekwondo, es invitado a participar en el 'Torneo de Dios del Bachillerato', un evento que reúne a luchadores de todo el mundo. La promesa es que el ganador puede tener cualquier deseo concedido.",
+    "author": "Yongje Park",
+    "type": "manhwa",
+    "status": "Finalizado",
+    "publication_date": "2011-04-08T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/808080/FFFFFF?text=The+God+of+High+School",
+    "category": "Webtoon",
+    "genres": ["Acción", "Artes Marciales", "Comedia", "Sobrenatural"],
+    "chapters": [
+      {
+        "chapter_id": "chap-goh-001",
+        "name": "Reunión",
+        "release_date": "2011-04-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-goh-002",
+        "name": "Fase preliminar",
+        "release_date": "2011-04-15T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-goh-003",
+        "name": "El torneo",
+        "release_date": "2011-04-22T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-goh-004",
+        "name": "Taejin Jin",
+        "release_date": "2011-04-29T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-goh-005",
+        "name": "La apuesta de Jin Mori",
+        "release_date": "2011-05-06T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=GoH+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "k7l8m9n0-o1p2-3456-7890-1234567890abcdefn",
+    "name": "Konosuba: God's Blessing on This Wonderful World!",
+    "description": "Kazuma Satou, un otaku que muere de una manera patética, es transportado a un mundo de fantasía con una diosa inútil, Aqua. Su aventura para derrotar al Rey Demonio se convierte en una serie de desventuras cómicas y caóticas.",
+    "author": "Natsume Akatsuki",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2016-01-13T00:00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/BA55D3/FFFFFF?text=Konosuba",
+    "category": "Isekai",
+    "genres": ["Aventura", "Comedia", "Fantasía", "Parodia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-knsb-01",
+        "name": "¡Una diosa inútil en este mundo!",
+        "release_date": "2016-01-13T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-knsb-02",
+        "name": "¡Explosión para este ojo loco!",
+        "release_date": "2016-01-20T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-knsb-03",
+        "name": "¡Una bendición para este mundo maravilloso!",
+        "release_date": "2016-01-27T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-knsb-04",
+        "name": "¡Magia para este mundo maravilloso!",
+        "release_date": "2016-02-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-knsb-05",
+        "name": "¡Un tesoro para este mundo maravilloso!",
+        "release_date": "2016-02-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=KNSB+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "l8m9n0o1-p2q3-4567-8901-234567890abcdefop",
+    "name": "Mushoku Tensei: Jobless Reincarnation Season 2",
+    "description": "Continuación de las aventuras de Rudeus Greyrat. Después de los eventos del incidente de la teletransportación, Rudeus se embarca en un viaje para encontrar a su madre y reunirse con su familia, enfrentando nuevos desafíos y conociendo nuevos aliados en el camino.",
+    "author": "Rifujin na Magonote",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2023-07-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/808000/FFFFFF?text=Mushoku+Tensei+S2",
+    "category": "Isekai",
+    "genres": ["Fantasía", "Aventura", "Drama", "Recuentos de la vida"],
+    "chapters": [
+      {
+        "chapter_id": "chap-mts2-01",
+        "name": "El peregrino sin trabajo",
+        "release_date": "2023-07-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-mts2-02",
+        "name": "La ciudad de los novatos",
+        "release_date": "2023-07-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-mts2-03",
+        "name": "El viaje de la desesperación",
+        "release_date": "2023-07-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-mts2-04",
+        "name": "Los aventureros",
+        "release_date": "2023-07-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-mts2-05",
+        "name": "La fortaleza de la esperanza",
+        "release_date": "2023-07-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MTS2+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "m9n0o1p2-q3r4-5678-9012-34567890abcdefq",
+    "name": "Kaiju No. 8",
+    "description": "Kafka Hibino, un hombre que sueña con unirse a las Fuerzas de Defensa para luchar contra los Kaiju, ve su vida cambiar cuando se convierte en un Kaiju humanoide, obteniendo un inmenso poder mientras intenta mantener su identidad en secreto.",
+    "author": "Naoya Matsumoto",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2024-04-13T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/800000/FFFFFF?text=Kaiju+No.+8",
+    "category": "Shonen",
+    "genres": ["Acción", "Ciencia Ficción", "Monstruos", "Militar"],
+    "chapters": [
+      {
+        "chapter_id": "chap-k8-01",
+        "name": "El hombre que se convirtió en Kaiju",
+        "release_date": "2024-04-13T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-k8-02",
+        "name": "La identidad de Kaiju No. 8",
+        "release_date": "2024-04-20T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-k8-03",
+        "name": "Reclutamiento de las Fuerzas de Defensa",
+        "release_date": "2024-04-27T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-k8-04",
+        "name": "La prueba de fuerza",
+        "release_date": "2024-05-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-k8-05",
+        "name": "Un nuevo tipo de monstruo",
+        "release_date": "2024-05-11T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=K8+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "o1p2q3r4-s5t6-7890-1234-567890abcdefqrs",
+    "name": "My Hero Academia (Manga)",
+    "description": "La versión manga de My Hero Academia. En un mundo donde la mayoría de la población nace con superpoderes, Izuku Midoriya, un chico sin poderes, sueña con convertirse en un héroe. Su vida cambia cuando el mayor héroe, All Might, le transfiere su propio poder.",
+    "author": "Kohei Horikoshi",
+    "type": "manga",
+    "status": "En Curso",
+    "publication_date": "2014-07-07T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/000080/FFFFFF?text=My+Hero+Academia+Manga",
+    "category": "Shonen",
+    "genres": ["Acción", "Superpoderes", "Comedia", "Escolar"],
+    "chapters": [
+      {
+        "chapter_id": "chap-mham-01",
+        "name": "Capítulo 1: Izuku Midoriya: Origen",
+        "release_date": "2014-07-07T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-mham-02",
+        "name": "Capítulo 2: Lo que puedo hacer ahora",
+        "release_date": "2014-07-14T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-mham-03",
+        "name": "Capítulo 3: Musculoso",
+        "release_date": "2014-07-21T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-mham-04",
+        "name": "Capítulo 4: La línea de salida del destino",
+        "release_date": "2014-07-28T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-mham-05",
+        "name": "Capítulo 5: El examen de admisión",
+        "release_date": "2014-08-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "p2q3r4s5-t6u7-8901-2345-67890abcdefqrst",
+    "name": "Jujutsu Kaisen 0 (Película)",
+    "description": "Una precuela de Jujutsu Kaisen. Yuta Okkotsu, un estudiante de instituto maldecido por el espíritu de su amiga de la infancia Rika, es llevado a la Escuela de Jujutsu por Gojo Satoru para aprender a controlar su poder y ayudar a otros.",
+    "author": "Gege Akutami",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2021-12-24T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/1E1E1E/FFFFFF?text=Jujutsu+Kaisen+0",
+    "category": "Película",
+    "genres": ["Acción", "Sobrenatural", "Fantasía Oscura"],
+    "chapters": [
+      {
+        "chapter_id": "chap-jjk0-01",
+        "name": "Jujutsu Kaisen 0: La Película",
+        "release_date": "2021-12-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK0+Pelicula+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK0+Pelicula+Pag+2"
+        ],
+        "chapter_number": 1
+      }
+    ]
+  },
+  {
+    "title_id": "q3r4s5t6-u7v8-9012-3456-7890abcdefqrstu",
+    "name": "Spy x Family Season 2",
+    "description": "La segunda temporada de Spy x Family. Twilight, Anya y Yor continúan sus aventuras como una familia de fachada, lidiando con misiones de espionaje, desafíos escolares y las peculiaridades de sus vidas dobles, mientras el destino del mundo pende de un hilo.",
+    "author": "Tatsuya Endo",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2023-10-07T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/32CD32/FFFFFF?text=Spy+x+Family+S2",
+    "category": "Comedia",
+    "genres": ["Acción", "Comedia", "Recuentos de la vida", "Espías"],
+    "chapters": [
+      {
+        "chapter_id": "chap-sxf2-01",
+        "name": "Operación Strix: Segunda Parte",
+        "release_date": "2023-10-07T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-sxf2-02",
+        "name": "El plan de Yor",
+        "release_date": "2023-10-14T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-sxf2-03",
+        "name": "Una misión de compras",
+        "release_date": "2023-10-21T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-sxf2-04",
+        "name": "El examen de Anya",
+        "release_date": "2023-10-28T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-sxf2-05",
+        "name": "La verdad de Yor",
+        "release_date": "2023-11-04T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXF2+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "u7v8w9x0-y1z2-3456-7890-1234567890abcvw",
+    "name": "Demon Slayer: Kimetsu no Yaiba - Hashira Training Arc (Manga)",
+    "description": "La versión manga del arco de entrenamiento de los Pilares. Tanjiro y sus compañeros se someten a un entrenamiento intensivo con los Pilares, los espadachines más fuertes del Cuerpo de Cazadores de Demonios, para prepararse para la batalla final contra Muzan Kibutsuji.",
+    "author": "Koyoharu Gotouge",
+    "type": "manga",
+    "status": "Finalizado",
+    "publication_date": "2020-05-18T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/8B0000/FFFFFF?text=Demon+Slayer+Hashira+Manga",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía Oscura", "Aventura"],
+    "chapters": [
+      {
+        "chapter_id": "chap-dshm-01",
+        "name": "Capítulo 128: El entrenamiento de los Pilares",
+        "release_date": "2020-05-18T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+128+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+128+Pag+2"
+        ],
+        "chapter_number": 128
+      },
+      {
+        "chapter_id": "chap-dshm-02",
+        "name": "Capítulo 129: El pilar del Agua, Giyu Tomioka",
+        "release_date": "2020-05-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+129+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+129+Pag+2"
+        ],
+        "chapter_number": 129
+      },
+      {
+        "chapter_id": "chap-dshm-03",
+        "name": "Capítulo 130: El pilar de la Roca, Gyomei Himejima",
+        "release_date": "2020-06-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+130+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+130+Pag+2"
+        ],
+        "chapter_number": 130
+      },
+      {
+        "chapter_id": "chap-dshm-04",
+        "name": "Capítulo 131: El pilar del Viento, Sanemi Shinazugawa",
+        "release_date": "2020-06-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+131+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+131+Pag+2"
+        ],
+        "chapter_number": 131
+      },
+      {
+        "chapter_id": "chap-dshm-05",
+        "name": "Capítulo 132: Todos juntos",
+        "release_date": "2020-06-15T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+132+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSHM+Cap+132+Pag+2"
+        ],
+        "chapter_number": 132
+      }
+    ]
+  },
+  {
+    "title_id": "y1z2a3b4-c5d6-7890-1234-567890abcdefx",
+    "name": "Jigokuraku (Hell's Paradise)",
+    "description": "Gabimaru el Vacío, un ninja asesino condenado a muerte, recibe la oportunidad de ser indultado si encuentra el elixir de la inmortalidad en una isla misteriosa. Allí se encuentra con otros criminales mortales y seres sobrenaturales.",
+    "author": "Yuji Kaku",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2023-04-01T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/4B0082/FFFFFF?text=Jigokuraku",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía Oscura", "Sobrenatural", "Histórico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-jgrk-01",
+        "name": "El asesino y el verdugo",
+        "release_date": "2023-04-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-jgrk-02",
+        "name": "La isla",
+        "release_date": "2023-04-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-jgrk-03",
+        "name": "Los criminales",
+        "release_date": "2023-04-15T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-jgrk-04",
+        "name": "El paraíso de la muerte",
+        "release_date": "2023-04-22T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-jgrk-05",
+        "name": "Los Tensen",
+        "release_date": "2023-04-29T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JGRK+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "a3b4c5d6-e7f8-9012-3456-7890abcdefy",
+    "name": "Vinland Saga Season 2",
+    "description": "La segunda temporada de Vinland Saga. Después de la muerte de Askeladd, Thorfinn se encuentra en un nuevo capítulo de su vida, aprendiendo sobre la agricultura y el verdadero significado de la libertad, lejos de la guerra y la venganza.",
+    "author": "Makoto Yukimura",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2023-01-10T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/36454F/FFFFFF?text=Vinland+Saga+S2",
+    "category": "Seinen",
+    "genres": ["Aventura", "Histórico", "Drama", "Acción"],
+    "chapters": [
+      {
+        "chapter_id": "chap-vls2-01",
+        "name": "Esclavitud",
+        "release_date": "2023-01-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-vls2-02",
+        "name": "Un nuevo mundo",
+        "release_date": "2023-01-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-vls2-03",
+        "name": "Los campos de Keln",
+        "release_date": "2023-01-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-vls2-04",
+        "name": "El camino a Vinland",
+        "release_date": "2023-01-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-vls2-05",
+        "name": "Un hogar",
+        "release_date": "2023-02-07T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=VLS2+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "c5d6e7f8-a9b0-1234-5678-90abcdefyz",
+    "name": "Oshi no Ko",
+    "description": "Gorou Amemiya, un ginecólogo rural, muere y reencarna como Aqua Hoshino, el hijo de su idol favorita, Ai Hoshino. Junto a su hermana gemela Ruby, quien también es una reencarnada, navegan por el mundo del entretenimiento japonés, descubriendo verdades oscuras y persiguiendo venganza.",
+    "author": "Aka Akasaka (historia), Mengo Yokoyari (arte)",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2023-04-12T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF007F/000000?text=Oshi+no+Ko",
+    "category": "Seinen",
+    "genres": ["Drama", "Misterio", "Recuentos de la vida", "Música"],
+    "chapters": [
+      {
+        "chapter_id": "chap-onk-01",
+        "name": "Madre e hijo",
+        "release_date": "2023-04-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-onk-02",
+        "name": "El primer concierto",
+        "release_date": "2023-04-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-onk-03",
+        "name": "El secreto de los Hoshino",
+        "release_date": "2023-04-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-onk-04",
+        "name": "Actuación",
+        "release_date": "2023-05-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-onk-05",
+        "name": "El pasado",
+        "release_date": "2023-05-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=ONK+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "e7f8a9b0-c1d2-3456-7890-1234567890abcza",
+    "name": "Fairy Tail: 100 Years Quest",
+    "description": "Una secuela directa de Fairy Tail, sigue a Natsu y su equipo mientras se embarcan en la 'Misión de 100 Años', una tarea que nadie ha completado en más de un siglo.",
+    "author": "Hiro Mashima (historia original), Atsuo Ueda (arte)",
+    "type": "manga",
+    "status": "En Curso",
+    "publication_date": "2018-07-25T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/8A2BE2/FFFFFF?text=Fairy+Tail+100YQ",
+    "category": "Shonen",
+    "genres": ["Aventura", "Fantasía", "Acción", "Comedia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-ft100-01",
+        "name": "La primera misión de 100 años",
+        "release_date": "2018-07-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-ft100-02",
+        "name": "La ciudad de los espíritus",
+        "release_date": "2018-08-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-ft100-03",
+        "name": "Los Dragones Dios",
+        "release_date": "2018-08-22T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-ft100-04",
+        "name": "La Ciudad del Agua",
+        "release_date": "2018-09-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-ft100-05",
+        "name": "Los miembros de Dragon Eater",
+        "release_date": "2018-09-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=FT100Q+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "a9b0c1d2-e3f4-5678-9012-34567890abcdefb",
+    "name": "Dr. Stone (Manga)",
+    "description": "La versión manga de Dr. Stone. En un futuro donde la humanidad se ha petrificado, el genio científico Senku Ishigami despierta miles de años después. Con su vasto conocimiento, se propone reconstruir la civilización desde cero utilizando el poder de la ciencia.",
+    "author": "Riichiro Inagaki (historia), Boichi (arte)",
+    "type": "manga",
+    "status": "Finalizado",
+    "publication_date": "2017-03-06T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/008080/FFFFFF?text=Dr+Stone+Manga",
+    "category": "Shonen",
+    "genres": ["Ciencia Ficción", "Aventura", "Comedia", "Post-apocalíptico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-dsm-01",
+        "name": "Capítulo 1: Stone World",
+        "release_date": "2017-03-06T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-dsm-02",
+        "name": "Capítulo 2: El mundo de piedra",
+        "release_date": "2017-03-13T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-dsm-03",
+        "name": "Capítulo 3: La ciencia del reino",
+        "release_date": "2017-03-20T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-dsm-04",
+        "name": "Capítulo 4: El arma definitiva",
+        "release_date": "2017-03-27T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-dsm-05",
+        "name": "Capítulo 5: El plan de Senku",
+        "release_date": "2017-04-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=DSM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "c1d2e3f4-a5b6-7890-1234-567890abcdefc",
+    "name": "Boruto: Naruto Next Generations",
+    "description": "La continuación de la historia de Naruto, centrada en su hijo, Boruto Uzumaki, y su viaje para convertirse en un ninja mientras se enfrenta a nuevas amenazas y desafíos en un mundo más moderno.",
+    "author": "Ukyo Kodachi (historia), Mikio Ikemoto (arte)",
+    "type": "anime",
+    "status": "En Pausa",
+    "publication_date": "2017-04-05T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/0000FF/FF8C00?text=Boruto",
+    "category": "Shonen",
+    "genres": ["Acción", "Aventura", "Artes Marciales", "Fantasía"],
+    "chapters": [
+      {
+        "chapter_id": "chap-brt-01",
+        "name": "Boruto Uzumaki",
+        "release_date": "2017-04-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-brt-02",
+        "name": "El ojo de Boruto",
+        "release_date": "2017-04-12T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-brt-03",
+        "name": "Los nuevos Sannin",
+        "release_date": "2017-04-19T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-brt-04",
+        "name": "El examen Chunin",
+        "release_date": "2017-04-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-brt-05",
+        "name": "Momoshiki y Kinshiki",
+        "release_date": "2017-05-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=BRT+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "d2e3f4a5-b6c7-8901-2345-67890abcdefd",
+    "name": "Chainsaw Man (Manga)",
+    "description": "La versión manga de Chainsaw Man. Denji, un joven empobrecido, es traicionado y asesinado. Al hacer un pacto con su demonio mascota Pochita, resucita como Chainsaw Man, un híbrido humano-demonio con sierras eléctricas en su cuerpo.",
+    "author": "Tatsuki Fujimoto",
+    "type": "manga",
+    "status": "En Curso",
+    "publication_date": "2018-12-03T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF6347/FFFFFF?text=Chainsaw+Man+Manga",
+    "category": "Shonen",
+    "genres": ["Acción", "Fantasía Oscura", "Comedia", "Horror"],
+    "chapters": [
+      {
+        "chapter_id": "chap-csmm-01",
+        "name": "Capítulo 1: Perro y motosierra",
+        "release_date": "2018-12-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-csmm-02",
+        "name": "Capítulo 2: El lugar de la resurrección",
+        "release_date": "2018-12-10T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-csmm-03",
+        "name": "Capítulo 3: La misión en Tokio",
+        "release_date": "2018-12-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-csmm-04",
+        "name": "Capítulo 4: El hotel del demonio infinito",
+        "release_date": "2018-12-24T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-csmm-05",
+        "name": "Capítulo 5: El demonio del infinito y los ojos",
+        "release_date": "2018-12-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=CSMM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "e3f4a5b6-c7d8-9012-3456-7890abcdefg",
+    "name": "Record of Ragnarok",
+    "description": "Una vez cada 1000 años, el Consejo de los Dioses decide si la humanidad debe ser exterminada. Para evitar su fin, los dioses ofrecen una última oportunidad: una batalla de 13 rondas entre los campeones más fuertes de la humanidad y los dioses.",
+    "author": "Shinya Umemura, Takumi Fukui (historia), Ajichika (arte)",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2021-06-17T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/A52A2A/FFFFFF?text=Record+of+Ragnarok",
+    "category": "Seinen",
+    "genres": ["Acción", "Fantasía", "Mitología", "Combate"],
+    "chapters": [
+      {
+        "chapter_id": "chap-ror-01",
+        "name": "Ragnarok",
+        "release_date": "2021-06-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-ror-02",
+        "name": "Adán vs. Zeus",
+        "release_date": "2021-06-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-ror-03",
+        "name": "Sasaki Kojiro vs. Poseidón",
+        "release_date": "2021-06-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-ror-04",
+        "name": "Jack el Destripador vs. Heracles",
+        "release_date": "2021-06-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-ror-05",
+        "name": "Raiden Tameemon vs. Shiva",
+        "release_date": "2021-06-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RoR+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "f4a5b6c7-d8e9-0123-4567-890abcdefgh",
+    "name": "Solo Leveling (Anime)",
+    "description": "La adaptación al anime del popular manhwa coreano. Sung Jinwoo, el 'cazador más débil de la humanidad', es abandonado para morir en una mazmorra de alto nivel. Al despertar, descubre que ha obtenido un sistema misterioso que le permite subir de nivel y volverse infinitamente más fuerte, embarcándose en un viaje para convertirse en el más poderoso de todos.",
+    "author": "Chugong (historia original)",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2024-01-06T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/8B0000/FFFFFF?text=Solo+Leveling+Anime",
+    "category": "Fantasía",
+    "genres": ["Acción", "Fantasía", "Aventura", "Videojuegos"],
+    "chapters": [
+      {
+        "chapter_id": "chap-sla-01",
+        "name": "Soy el más débil",
+        "release_date": "2024-01-06T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-sla-02",
+        "name": "Se acabó",
+        "release_date": "2024-01-13T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-sla-03",
+        "name": "La clave de todo",
+        "release_date": "2024-01-20T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-sla-04",
+        "name": "Una misión de dificultad extrema",
+        "release_date": "2024-01-27T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-sla-05",
+        "name": "El entrenamiento diario",
+        "release_date": "2024-02-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLA+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "f8a9b0c1-d2e3-4567-8901-234567890abcde",
+    "name": "One Piece Film: Red",
+    "description": "Uta, la hija de Shanks y una diva mundialmente famosa, planea usar sus poderes para crear una nueva era. Luffy y los Sombrero de Paja se unen a una batalla musical épica para detenerla.",
+    "author": "Eiichiro Oda",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2022-08-06T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/FF0000/FFFFFF?text=One+Piece+Film+Red",
+    "category": "Película",
+    "genres": ["Aventura", "Fantasía", "Música", "Acción"],
+    "chapters": [
+      {
+        "chapter_id": "chap-opfr-01",
+        "name": "One Piece Film: Red - La Película",
+        "release_date": "2022-08-06T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=OPFR+Pelicula+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=OPFR+Pelicula+Pag+2"
+        ],
+        "chapter_number": 1
+      }
+    ]
+  },
+  {
+    "title_id": "g9h0i1j2-k3l4-5678-9012-34567890abcdefg",
+    "name": "Jujutsu Kaisen Season 2",
+    "description": "La segunda temporada de Jujutsu Kaisen, que cubre los arcos del Inventario Oculto/Muerte Prematura y el Incidente de Shibuya. Explora el pasado de Gojo Satoru y la devastadora batalla que se desata en Shibuya.",
+    "author": "Gege Akutami",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2023-07-06T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/1E1E1E/FFFFFF?text=Jujutsu+Kaisen+S2",
+    "category": "Shonen",
+    "genres": ["Acción", "Sobrenatural", "Fantasía Oscura"],
+    "chapters": [
+      {
+        "chapter_id": "chap-jjks2-01",
+        "name": "Inventario Oculto",
+        "release_date": "2023-07-06T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-jjks2-02",
+        "name": "Muerte prematura",
+        "release_date": "2023-07-13T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-jjks2-03",
+        "name": "Incidente de Shibuya - Apertura",
+        "release_date": "2023-08-31T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-jjks2-04",
+        "name": "Incidente de Shibuya - Puerta",
+        "release_date": "2023-09-07T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-jjks2-05",
+        "name": "Incidente de Shibuya - Desastre",
+        "release_date": "2023-09-14T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=JJK2+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "h0i1j2k3-l4m5-6789-0123-4567890abcdefgh",
+    "name": "Re:Zero - Starting Life in Another World Season 2",
+    "description": "La segunda temporada de Re:Zero. Subaru continúa enfrentándose a los desafíos de la 'Retorno por Muerte' mientras intenta proteger a Emilia y a sus amigos, desentrañando los misterios del Santuario y el pasado de la Bruja de la Envidia.",
+    "author": "Tappei Nagatsuki",
+    "type": "anime",
+    "status": "Finalizado",
+    "publication_date": "2020-07-08T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/4B0082/FFFFFF?text=Re:Zero+S2",
+    "category": "Isekai",
+    "genres": ["Fantasía", "Drama", "Thriller", "Psicológico"],
+    "chapters": [
+      {
+        "chapter_id": "chap-rzs2-01",
+        "name": "El día en que volví a casa",
+        "release_date": "2020-07-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-rzs2-02",
+        "name": "La tumba de las brujas",
+        "release_date": "2020-07-15T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-rzs2-03",
+        "name": "Echidna",
+        "release_date": "2020-07-22T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-rzs2-04",
+        "name": "El juicio",
+        "release_date": "2020-07-29T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-rzs2-05",
+        "name": "La bruja de la gula",
+        "release_date": "2020-08-05T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=RZS2+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "i1j2k3l4-m5n6-7890-1234-567890abcdefghi",
+    "name": "That Time I Got Reincarnated as a Slime",
+    "description": "Satoru Mikami, un trabajador corporativo de 37 años, es apuñalado y muere. Reencarna en un mundo de fantasía como un slime, obteniendo habilidades únicas. Con sus nuevos poderes, se embarca en una aventura para construir una nación donde todas las razas puedan coexistir.",
+    "author": "Fuse",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2018-10-02T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/87CEEB/FFFFFF?text=Slime+Isekai",
+    "category": "Isekai",
+    "genres": ["Fantasía", "Aventura", "Comedia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-slmiso-01",
+        "name": "La reencarnación de Rimuru",
+        "release_date": "2018-10-02T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-slmiso-02",
+        "name": "El encuentro con el Dragón",
+        "release_date": "2018-10-09T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-slmiso-03",
+        "name": "La ciudad de los goblins",
+        "release_date": "2018-10-16T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-slmiso-04",
+        "name": "Los Hobgoblins",
+        "release_date": "2018-10-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-slmiso-05",
+        "name": "El ataque de los Ogros",
+        "release_date": "2018-10-30T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=Slime+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "k3l4m5n6-o7p8-9012-3456-7890abcdefghij",
+    "name": "Spy x Family (Manga)",
+    "description": "La versión manga de Spy x Family. Twilight, un espía maestro, debe construir una 'familia' falsa para su última misión. Sin saberlo, su 'hija' Anya es una telepata y su 'esposa' Yor es una asesina. Juntos, deben mantener su farsa mientras navegan por sus dobles vidas.",
+    "author": "Tatsuya Endo",
+    "type": "manga",
+    "status": "En Curso",
+    "publication_date": "2019-03-25T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/32CD32/FFFFFF?text=Spy+x+Family+Manga",
+    "category": "Comedia",
+    "genres": ["Acción", "Comedia", "Recuentos de la vida", "Espías"],
+    "chapters": [
+      {
+        "chapter_id": "chap-sxfm-01",
+        "name": "Capítulo 1: Operación Strix",
+        "release_date": "2019-03-25T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-sxfm-02",
+        "name": "Capítulo 2: Asegurar una esposa",
+        "release_date": "2019-04-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-sxfm-03",
+        "name": "Capítulo 3: Empezando la Operación Strix",
+        "release_date": "2019-04-22T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-sxfm-04",
+        "name": "Capítulo 4: El prestigioso instituto Eden",
+        "release_date": "2019-05-06T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-sxfm-05",
+        "name": "Capítulo 5: Unión familiar",
+        "release_date": "2019-05-20T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SXFM+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "l4m5n6o7-p8q9-0123-4567-890abcdefghijk",
+    "name": "My Hero Academia: Vigilantes",
+    "description": "Una precuela de My Hero Academia, sigue a Koichi Haimawari, un joven que usa su Quirk para ayudar a la gente de forma no oficial, convirtiéndose en el 'Caped Crusader' de su vecindario.",
+    "author": "Hideyuki Furuhashi (historia), Betten Court (arte)",
+    "type": "manga",
+    "status": "Finalizado",
+    "publication_date": "2016-08-20T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/000080/FFFFFF?text=MHA+Vigilantes",
+    "category": "Shonen",
+    "genres": ["Acción", "Superpoderes", "Comedia", "Spin-off"],
+    "chapters": [
+      {
+        "chapter_id": "chap-mhav-01",
+        "name": "Koichi Haimawari",
+        "release_date": "2016-08-20T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-mhav-02",
+        "name": "El vigilante",
+        "release_date": "2016-09-03T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-mhav-03",
+        "name": "Pop☆Step",
+        "release_date": "2016-09-17T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-mhav-04",
+        "name": "El plan de All For One",
+        "release_date": "2016-10-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-mhav-05",
+        "name": "Stain, el Asesino de Héroes",
+        "release_date": "2016-10-15T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=MHAV+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "p8q90123-4567-8901-2345-67890abcdefghij",
+    "name": "That Time I Got Reincarnated as a Slime (Manga)",
+    "description": "La versión manga de That Time I Got Reincarnated as a Slime. Satoru Mikami, un trabajador corporativo de 37 años, es apuñalado y muere. Reencarna en un mundo de fantasía como un slime, obteniendo habilidades únicas. Con sus nuevos poderes, se embarca en una aventura para construir una nación donde todas las razas puedan coexistir.",
+    "author": "Fuse (historia), Taiki Kawakami (arte)",
+    "type": "manga",
+    "status": "En Curso",
+    "publication_date": "2015-03-26T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/87CEEB/FFFFFF?text=Slime+Isekai+Manga",
+    "category": "Isekai",
+    "genres": ["Fantasía", "Aventura", "Comedia"],
+    "chapters": [
+      {
+        "chapter_id": "chap-slmism-01",
+        "name": "Capítulo 1: La reencarnación del slime",
+        "release_date": "2015-03-26T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-slmism-02",
+        "name": "Capítulo 2: El gran dragón Veldora",
+        "release_date": "2015-04-09T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-slmism-03",
+        "name": "Capítulo 3: La aldea de los goblins",
+        "release_date": "2015-04-23T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
+      },
+      {
+        "chapter_id": "chap-slmism-04",
+        "name": "Capítulo 4: Los Hobgoblins",
+        "release_date": "2015-05-07T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+4+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+4+Pag+2"
+        ],
+        "chapter_number": 4
+      },
+      {
+        "chapter_id": "chap-slmism-05",
+        "name": "Capítulo 5: El Rey Orco",
+        "release_date": "2015-05-21T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+5+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SLMIS+Cap+5+Pag+2"
+        ],
+        "chapter_number": 5
+      }
+    ]
+  },
+  {
+    "title_id": "q9012345-6789-0123-4567-890abcdefghijk",
+    "name": "Tower of God (Anime)",
+    "description": "La adaptación al anime de Tower of God. Un joven llamado Baam entra en la misteriosa Torre de Dios para seguir a su amiga Rachel, quien desea ver las estrellas. Dentro de la Torre, Baam se encuentra con desafíos mortales y extraños compañeros.",
+    "author": "SIU",
+    "type": "anime",
+    "status": "En Emisión",
+    "publication_date": "2020-04-01T00:00:00.000Z",
+    "image_url": "https://placehold.co/400x600/4682B4/FFFFFF?text=Tower+of+God+Anime",
+    "category": "Webtoon",
+    "genres": ["Fantasía", "Acción", "Aventura", "Misterio"],
+    "chapters": [
+      {
+        "chapter_id": "chap-toga-01",
+        "name": "La bola",
+        "release_date": "2020-04-01T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TogA+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TogA+Cap+1+Pag+2"
+        ],
+        "chapter_number": 1
+      },
+      {
+        "chapter_id": "chap-toga-02",
+        "name": "Las tres pruebas",
+        "release_date": "2020-04-08T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TogA+Cap+2+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TogA+Cap+2+Pag+2"
+        ],
+        "chapter_number": 2
+      },
+      {
+        "chapter_id": "chap-toga-03",
+        "name": "El suelo del test",
+        "release_date": "2020-04-15T00:00:00.000Z",
+        "pages": [
+          "https://placehold.co/800x1200/cccccc/333333?text=TogA+Cap+3+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=TogA+Cap+3+Pag+2"
+        ],
+        "chapter_number": 3
       }
     ]
   }

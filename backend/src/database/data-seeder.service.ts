@@ -25,7 +25,7 @@ export class DataSeederService implements OnApplicationBootstrap {
   private readonly SEED_FLAG_KEY = 'initial_data_seeded';
   private readonly JSON_FILE_PATH = path.join(
     process.cwd(),
-    'initial_comic_data.json',
+    'initial_comic_data.json', // Asegúrate de que este sea el nombre correcto del archivo JSON
   );
   private readonly DEFAULT_ROLES = [
     { name: 'Registrado' },
@@ -42,6 +42,21 @@ export class DataSeederService implements OnApplicationBootstrap {
     private readonly titleGenreService: TitleGenreService,
     private readonly rolesRepository: RolesRepository,
   ) {}
+
+  // Helper function to safely parse dates
+  private parseDateSafely(dateString: string | null | undefined): Date | null {
+    if (!dateString) {
+      return null;
+    }
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      this.logger.warn(
+        `Fecha inválida detectada: "${dateString}". Se usará null.`,
+      );
+      return null;
+    }
+    return date;
+  }
 
   async onApplicationBootstrap() {
     await this.seedDefaultRoles();
@@ -77,6 +92,9 @@ export class DataSeederService implements OnApplicationBootstrap {
     const seededFlag = await this.settingRepository.findByKey(
       this.SEED_FLAG_KEY,
     );
+    // Elimina esta línea si quieres que el seeder siempre procese el archivo
+    // Pero ten en cuenta que intentará insertar los datos ya existentes
+    // y solo los saltará si las comprobaciones findByName/findByTitleIdAndChapterNumber los encuentran.
     if (seededFlag && seededFlag.value === 'true') {
       this.logger.log('Los datos iniciales ya han sido sembrados. Omitiendo.');
       return;
@@ -125,9 +143,9 @@ export class DataSeederService implements OnApplicationBootstrap {
           titleEntity = await this.titlesService['titleRepository'].save(
             this.titlesService['titleRepository'].create({
               ...createTitleDto,
-              publication_date: createTitleDto.publication_date
-                ? new Date(createTitleDto.publication_date)
-                : null,
+              publication_date: this.parseDateSafely(
+                createTitleDto.publication_date,
+              ),
             }),
           );
           this.logger.log(`Título creado: ${titleEntity.name}`);
@@ -137,7 +155,7 @@ export class DataSeederService implements OnApplicationBootstrap {
 
         for (const chapterData of titleData.chapters) {
           this.logger.debug(
-            `  Procesando capítulo: ${chapterData.name} (${chapterData.chapter_number})`,
+            `  Procesando capítulo: ${chapterData.name} (${chapterData.chapter_number})`,
           );
 
           let chapterEntity = await this.chaptersService[
@@ -160,20 +178,20 @@ export class DataSeederService implements OnApplicationBootstrap {
             ].save(
               this.chaptersService['chapterRepository'].create({
                 ...createChapterDto,
-                release_date: createChapterDto.release_date
-                  ? new Date(createChapterDto.release_date)
-                  : null,
+                release_date: this.parseDateSafely(
+                  createChapterDto.release_date,
+                ),
                 pages: JSON.stringify(createChapterDto.pages), // Guardar como string JSON
               }),
             );
-            this.logger.log(`  Capítulo creado: ${chapterEntity.name}`);
+            this.logger.log(`  Capítulo creado: ${chapterEntity.name}`);
           } else {
-            this.logger.debug(`  Capítulo ya existe: ${chapterEntity.name}`);
+            this.logger.debug(`  Capítulo ya existe: ${chapterEntity.name}`);
           }
         }
 
         for (const genreName of titleData.genres || []) {
-          this.logger.debug(`    Procesando género: ${genreName}`);
+          this.logger.debug(`    Procesando género: ${genreName}`);
           let genreEntity =
             await this.genresService['genreRepository'].findByName(genreName);
           if (!genreEntity) {
@@ -181,9 +199,9 @@ export class DataSeederService implements OnApplicationBootstrap {
             genreEntity = await this.genresService['genreRepository'].save(
               this.genresService['genreRepository'].create(createGenreDto),
             );
-            this.logger.log(`    Género creado: ${genreEntity.name}`);
+            this.logger.log(`    Género creado: ${genreEntity.name}`);
           } else {
-            this.logger.debug(`    Género ya existe: ${genreEntity.name}`);
+            this.logger.debug(`    Género ya existe: ${genreEntity.name}`);
           }
 
           const existingTitleGenre = await this.titleGenreService[
@@ -201,17 +219,17 @@ export class DataSeederService implements OnApplicationBootstrap {
               ),
             );
             this.logger.log(
-              `    Asociación Título-Género creada: ${titleEntity.name} - ${genreEntity.name}`,
+              `    Asociación Título-Género creada: ${titleEntity.name} - ${genreEntity.name}`,
             );
           } else {
             this.logger.debug(
-              `    Asociación Título-Género ya existe: ${titleEntity.name} - ${genreEntity.name}`,
+              `    Asociación Título-Género ya existe: ${titleEntity.name} - ${genreEntity.name}`,
             );
           }
         }
       }
 
-      await queryRunner.commitTransaction(); // Esto libera el queryRunner
+      await queryRunner.commitTransaction();
       await this.settingRepository.save(
         this.settingRepository.create({
           key: this.SEED_FLAG_KEY,
@@ -220,14 +238,13 @@ export class DataSeederService implements OnApplicationBootstrap {
       );
       this.logger.log('Proceso de sembrado de datos completado exitosamente.');
     } catch (error) {
-      await queryRunner.rollbackTransaction(); // Esto también libera el queryRunner
+      await queryRunner.rollbackTransaction();
       this.logger.error(
         `Error durante el proceso de sembrado de datos: ${error.message}`,
       );
       throw new InternalServerErrorException('Failed to seed initial data.');
     } finally {
-      // Remover la llamada a queryRunner.release() de aquí, ya que commit/rollback la liberan.
-      // await queryRunner.release();
+      await queryRunner.release(); // Asegura que el queryRunner siempre se libera
     }
   }
 }
