@@ -76,7 +76,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 w-full bg-[#20444c] text-[#8db5ac] px-6 py-4 shadow-md z-50">
       <div className="flex items-center justify-between">
         <Link href="/">
-          <div className="text-lg font-semibold hover:text-gray-300 transition-colors">
+          <div className="text-lg font-semibold hover:text-[#ba681c] transition-colors">
             TuComicViewer
           </div>
         </Link>
@@ -92,10 +92,10 @@ export default function Navbar() {
         </div>
 
         <div className="hidden sm:flex items-center gap-6">
-          <a href="/Comics" className="hover:text-gray-300 transition-colors">
+          <a href="/Comics" className="hover:text-[#ba681c] transition-colors">
             Comic
           </a>
-          <a href="/Manga" className="hover:text-gray-300 transition-colors">
+          <a href="/Manga" className="hover:text-[#ba681c] transition-colors">
             Manga
           </a>
 
@@ -121,7 +121,7 @@ export default function Navbar() {
 
           {!isAuthenticated ? (
             <button onClick={() => login()} title="Iniciar sesión">
-              <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-green-400 transition-colors" />
+              <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-[#ba681c] transition-colors" />
             </button>
           ) : (
             <div className="flex items-center gap-2">
@@ -149,10 +149,10 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="sm:hidden mt-4 flex flex-col gap-4">
-          <a href="/Comics" className="hover:text-gray-300 transition-colors">
+          <a href="/Comics" className="hover:text-[#ba681c] transition-colors">
             Comic
           </a>
-          <a href="/Manga" className="hover:text-gray-300 transition-colors">
+          <a href="/Manga" className="hover:text-[#ba681c] transition-colors">
             Manga
           </a>
 
