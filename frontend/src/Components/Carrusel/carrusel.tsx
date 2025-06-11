@@ -1,21 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
-
-type Titulo = {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  autor: string;
-  genero: string;
-  tipo: string;
-  estado: string;
-  fecha_de_publicacion: string;
-  imagen_url: string;
-  categoria: string;
-};
+import Card from "../Card/card";
+import { Titulo } from "@/lib/type";
 
 const Carrusel = ({ items }: { items: Titulo[] }) => {
   return (
@@ -27,23 +15,10 @@ const Carrusel = ({ items }: { items: Titulo[] }) => {
         {items.map((item, index) => (
           <motion.div
             key={item.id}
-            className="min-w-[200px] bg-white rounded-lg shadow-md p-2 flex-shrink-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.4 }}>
-            <div className="relative w-full h-40 rounded overflow-hidden">
-              <Image
-                src={item.imagen_url}
-                alt={item.nombre}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 200px"
-              />
-            </div>
-            <h3 className="text-md font-semibold mt-2 truncate">
-              {item.nombre}
-            </h3>
-            <p className="text-sm text-gray-600 truncate">{item.autor}</p>
+            <Card {...item} />
           </motion.div>
         ))}
       </motion.div>
