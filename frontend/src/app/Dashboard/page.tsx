@@ -1,27 +1,19 @@
-import { redirect } from "next/navigation";
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
-export default async function DashboardPage() {
-  const res = await fetch("http://localhost:3000/api/me", {
-    cache: "no-store",
-    credentials: "include", 
-    headers: {
-      // Necesario si estás en producción con dominios distintos
-      // cookie: headers().get('cookie') || '',
-    },
-  });
+export default function DashboardRedirect() {
+  const router = useRouter();
+  const { role, isAuthenticated } = useAuth();
 
-  if (!res.ok) {
-    redirect("/api/auth/login");
-  }
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push("/");
+    } else {
+      router.push(`/dashboard/${role}`);
+    }
+  }, [role, isAuthenticated, router]);
 
-  const user = await res.json();
-
-  return (
-    <main className="p-8">
-      <h1 className="text-3xl font-bold">Hola, {user.name}</h1>
-      <a href="/api/auth/logout" className="text-red-500 underline">
-        Cerrar sesión
-      </a>
-    </main>
-  );
+  return <div className="p-6">Cargando dashboard...</div>;
 }
