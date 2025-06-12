@@ -135,9 +135,12 @@ export default function Navbar() {
                 />
               )}
               {user?.name && (
-                <span className="text-sm text-white hidden sm:inline">
-                  {user.name}
-                </span>
+                <Link href="/Dashboard" className="flex items-center gap-2">
+                 
+                  <span className="text-sm text-white hidden sm:inline">
+                    {user.name}
+                  </span>
+                </Link>
               )}
               <button onClick={logout} title="Cerrar sesión">
                 <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-red-400 transition-colors" />
