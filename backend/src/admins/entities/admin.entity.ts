@@ -1,3 +1,5 @@
+// src/admins/entities/admin.entity.ts
+import { User } from 'src/user/entities/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -7,19 +9,27 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../../user/entities/user.entity';
 
 @Entity('admins')
 export class Admin {
-  @PrimaryGeneratedColumn('uuid', { name: 'admin_id' })
+  @PrimaryGeneratedColumn('uuid')
   admin_id: string;
 
-  @Column({ type: 'text', name: 'user_id', unique: true, nullable: false }) // <-- Cambio clave: de uuid a text
+  @Column({ type: 'text', unique: true, name: 'user_id' })
   user_id: string;
 
-  @OneToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'auth0_id' }) // <-- referencedColumnName debe ser auth0_id
+  @OneToOne(() => User, (user) => user.admin)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'auth0_id' })
   user: User;
+
+  // Columna 'assigned_at' de la base de datos
+  @Column({
+    type: 'timestamptz',
+    name: 'assigned_at',
+    nullable: true,
+    default: () => 'NOW()',
+  })
+  assigned_at: Date;
 
   @Column({ type: 'boolean', default: true, name: 'content_permission' })
   content_permission: boolean;

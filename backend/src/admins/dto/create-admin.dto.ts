@@ -1,8 +1,8 @@
-import { IsUUID, IsBoolean, IsOptional, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsOptional, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateAdminDto {
-  @IsUUID()
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({
     description:

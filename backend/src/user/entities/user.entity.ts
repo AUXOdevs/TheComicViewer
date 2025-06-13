@@ -11,8 +11,10 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany, // Importar OneToMany
+  OneToMany,
+  OneToOne, // Importar OneToMany
 } from 'typeorm';
+import { Admin } from 'src/admins/entities/admin.entity';
 
 @Entity('users')
 export class User {
@@ -75,4 +77,7 @@ export class User {
 
   @OneToMany(() => ReadingHistory, (history) => history.user)
   readingHistories: ReadingHistory[];
+
+  @OneToOne(() => Admin, (admin) => admin.user)
+  admin: Admin;
 }
