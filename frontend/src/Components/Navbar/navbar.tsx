@@ -16,53 +16,34 @@ export default function Navbar() {
     if (!user || hasSynced.current) return;
     hasSynced.current = true;
 
-    console.log("Iniciando sincronización con Supabase...");
-    console.log("Datos del usuario:", user);
+    const supabase = createClientComponentClient();
 
-    try {
-      const supabase = createClientComponentClient();
+    const { data: existingUser, error: fetchError } = await supabase
+      .from("users")
+      .select("*")
+      .eq("auth0_id", user.sub)
+      .single();
 
-      const { data: existingUser, error: fetchError } = await supabase
-        .from("users")
-        .select("*")
-        .eq("auth0_id", user.sub)
-        .single();
+    if (fetchError && fetchError.code !== "PGRST116") {
+      console.error("Error al verificar si el usuario existe:", fetchError);
+      return;
+    }
 
-      if (fetchError && fetchError.code !== "PGRST116") {
-        console.error("Error al verificar si el usuario existe:", fetchError);
-        return;
-      }
-
-      if (!existingUser) {
-        const insertData = {
+    if (!existingUser) {
+      const { error: insertError } = await supabase.from("users").insert([
+        {
           auth0_id: user.sub,
           name: user.name || "Desconocido",
           email: user.email,
           picture: user.picture,
           last_login: new Date().toISOString(),
           role_id: "fb71ff38-acaa-4b55-97f7-4ce243fb71c1",
-        };
+        },
+      ]);
 
-        console.log("Insertando usuario en Supabase:", insertData);
-
-        const { error: insertError, data: insertResult } = await supabase
-          .from("users")
-          .insert([insertData])
-          .select();
-
-        if (insertError) {
-          console.error(
-            "Error al insertar usuario:",
-            JSON.stringify(insertError, null, 2)
-          );
-        } else {
-          console.log("Usuario insertado correctamente:", insertResult);
-        }
-      } else {
-        console.log("El usuario ya existe en la base de datos:", existingUser);
+      if (insertError) {
+        console.error("Error al insertar usuario:", insertError);
       }
-    } catch (err) {
-      console.error("Error general en syncUserWithSupabase:", err);
     }
   }, [user]);
 
@@ -92,12 +73,16 @@ export default function Navbar() {
         </div>
 
         <div className="hidden sm:flex items-center gap-6">
-          <a href="/Comics" className="hover:text-[#ba681c] transition-colors">
+          <Link
+            href="/Comics"
+            className="hover:text-[#ba681c] transition-colors">
             Comic
-          </a>
-          <a href="/Manga" className="hover:text-[#ba681c] transition-colors">
+          </Link>
+          <Link
+            href="/Manga"
+            className="hover:text-[#ba681c] transition-colors">
             Manga
-          </a>
+          </Link>
 
           <div className="relative w-full max-w-[200px]">
             <input
@@ -120,7 +105,7 @@ export default function Navbar() {
           </div>
 
           {!isAuthenticated ? (
-            <button onClick={() => login()} title="Iniciar sesión">
+            <button onClick={login} title="Iniciar sesión">
               <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-[#ba681c] transition-colors" />
             </button>
           ) : (
@@ -135,11 +120,10 @@ export default function Navbar() {
                 />
               )}
               {user?.name && (
-                <Link href="/Dashboard" className="flex items-center gap-2">
-                 
-                  <span className="text-sm text-white hidden sm:inline">
-                    {user.name}
-                  </span>
+                <Link
+                  href="/Dashboard"
+                  className="text-sm text-white hidden sm:inline">
+                  {user.name}
                 </Link>
               )}
               <button onClick={logout} title="Cerrar sesión">
@@ -152,36 +136,20 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="sm:hidden mt-4 flex flex-col gap-4">
-          <a href="/Comics" className="hover:text-[#ba681c] transition-colors">
+          <Link
+            href="/Comics"
+            className="hover:text-[#ba681c] transition-colors">
             Comic
-          </a>
-          <a href="/Manga" className="hover:text-[#ba681c] transition-colors">
+          </Link>
+          <Link
+            href="/Manga"
+            className="hover:text-[#ba681c] transition-colors">
             Manga
-          </a>
-
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="w-full px-3 py-1.5 rounded-md bg-[#2b5b63] text-[#e1f3ef] placeholder-[#a3c9c5] focus:outline-none focus:ring-2 focus:ring-[#8db5ac] transition"
-            />
-            <svg
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[#8db5ac]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-              />
-            </svg>
-          </div>
+          </Link>
 
           {!isAuthenticated ? (
             <button
-              onClick={() => login()}
+              onClick={login}
               className="flex items-center gap-2 text-sm text-white">
               <ArrowLeftEndOnRectangleIcon className="h-5 w-5" />
               Iniciar sesión
