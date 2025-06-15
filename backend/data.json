@@ -16,7 +16,7 @@
         "name": "A ti, 2000 años en el futuro: La caída de Shiganshina, parte 1",
         "release_date": "2013-04-07T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+1+Pag+1",
+          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+1+Pag+12",
           "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+1+Pag+2"
         ],
         "chapter_number": 1
@@ -80,28 +80,25 @@
         "name": "Ryomen Sukuna",
         "release_date": "2020-10-03T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+1+Pag+1",
-          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+1+Pag+2"
+          "https://mangaplus.shueisha.co.jp/viewer/2000800?timestamp=1749841890911"
         ],
         "chapter_number": 1
       },
       {
         "chapter_id": "chap-jjk-02",
-        "name": "Para lo que él es",
+        "name": "Pena de muerte Oculta",
         "release_date": "2020-10-10T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+2+Pag+1",
-          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+2+Pag+2"
+          "https://mangaplus.shueisha.co.jp/viewer/2000801?timestamp=1749841936514"
         ],
         "chapter_number": 2
       },
       {
         "chapter_id": "chap-jjk-03",
-        "name": "Juventud",
+        "name": "Para mi",
         "release_date": "2020-10-17T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+3+Pag+1",
-          "https://placehold.co/800x1200/cccccc/333333?text=JJK+Cap+3+Pag+2"
+          "https://mangaplus.shueisha.co.jp/viewer/2000802?timestamp=1749842066568"
         ],
         "chapter_number": 3
       },
