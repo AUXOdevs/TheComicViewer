@@ -1,110 +1,89 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
+"use client";
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+type Role = "registrado" | "suscrito" | "admin" | null;
 
-type Role = "registrado" | "suscrito" | "admin";
+interface BackendUser {
+  id: string;
+  name: string;
+  email: string;
+  auth0_id: string;
+  role: {
+    id: string;
+    name: Role;
+  };
+}
 
 export const useAuth = () => {
   const {
     user,
     isAuthenticated,
-    isLoading,
     loginWithRedirect,
     logout,
     getAccessTokenSilently,
   } = useAuth0();
-
-  const [supabaseClient, setSupabaseClient] = useState<SupabaseClient | null>(
-    null
-  );
-  const [role, setRole] = useState<Role>("registrado");
-  const [token, setToken] = useState<string | null>(null);
+  const [role, setRole] = useState<Role>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const syncWithSupabase = async () => {
-      if (!isAuthenticated || !user) return;
+    const fetchUserFromBackend = async () => {
+      if (!user || !isAuthenticated || !user.sub) return;
+
+      const storedUser = sessionStorage.getItem("userInfo");
+      if (storedUser) {
+        const parsed = JSON.parse(storedUser);
+        setRole(parsed.role);
+        setAccessToken(parsed.token);
+        return;
+      }
 
       try {
-        const accessToken = await getAccessTokenSilently();
-        setToken(accessToken);
+        const token = await getAccessTokenSilently();
+        setAccessToken(token);
 
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-          global: {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/users/${user.sub}`,
+          {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${token}`,
             },
-          },
-        });
+          }
+        );
 
-        setSupabaseClient(supabase);
-
-        const { data: existingUser, error } = await supabase
-          .from("usuarios")
-          .select("*")
-          .eq("auth0_id", user.sub)
-          .single();
-
-        if (error && error.code !== "PGRST116") {
-          console.error("Error consultando usuario:", error);
+        if (!res.ok) {
+          console.error("Error al obtener usuario del backend");
           return;
         }
 
-        let finalUser = existingUser;
+        const userData: BackendUser = await res.json();
 
-        if (!existingUser) {
-          const { data: newUser, error: insertError } = await supabase
-            .from("usuarios")
-            .insert([
-              {
-                auth0_id: user.sub,
-                nombre: user.name,
-                email: user.email,
-                foto: user.picture,
-                rol: "registrado",
-              },
-            ])
-            .select()
-            .single();
+        const roleName = userData.role?.name ?? null;
+        setRole(roleName);
 
-          if (insertError) {
-            console.error("Error creando usuario en Supabase:", insertError);
-            return;
-          }
-
-          finalUser = newUser;
-        }
-
-        const usuario = {
-          id: user.sub,
-          nombre: user.name,
-          email: user.email,
-          foto: user.picture,
-          rol: finalUser.rol as Role,
-          token: accessToken,
-        };
-
-        sessionStorage.setItem("usuario", JSON.stringify(usuario));
-        setRole(finalUser.rol);
+        sessionStorage.setItem(
+          "userInfo",
+          JSON.stringify({ role: roleName, token })
+        );
       } catch (err) {
-        console.error("Error en sincronización:", err);
+        console.error("Error en fetchUserFromBackend:", err);
       }
     };
 
-    syncWithSupabase();
-  }, [isAuthenticated, user, getAccessTokenSilently]);
+    fetchUserFromBackend();
+  }, [user, isAuthenticated, getAccessTokenSilently]);
 
   return {
     user,
     isAuthenticated,
-    loading: isLoading,
     login: loginWithRedirect,
     logout: () =>
-      logout({ logoutParams: { returnTo: window.location.origin } }),
-    supabase: supabaseClient,
-    token,
+      logout({
+        logoutParams: {
+          returnTo: window.location.origin,
+        },
+      }),
     role,
+    accessToken,
   };
 };
