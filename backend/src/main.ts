@@ -1,20 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, Logger } from '@nestjs/common'; // Importa Logger
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    // Configura los niveles de log para la aplicación NestJS
-    // En desarrollo, puedes usar ['debug', 'log', 'warn', 'error', 'verbose']
-    // En producción, podrías usar ['error', 'warn'] o false para deshabilitar los logs de NestJS
     logger:
       process.env.NODE_ENV === 'production'
-        ? ['error', 'warn', 'log'] // Solo errores, advertencias y logs generales en producción
-        : ['debug', 'log', 'warn', 'error', 'verbose'], // Todos los niveles en desarrollo
+        ? ['error', 'warn', 'log']
+        : ['debug', 'log', 'warn', 'error', 'verbose'],
+  });
+
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    credentials: true, 
   });
 
   app.setGlobalPrefix('api');
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

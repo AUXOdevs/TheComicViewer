@@ -14,13 +14,21 @@ export default function RoleProtected({ children, allowedRoles }: Props) {
   const router = useRouter();
 
   useEffect(() => {
-    if (user && role && !allowedRoles.includes(role)) {
-      router.replace("/login");
+    if (
+      user &&
+      role &&
+      !allowedRoles.includes(role as "registrado" | "suscrito" | "admin")
+    ) {
+      router.replace("/");
     }
-  }, [role, user, allowedRoles, router]);
+  }, [user, role, allowedRoles, router]);
 
-  if (!user || !role || !allowedRoles.includes(role)) {
+  if (!user || !role) {
     return <div className="text-center py-10">Cargando...</div>;
+  }
+
+  if (!allowedRoles.includes(role as "registrado" | "suscrito" | "admin")) {
+    return <div className="text-center py-10">No tienes permiso para acceder a esta página.</div>;
   }
 
   return <>{children}</>;
