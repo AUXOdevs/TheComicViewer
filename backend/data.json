@@ -2,62 +2,57 @@
   {
     "title_id": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
     "name": "Shingeki no Kyojin (Attack on Titan)",
-    "description": "En un mundo donde la humanidad está al borde de la extinción, los supervivientes se refugian tras enormes muros para protegerse de los Titanes, gigantescas criaturas devoradoras de hombres. La historia sigue a Eren Jaeger, quien jura exterminar a los Titanes después de que destruyen su ciudad natal y matan a su madre.",
+    "description": "Hace 100 años, titanes aparecieron en la tierra y llevaron a la humanidad al borde del colapso. Para protegerse, los humanos construyeron tres enormes muros que les aseguraron paz durante un siglo. Sin embargo, los titanes rompieron las murallas y desataron el caos nuevamente. La historia sigue a Eren Yeager y sus amigos mientras luchan por sobrevivir y descubrir los secretos detrás de los titanes. ",
     "author": "Hajime Isayama",
     "type": "anime",
     "status": "Finalizado",
     "publication_date": "2013-04-07T00:00:00.000Z",
-    "image_url": "https://placehold.co/400x600/E50914/FFFFFF?text=Attack+on+Titan",
+    "image_url": "https://www.yupmanga.com/image-proxy.php?type=books&id=0K9QZVZPMVF03",
     "category": "Shonen",
     "genres": ["Acción", "Fantasía Oscura", "Post-apocalíptico"],
     "chapters": [
       {
-        "chapter_id": "chap-snk-01",
-        "name": "A ti, 2000 años en el futuro: La caída de Shiganshina, parte 1",
+        "chapter_id": "chap-snk-01-04",
+        "name": "Tomo 01",
         "release_date": "2013-04-07T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+1+Pag+12",
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+1+Pag+2"
+          "https://www.yupmanga.com/reader.php?id=0K9QZVZPMVF03&token=MEs5UVpWWlBNVkYwMnwwSzlRWlZaUE1WRjAzfDE3NTAwOTQ1NTl8NmE1NTkxYzIyY2ZhOTFmZmMzMTY0YmY5OTI3ODYwZmExZDBjODg5ZjE4ZWYwYTE5ZDhkNGI2Yzk5M2U0MTQ2Mw&initial_load=1&page=1"
         ],
         "chapter_number": 1
       },
       {
-        "chapter_id": "chap-snk-02",
-        "name": "Ese día: La caída de Shiganshina, parte 2",
+        "chapter_id": "chap-snk-05-09",
+        "name": "Tomo 02",
         "release_date": "2013-04-14T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+2+Pag+1",
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+2+Pag+2"
+          "https://www.yupmanga.com/reader.php?id=0K9QZVZPMVF04&token=MEs5UVpWWlBNVkYwMnwwSzlRWlZaUE1WRjA0fDE3NTAwOTU3MDB8NGVlNDEwNDdjODFjOWVkYTcxNTczMjUyMWQyOWRiNTFhOWRlNzgzZWRkNGVlODQ4MjAwOGZjM2FmYjM0MDRiMg&initial_load=1&page=2"
         ],
         "chapter_number": 2
       },
       {
-        "chapter_id": "chap-snk-03",
-        "name": "Una pequeña cuchilla: La batalla de Trost, parte 1",
+        "chapter_id": "chap-snk-10-13",
+        "name": "Tomo 03",
         "release_date": "2013-04-21T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+3+Pag+1",
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+3+Pag+2"
+          "https://www.yupmanga.com/reader.php?id=0K9QZVZPRV9DX&token=MEs5UVpWWlBNVkYwMnwwSzlRWlZaUFJWOURYfDE3NTAwOTU4ODd8NzNkNjJlM2QxMGVjZGVmNjllNDAzYTY0ZDNhMzY3YTAyODZiMzIzMzJmNjkxOGZkOGM1YzQ2OGM3NThkZTVkNQ&initial_load=1&page=1"
         ],
         "chapter_number": 3
       },
       {
-        "chapter_id": "chap-snk-04",
-        "name": "La noche de la ceremonia de graduación: Superando la desesperación",
+        "chapter_id": "chap-snk-14-18",
+        "name": "Tomo 04",
         "release_date": "2013-04-28T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+4+Pag+1",
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+4+Pag+2"
+          "https://www.yupmanga.com/reader.php?id=0K9QZVZPRV9DY&token=MEs5UVpWWlBNVkYwMnwwSzlRWlZaUFJWOURZfDE3NTAwOTU5OTl8NjU4MDI4OWQ4ZWJiY2ZmODI4MGJhZjQxYTM3NDYzZjFkMTVkYTk5Mzk3Mjc3MTE5ZGFmZDg0YWY3MzBiNmRiYw&initial_load=1&page=1"
         ],
         "chapter_number": 4
       },
       {
-        "chapter_id": "chap-snk-05",
-        "name": "El primer escuadrón: La batalla de Trost, parte 3",
+        "chapter_id": "chap-snk-19-22",
+        "name": "Tomo 05",
         "release_date": "2013-05-05T00:00:00.000Z",
         "pages": [
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+5+Pag+1",
-          "https://placehold.co/800x1200/cccccc/333333?text=SNK+Cap+5+Pag+2"
+          "https://www.yupmanga.com/reader.php?id=0K9QZVZPRV9DZ&token=MEs5UVpWWlBNVkYwMnwwSzlRWlZaUFJWOURafDE3NTAwOTYwNTF8NjYxZmJlZmRlZTVlODYxNDZkZGJhNDkyNzA1OGYxMzM2ZmRhZGMzY2NjOTMyZjExMmY5NmYxNjc3MDZjODg5YQ&initial_load=1&page=1"
         ],
         "chapter_number": 5
       }
