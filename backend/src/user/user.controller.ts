@@ -37,18 +37,18 @@ export class UsersController {
     return this.userService.create(createUserDto);
   }
 
-@Post('auth/sync-user')
-@HttpCode(HttpStatus.OK)
-async syncUserFromAuth0(@Body() payload: Auth0UserPayload): Promise<UserDto> {
-  const user = await this.userService.findOrCreateUserFromAuth0(
-    payload.auth0Id,
-    payload.email,
-    payload.name,
-    payload.emailVerified,
-    payload.picture
-  );
-  return plainToInstance(UserDto, user);
-}
+// @Post('auth/sync-user')
+// @HttpCode(HttpStatus.OK)
+// async syncUserFromAuth0(@Body() payload: Auth0UserPayload): Promise<UserDto> {
+//   const user = await this.userService.findOrCreateUserFromAuth0(
+//     payload.auth0Id,
+//     payload.email,
+//     payload.name,
+//     payload.emailVerified,
+//     payload.picture
+//   );
+//   return plainToInstance(UserDto, user);
+// }
 
 
   @Get()
