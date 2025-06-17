@@ -36,7 +36,7 @@ export class UsersController {
     return this.userService.create(createUserDto);
   }
 
-  
+
 
   @Get()
   @UseGuards(RolesGuard) // <-- Habilitar este guard para proteger findAll
