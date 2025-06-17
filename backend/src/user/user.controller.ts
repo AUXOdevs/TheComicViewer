@@ -13,6 +13,7 @@ import {
   Request,
   UnauthorizedException,
   BadRequestException,
+  ConflictException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -22,45 +23,94 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { User } from './entities/user.entity';
+import { plainToInstance } from 'class-transformer';
+import { Auth0UserProvisionDto } from './dto/auth0-user-provision.dto';
 
 @Controller('users')
-@UseGuards(JwtAuthGuard) // <-- Proteger TODO el controlador con autenticación JWT
+// ************ CRÍTICO: REMOVER @UseGuards(JwtAuthGuard) A NIVEL DE CLASE ************
+// Si lo dejas aquí, bloqueará la ruta '/users/provision' con 401 Unauthorized
+// porque el usuario no tiene un rol válido *antes* de ser provisionado.
 export class UsersController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  @UseGuards(RolesGuard) // RolesGuard se aplica después de JwtAuthGuard (por el orden en el decorador de clase)
-  @Roles('admin') // Solo usuarios con rol 'admin' pueden crear usuarios
-  @HttpCode(HttpStatus.CREATED)
-  async create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
-    return this.userService.create(createUserDto);
+  // --- RUTA CLAVE: Aprovisionamiento de usuario desde Auth0 ---
+  // Esta ruta NO DEBE ESTAR PROTEGIDA por JwtAuthGuard o RolesGuard.
+  // Su propósito es ser el PRIMER punto de contacto para usuarios autenticados por Auth0.
+  // El frontend enviará el Access Token, pero este endpoint no lo VALIDARÁ con un guard.
+  // La lógica de `findOrCreateUserFromAuth0` en el servicio es quien maneja la creación/actualización.
+  @Post('provision')
+  @HttpCode(HttpStatus.OK)
+  async provisionUserFromAuth0(
+    @Body() payload: Auth0UserProvisionDto,
+  ): Promise<UserDto> {
+    console.log(
+      '🚧 [BACKEND] Ruta /users/provision - Payload recibido:',
+      payload,
+    );
+
+    const user = await this.userService.findOrCreateUserFromAuth0(
+      payload.auth0Id,
+      payload.email,
+      payload.name,
+      payload.emailVerified,
+      payload.picture,
+    );
+    console.log(
+      '✅ [BACKEND] Usuario provisionado/actualizado en DB interna:',
+      user.email,
+      'Rol:',
+      user.role?.name,
+    );
+    return plainToInstance(UserDto, user);
   }
 
+  // --- Rutas protegidas: Ahora cada una NECESITA SU PROPIO @UseGuards(JwtAuthGuard) ---
+  // Las rutas que requieren roles, también @UseGuards(RolesGuard) y @Roles()
 
+  @Post('admin-create')
+  @UseGuards(JwtAuthGuard, RolesGuard) // Protegida con JWT y rol de admin
+  @Roles('admin')
+  @HttpCode(HttpStatus.CREATED)
+  async createByAdmin(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
+    console.log(
+      '🚧 [BACKEND] Ruta /users/admin-create - Creando usuario por admin:',
+      createUserDto.email,
+    );
+    const createdUser = await this.userService.create(createUserDto);
+    return plainToInstance(UserDto, createdUser);
+  }
 
   @Get()
-  @UseGuards(RolesGuard) // <-- Habilitar este guard para proteger findAll
-  @Roles('admin', 'moderator', 'Registrado', 'Suscrito') // Puedes especificar los roles que pueden ver todos los usuarios
+  @UseGuards(JwtAuthGuard, RolesGuard) // Protegida con JWT y rol
+  @Roles('admin', 'moderator', 'Registrado', 'Suscrito')
   async findAll(
     @Query('includeDeleted') includeDeleted?: string,
   ): Promise<UserDto[]> {
+    console.log('🚧 [BACKEND] Ruta /users - Buscando todos los usuarios.');
     const bIncludeDeleted = includeDeleted === 'true';
     return this.userService.findAll(bIncludeDeleted);
   }
 
   @Get('deactivated')
-  @UseGuards(RolesGuard)
-  @Roles('admin') // Solo admins pueden ver usuarios inhabilitados
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async findDeactivatedUsers(): Promise<UserDto[]> {
+    console.log(
+      '🚧 [BACKEND] Ruta /users/deactivated - Buscando usuarios desactivados.',
+    );
     return this.userService.findDeactivatedUsers();
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard) // Protegida con JWT
   async findOne(
     @Param('id') id: string,
     @Request() req,
     @Query('includeDeleted') includeDeleted?: string,
   ): Promise<UserDto> {
+    console.log(
+      `🚧 [BACKEND] Ruta /users/:id - Buscando usuario con ID: ${id}`,
+    );
     const bIncludeDeleted = includeDeleted === 'true';
     const currentUser = req.user as User;
 
@@ -84,11 +134,15 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard) // Protegida con JWT
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
     @Request() req,
   ): Promise<UserDto> {
+    console.log(
+      `🚧 [BACKEND] Ruta /users/:id - Actualizando usuario con ID: ${id}`,
+    );
     const currentUser = req.user as User;
 
     if (!currentUser) {
@@ -109,16 +163,22 @@ export class UsersController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @UseGuards(RolesGuard)
-  @Roles('admin') // Solo admins pueden hacer soft delete
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async softDeleteUser(@Param('id') id: string): Promise<void> {
+    console.log(
+      `🚧 [BACKEND] Ruta /users/:id - Desactivando usuario con ID: ${id}`,
+    );
     await this.userService.softDeleteUser(id);
   }
 
   @Patch(':id/reactivate')
-  @UseGuards(RolesGuard)
-  @Roles('admin') // Solo admins pueden reactivar
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
   async reactivateUser(@Param('id') id: string): Promise<UserDto> {
+    console.log(
+      `🚧 [BACKEND] Ruta /users/:id/reactivate - Reactivando usuario con ID: ${id}`,
+    );
     return this.userService.reactivateUser(id);
   }
 }
