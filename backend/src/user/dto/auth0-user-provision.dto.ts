@@ -3,15 +3,16 @@ import {
   IsEmail,
   IsNotEmpty,
   IsOptional,
-  IsUUID,
+  IsBoolean,
+  IsUrl,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserDto {
-  @ApiProperty({ description: 'Auth0 ID del usuario' })
+export class Auth0UserProvisionDto {
+  @ApiProperty({ description: 'Auth0 ID (sub) del usuario' })
   @IsString()
   @IsNotEmpty()
-  auth0_id: string;
+  auth0Id: string; // Coincide con 'sub' de Auth0
 
   @ApiProperty({ description: 'Email del usuario' })
   @IsEmail()
@@ -21,21 +22,21 @@ export class CreateUserDto {
   @ApiProperty({ description: 'Nombre del usuario' })
   @IsString()
   @IsNotEmpty()
-  name: string; // ¡Confirmado, es 'name'!
+  name: string; // Coincide con 'name' de Auth0
 
   @ApiProperty({
-    description: 'ID del rol del usuario (UUID)',
+    description: 'Si el email del usuario está verificado',
     required: false,
   })
-  @IsUUID()
   @IsOptional()
-  role_id?: string;
+  @IsBoolean()
+  emailVerified?: boolean;
 
-  @ApiProperty({ description: 'Si el email está verificado', required: false })
+  @ApiProperty({
+    description: 'URL de la imagen de perfil del usuario',
+    required: false,
+  })
   @IsOptional()
-  email_verified?: boolean;
-
-  @ApiProperty({ description: 'URL de la imagen de perfil', required: false })
-  @IsOptional()
+  @IsUrl()
   picture?: string;
 }
