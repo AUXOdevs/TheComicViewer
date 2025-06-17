@@ -28,16 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Auth0Provider>
-        <Navbar />
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-            {children}
-          </body>
-        </html>
-        <Footer />
-      </Auth0Provider>
+       <Auth0Provider>
+          <Navbar />
+          <html lang="en">
+            <body
+              className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+              {children}
+            </body>
+          </html>
+          <Footer />
+        </Auth0Provider>
     </>
   );
 }

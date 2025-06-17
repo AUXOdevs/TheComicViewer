@@ -9,7 +9,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, isAuthenticated, login, logout } = useAuth();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth();
   const hasSynced = useRef(false);
 
   const syncUserWithSupabase = useCallback(async () => {
@@ -105,7 +105,7 @@ export default function Navbar() {
           </div>
 
           {!isAuthenticated ? (
-            <button onClick={login} title="Iniciar sesión">
+            <button onClick={() => loginWithRedirect()} title="Iniciar sesión">
               <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-[#ba681c] transition-colors" />
             </button>
           ) : (
@@ -126,7 +126,7 @@ export default function Navbar() {
                   {user.name}
                 </Link>
               )}
-              <button onClick={logout} title="Cerrar sesión">
+              <button onClick={() => logout()} title="Cerrar sesión">
                 <ArrowLeftEndOnRectangleIcon className="h-6 w-6 hover:text-red-400 transition-colors" />
               </button>
             </div>
@@ -149,7 +149,7 @@ export default function Navbar() {
 
           {!isAuthenticated ? (
             <button
-              onClick={login}
+              onClick={() => loginWithRedirect()}
               className="flex items-center gap-2 text-sm text-white">
               <ArrowLeftEndOnRectangleIcon className="h-5 w-5" />
               Iniciar sesión
@@ -168,7 +168,7 @@ export default function Navbar() {
               {user?.name && (
                 <span className="text-sm text-white">{user.name}</span>
               )}
-              <button onClick={logout} title="Cerrar sesión">
+              <button onClick={() => logout()} title="Cerrar sesión">
                 <ArrowLeftEndOnRectangleIcon className="h-5 w-5 hover:text-red-400 transition-colors" />
               </button>
             </div>
