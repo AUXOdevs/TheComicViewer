@@ -22,7 +22,6 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { User } from './entities/user.entity';
-import { plainToInstance } from 'class-transformer';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard) // <-- Proteger TODO el controlador con autenticación JWT
@@ -37,19 +36,7 @@ export class UsersController {
     return this.userService.create(createUserDto);
   }
 
-@Post('auth/sync-user')
-@HttpCode(HttpStatus.OK)
-async syncUserFromAuth0(@Body() payload: Auth0UserPayload): Promise<UserDto> {
-  const user = await this.userService.findOrCreateUserFromAuth0(
-    payload.auth0Id,
-    payload.email,
-    payload.name,
-    payload.emailVerified,
-    payload.picture
-  );
-  return plainToInstance(UserDto, user);
-}
-
+  
 
   @Get()
   @UseGuards(RolesGuard) // <-- Habilitar este guard para proteger findAll

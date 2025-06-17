@@ -1,35 +1,31 @@
 "use client";
-
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-type Props = {
+interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRoles: Array<"registrado" | "suscrito" | "admin">;
-};
+  requiredRole?: string; // Si quieres proteger por rol también
+}
 
-export default function RoleProtected({ children, allowedRoles }: Props) {
-  const { role, user } = useAuth();
+export default function ProtectedRoute({
+  children,
+  requiredRole,
+}: ProtectedRouteProps) {
+  const { isAuthenticated, isLoading, userRole } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      user &&
-      role &&
-      !allowedRoles.includes(role as "registrado" | "suscrito" | "admin")
-    ) {
-      router.replace("/");
+    if (!isLoading) {
+      if (!isAuthenticated) {
+        router.push("/login"); // Redirigir si no ha iniciado sesión
+      } else if (requiredRole && userRole !== requiredRole) {
+        router.push("/unauthorized"); // Redirigir si no tiene el rol necesario
+      }
     }
-  }, [user, role, allowedRoles, router]);
+  }, [isAuthenticated, isLoading, userRole, requiredRole, router]);
 
-  if (!user || !role) {
-    return <div className="text-center py-10">Cargando...</div>;
-  }
-
-  if (!allowedRoles.includes(role as "registrado" | "suscrito" | "admin")) {
-    return <div className="text-center py-10">No tienes permiso para acceder a esta página.</div>;
-  }
+  if (isLoading || (requiredRole && userRole === null)) return <p>Cargando...</p>;
 
   return <>{children}</>;
 }

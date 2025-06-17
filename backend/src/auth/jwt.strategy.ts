@@ -4,35 +4,37 @@ import {
   Inject,
   forwardRef,
   Logger,
-  InternalServerErrorException, // Importa Logger
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
-import { expressJwtSecret } from 'jwks-rsa';
+import * as jwksRsa from 'jwks-rsa';
 import { UserService } from '../user/user.service';
 import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  private readonly logger = new Logger(JwtStrategy.name); // Instancia del Logger
+  private readonly logger = new Logger(JwtStrategy.name);
 
   constructor(
-    private configService: ConfigService,
+    private readonly configService: ConfigService,
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
   ) {
     super({
-      secretOrKeyProvider: expressJwtSecret({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      audience: configService.get<string>('AUTH0_AUDIENCE'),
+      issuer: `https://${configService.get<string>('AUTH0_DOMAIN')}/`,
+      algorithms: ['RS256'],
+      secretOrKeyProvider: jwksRsa.passportJwtSecret({
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 5,
-        jwksUri: `${configService.get<string>('AUTH0_DOMAIN')}.well-known/jwks.json`,
+        jwksUri: `https://${configService.get<string>(
+          'AUTH0_DOMAIN',
+        )}/.well-known/jwks.json`,
       }),
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      audience: configService.get<string>('AUTH0_AUDIENCE'),
-      issuer: `${configService.get<string>('AUTH0_DOMAIN')}/`,
-      algorithms: ['RS256'],
       passReqToCallback: true,
     });
   }
@@ -55,9 +57,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
     this.logger.debug(`JwtStrategy: Auth0 ID extraído: ${auth0_id}`);
 
-    // --- Logs de Duración del Token ---
+    // --- Logs de duración del token ---
     if (payload.exp) {
-      const expirationTime = new Date(payload.exp * 1000); // `exp` está en segundos, convertir a milisegundos
+      const expirationTime = new Date(payload.exp * 1000);
       const currentTime = new Date();
       const remainingTimeMs = expirationTime.getTime() - currentTime.getTime();
       const remainingMinutes = Math.floor(remainingTimeMs / (1000 * 60));
@@ -76,7 +78,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         'JwtStrategy: El payload del token no contiene un campo "exp" (tiempo de expiración).',
       );
     }
-    // --- Fin Logs de Duración del Token ---
 
     const user = await this.userService.findOrCreateUserFromAuth0(
       auth0_id,
