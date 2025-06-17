@@ -19,7 +19,7 @@ export const useAuth = () => {
       console.log("🔑 Token obtenido del Auth0:", token); // <-- LOG importante
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
