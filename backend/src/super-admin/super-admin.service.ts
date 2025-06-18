@@ -18,7 +18,7 @@ import {
   SUPERADMIN_NAME,
 } from './initial-superadmin.constants';
 import { Role } from '../roles/entities/role.entity';
-import { User } from '../user/entities/user.entity';
+import { User } from '../user/entities/user.entity'; // Asegúrate de importar User
 
 @Injectable()
 export class SuperadminService {
@@ -32,10 +32,11 @@ export class SuperadminService {
     private readonly adminService: AdminService,
   ) {}
 
+  // Este método se ejecuta cuando el módulo se inicializa
   async onModuleInit() {
     // Pequeño retraso para dar tiempo a que TypeORM se conecte y las tablas se sincronicen
     // Esto es especialmente útil si `synchronize: true` está en tu configuración de TypeORM
-    setTimeout(() => this.createInitialSuperadmin(), 5000);
+    setTimeout(() => this.createInitialSuperadmin(), 5000); // 5 segundos de retraso
   }
 
   private async createInitialSuperadmin() {
@@ -48,10 +49,10 @@ export class SuperadminService {
     await queryRunner.startTransaction();
 
     try {
-      // 1. Asegurar que los roles existen
+      // 1. Asegurar que los roles existen (Registrado, superadmin, admin)
       let registradoRole = await this.rolesRepository.findByName(
         'Registrado',
-        queryRunner.manager, // Pasa el manager
+        queryRunner.manager, // Pasa el manager para transaccionalidad
       );
       if (!registradoRole) {
         registradoRole = queryRunner.manager.create(Role, {
@@ -83,13 +84,13 @@ export class SuperadminService {
         this.logger.log('Rol "admin" creado.');
       }
 
-      // 2. Encontrar o crear el usuario superadmin
+      // 2. Encontrar o crear/actualizar el usuario superadmin en la tabla 'users'
       let superadminUser: User | null = await queryRunner.manager
         .getRepository(User)
         .findOne({
           where: { auth0_id: AUTH0_SUPERADMIN_ID },
-          relations: ['role'],
-          withDeleted: true,
+          relations: ['role'], // Cargar la relación de rol
+          withDeleted: true, // Incluir usuarios soft-deleted para reactivar
         });
 
       if (!superadminUser) {
@@ -116,11 +117,13 @@ export class SuperadminService {
       } else {
         this.logger.log(`Usuario superadmin ${SUPERADMIN_EMAIL} encontrado.`);
         let needsUpdate = false;
+        // Reactivar si está soft-deleted
         if (superadminUser.deleted_at) {
           superadminUser.deleted_at = null;
           needsUpdate = true;
           this.logger.log(`Usuario superadmin ${SUPERADMIN_EMAIL} reactivado.`);
         }
+        // Actualizar rol si no es 'superadmin' o si el ID de rol no coincide
         if (
           superadminUser.role?.name !== 'superadmin' ||
           superadminUser.role_id !== superadminRole.role_id
@@ -132,6 +135,7 @@ export class SuperadminService {
             `Rol del usuario superadmin ${SUPERADMIN_EMAIL} actualizado a 'superadmin'.`,
           );
         }
+        // Actualizar otros campos si es necesario
         if (superadminUser.name !== SUPERADMIN_NAME) {
           superadminUser.name = SUPERADMIN_NAME;
           needsUpdate = true;
@@ -157,6 +161,7 @@ export class SuperadminService {
         this.logger.log(
           `Entrada de admin para superadmin no encontrada. Creando...`,
         );
+        // Llama a adminService.create pasando el queryRunner
         await this.adminService.create(
           {
             user_id: AUTH0_SUPERADMIN_ID,
@@ -171,9 +176,10 @@ export class SuperadminService {
         );
       } else {
         this.logger.log(
-          `Entrada de admin para superadmin ${SUPERADMIN_EMAIL} ya existe.`,
+          `Entrada de admin para superadmin ${SUPERADMIN_EMAIL} ya existe. Verificando/actualizando permisos.`,
         );
         let needsUpdate = false;
+        // Asegurarse de que todos los permisos están a true
         if (!adminEntryForSuperadmin.content_permission) {
           adminEntryForSuperadmin.content_permission = true;
           needsUpdate = true;
@@ -188,6 +194,7 @@ export class SuperadminService {
         }
 
         if (needsUpdate) {
+          // Guardar el adminEntryForSuperadmin usando el manager de la transacción
           await queryRunner.manager.save(adminEntryForSuperadmin);
           this.logger.log(
             `Permisos de admin para superadmin ${SUPERADMIN_EMAIL} actualizados.`,

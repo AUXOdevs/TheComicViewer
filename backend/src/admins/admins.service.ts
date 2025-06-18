@@ -13,7 +13,7 @@ import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { UserService } from '../user/user.service';
 import { AdminRepository } from './admins.repository';
-import { QueryRunner, DeleteResult, Repository } from 'typeorm'; // Importar Repository
+import { QueryRunner, DeleteResult, Repository } from 'typeorm';
 import { RolesRepository } from '../roles/roles.repository';
 import { User } from '../user/entities/user.entity';
 
@@ -90,8 +90,7 @@ export class AdminService {
     }
     const currentManager = ownQueryRunner ? ownQueryRunner.manager : manager;
     const currentAdminRepo = currentManager.getRepository(Admin);
-    // ************ CORRECCIÓN AQUÍ ************
-    const currentUserRepo = currentManager.getRepository(User); // ¡Cambiado de .Repository a .getRepository!
+    const currentUserRepo = currentManager.getRepository(User);
 
     try {
       const adminEntity = currentAdminRepo.create({
@@ -106,12 +105,28 @@ export class AdminService {
         `create(): Entrada de admin creada para user_id: ${createAdminDto.user_id}`,
       );
 
+      // Actualizar el rol del usuario a 'admin'
+      await currentUserRepo.update(
+        { auth0_id: userEntity.auth0_id },
+        { role_id: adminRole.role_id },
+      );
+      // Opcional: Actualizar la entidad en memoria para reflejar el cambio si se necesita más adelante en este scope
       userEntity.role = adminRole;
       userEntity.role_id = adminRole.role_id;
-      await currentUserRepo.save(userEntity);
       this.logger.log(
-        `create(): Rol de usuario ${userEntity.email} actualizado a 'admin'.`,
+        `create(): Rol de usuario ${userEntity.email} actualizado a 'admin' mediante actualización directa.`,
       );
+
+      const finalAdmin = await currentManager.getRepository(Admin).findOne({
+        where: { admin_id: savedAdmin.admin_id },
+        relations: ['user'],
+      });
+
+      if (!finalAdmin) {
+        throw new InternalServerErrorException(
+          'Failed to retrieve created admin after save.',
+        );
+      }
 
       if (ownQueryRunner) {
         await ownQueryRunner.commitTransaction();
@@ -120,10 +135,7 @@ export class AdminService {
         );
       }
 
-      return currentManager.getRepository(Admin).findOne({
-        where: { admin_id: savedAdmin.admin_id },
-        relations: ['user'],
-      }) as Promise<Admin>;
+      return finalAdmin;
     } catch (error) {
       if (ownQueryRunner) {
         await ownQueryRunner.rollbackTransaction();
@@ -253,21 +265,15 @@ export class AdminService {
       this.logger.log(`remove(): Entrada de admin ${admin_id} eliminada.`);
 
       if (admin.user) {
-        const userToUpdate = await userRepo.findOne({
-          where: { auth0_id: admin.user.auth0_id },
-        });
-        if (userToUpdate) {
-          userToUpdate.role = registradoRole;
-          userToUpdate.role_id = registradoRole.role_id;
-          await userRepo.save(userToUpdate);
-          this.logger.log(
-            `remove(): Rol del usuario ${userToUpdate.email} reseteado a 'Registrado'.`,
-          );
-        } else {
-          this.logger.warn(
-            `remove(): Usuario asociado al admin ${admin_id} no encontrado en la transacción. No se pudo resetear el rol.`,
-          );
-        }
+        // ************ CAMBIO CRÍTICO AQUÍ ************
+        // Usar update directo para cambiar el rol del usuario, evita problemas con el primary key en save
+        await userRepo.update(
+          { auth0_id: admin.user.auth0_id }, // Condición WHERE
+          { role_id: registradoRole.role_id }, // Valores a SET
+        );
+        this.logger.log(
+          `remove(): Rol del usuario ${admin.user.email} reseteado a 'Registrado' mediante actualización directa.`,
+        );
       } else {
         this.logger.warn(
           `remove(): Usuario asociado al admin ${admin_id} no cargado. No se pudo resetear el rol.`,
@@ -321,11 +327,14 @@ export class AdminService {
         queryRunner.manager,
       );
       if (registradoRole) {
-        userToResetRole.role = registradoRole;
-        userToResetRole.role_id = registradoRole.role_id;
-        await transactionalUserRepository.save(userToResetRole);
+        // ************ CAMBIO CRÍTICO AQUÍ ************
+        // Usar update directo para cambiar el rol del usuario, evita problemas con el primary key en save
+        await transactionalUserRepository.update(
+          { auth0_id: userToResetRole.auth0_id }, // Condición WHERE
+          { role_id: registradoRole.role_id }, // Valores a SET
+        );
         this.logger.log(
-          `removeAdminPermissionsByUserIdInternal(): Rol del usuario ${userToResetRole.email} reseteado a 'Registrado'.`,
+          `removeAdminPermissionsByUserIdInternal(): Rol del usuario ${userToResetRole.email} reseteado a 'Registrado' mediante actualización directa.`,
         );
       } else {
         this.logger.warn(

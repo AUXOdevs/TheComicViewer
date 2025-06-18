@@ -3,6 +3,7 @@ import {
   NotFoundException,
   BadRequestException,
   Logger,
+  ForbiddenException, // Asegúrate de importar ForbiddenException
 } from '@nestjs/common';
 import { CreateReadingHistoryDto } from './dto/create-reading-history.dto';
 import { UpdateReadingHistoryDto } from './dto/update-reading-history.dto';
@@ -21,7 +22,7 @@ export class ReadingHistoryService {
   ) {}
 
   async createOrUpdate(
-    userId: string,
+    userId: string, // Este userId es el usuario REAL para quien se crea/actualiza el historial
     createReadingHistoryDto: CreateReadingHistoryDto,
   ): Promise<ReadingHistoryDto> {
     this.logger.debug(
@@ -53,7 +54,7 @@ export class ReadingHistoryService {
     } else {
       this.logger.log(`createOrUpdate(): Nuevo historial. Creando.`);
       history = this.readingHistoryRepository.create({
-        user_id: userId,
+        user_id: userId, // Asigna el user_id proporcionado
         chapter_id,
         last_page: last_page !== undefined ? last_page : null,
         completed: completed !== undefined ? completed : false,
@@ -75,24 +76,36 @@ export class ReadingHistoryService {
     );
     const histories =
       await this.readingHistoryRepository.findAllByUserId(userId);
+    if (!histories || histories.length === 0) {
+      // Opcional: log/excepción si no hay historial
+      this.logger.warn(
+        `findAllByUser(): No se encontró historial para el usuario "${userId}".`,
+      );
+    }
     return plainToInstance(ReadingHistoryDto, histories);
   }
 
-  async findOne(id: string, userId: string): Promise<ReadingHistoryDto> {
-    this.logger.debug(
-      `findOne(): Buscando historial con ID: ${id} para usuario ${userId}.`,
-    );
-    const history = await this.readingHistoryRepository.findOneById(id); // <-- CAMBIO CLAVE
+  async findOne(
+    id: string,
+    requestorUserId: string,
+    hasUserPermission: boolean,
+  ): Promise<ReadingHistoryDto> {
+    // <-- Nuevo parámetro hasUserPermission
+    this.logger.debug(`findOne(): Buscando historial con ID: ${id}.`);
+    const history = await this.readingHistoryRepository.findOneById(id);
     if (!history) {
       this.logger.warn(`findOne(): Historial con ID "${id}" no encontrado.`);
       throw new NotFoundException(`Reading history with ID "${id}" not found.`);
     }
-    if (history.user_id !== userId) {
+
+    // Lógica de autorización: el propietario o un admin con permiso
+    const isOwner = history.user_id === requestorUserId;
+    if (!isOwner && !hasUserPermission) {
       this.logger.warn(
-        `findOne(): Usuario ${userId} intentó acceder al historial ${id} de otro usuario.`,
+        `findOne(): Usuario ${requestorUserId} no autorizado para acceder al historial ${id} de otro usuario.`,
       );
-      throw new BadRequestException(
-        `Reading history with ID "${id}" does not belong to user ${userId}.`,
+      throw new ForbiddenException( // <-- Usar ForbiddenException
+        `No tienes permisos para acceder a este historial de lectura.`,
       );
     }
     return plainToInstance(ReadingHistoryDto, history);
@@ -100,25 +113,29 @@ export class ReadingHistoryService {
 
   async update(
     id: string,
-    userId: string,
+    requestorUserId: string, // <-- Nombre más claro para el ID del usuario que hace la petición
     updateReadingHistoryDto: UpdateReadingHistoryDto,
+    hasUserPermission: boolean, // <-- Nuevo parámetro
   ): Promise<ReadingHistoryDto> {
     this.logger.debug(
-      `update(): Actualizando historial con ID: ${id} por usuario ${userId}.`,
+      `update(): Actualizando historial con ID: ${id} por usuario ${requestorUserId}.`,
     );
-    const history = await this.readingHistoryRepository.findOneById(id); // <-- CAMBIO CLAVE
+    const history = await this.readingHistoryRepository.findOneById(id);
     if (!history) {
       this.logger.warn(
         `update(): Historial con ID "${id}" no encontrado para actualizar.`,
       );
       throw new NotFoundException(`Reading history with ID "${id}" not found.`);
     }
-    if (history.user_id !== userId) {
+
+    // Lógica de autorización: el propietario o un admin con permiso
+    const isOwner = history.user_id === requestorUserId;
+    if (!isOwner && !hasUserPermission) {
       this.logger.warn(
-        `update(): Usuario ${userId} no autorizado para actualizar el historial ${id}.`,
+        `update(): Usuario ${requestorUserId} no autorizado para actualizar el historial ${id} de otro usuario.`,
       );
-      throw new BadRequestException(
-        `Reading history with ID "${id}" does not belong to user ${userId}.`,
+      throw new ForbiddenException( // <-- Usar ForbiddenException
+        `No tienes permisos para actualizar este historial de lectura.`,
       );
     }
 
@@ -135,25 +152,34 @@ export class ReadingHistoryService {
     return plainToInstance(ReadingHistoryDto, updatedHistory);
   }
 
-  async remove(id: string, userId: string, isAdmin: boolean): Promise<void> {
+  async remove(
+    id: string,
+    requestorUserId: string,
+    hasUserPermission: boolean,
+  ): Promise<void> {
+    // <-- Nombre más claro y nuevo parámetro
     this.logger.debug(
-      `remove(): Eliminando historial con ID: ${id} por usuario ${userId}.`,
+      `remove(): Eliminando historial con ID: ${id} por usuario ${requestorUserId}.`,
     );
-    const history = await this.readingHistoryRepository.findOneById(id); // <-- CAMBIO CLAVE
+    const history = await this.readingHistoryRepository.findOneById(id);
     if (!history) {
       this.logger.warn(
         `remove(): Historial con ID "${id}" no encontrado para eliminar.`,
       );
       throw new NotFoundException(`Reading history with ID "${id}" not found.`);
     }
-    if (history.user_id !== userId && !isAdmin) {
+
+    // Lógica de autorización: el propietario o un admin con permiso
+    const isOwner = history.user_id === requestorUserId;
+    if (!isOwner && !hasUserPermission) {
       this.logger.warn(
-        `remove(): Usuario ${userId} no autorizado para eliminar el historial ${id}.`,
+        `remove(): Usuario ${requestorUserId} no autorizado para eliminar el historial ${id} de otro usuario.`,
       );
-      throw new BadRequestException(
-        `Reading history with ID "${id}" does not belong to user ${userId}.`,
+      throw new ForbiddenException( // <-- Usar ForbiddenException
+        `No tienes permisos para eliminar este historial de lectura.`,
       );
     }
+
     await this.readingHistoryRepository.delete(id);
     this.logger.log(
       `remove(): Historial con ID "${id}" eliminado exitosamente.`,

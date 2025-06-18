@@ -2,40 +2,47 @@ import {
   Controller,
   Get,
   Post,
-  Patch,
-  Delete,
-  Param,
   Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
   HttpCode,
   HttpStatus,
-  UseGuards,
   Request,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import { CommentDto } from './dto/comment.dto';
+import { CommentDto } from './dto/comment.dto'; // Asegúrate de que este DTO existe y es completo
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBearerAuth,
+  ApiParam,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/user/entities/user.entity'; // Importar User para tipado
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard'; // Importar
+import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator'; // Importar
 
-@ApiTags('comments')
+@ApiTags('comments') // Agrupa este controlador bajo la etiqueta 'comments' en Swagger
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('Suscrito', 'admin') // Solo suscritos y admins pueden comentar
-  @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Crear un nuevo comentario (Suscrito o Admin)' })
+  @UseGuards(JwtAuthGuard, RolesGuard) // Requiere autenticación y rol
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede comentar
+  @HttpCode(HttpStatus.CREATED) // Retorna 201 Created
+  @ApiOperation({
+    summary: 'Crear un nuevo comentario',
+    description:
+      'Permite a cualquier usuario autenticado añadir un comentario a un título o capítulo.',
+  })
   @ApiBearerAuth('JWT-auth')
   @ApiResponse({
     status: 201,
@@ -46,7 +53,7 @@ export class CommentsController {
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
-    description: 'No autorizado (rol requerido: Suscrito o Admin).',
+    description: 'No autorizado (rol insuficiente para comentar).',
   })
   @ApiResponse({ status: 404, description: 'Título o capítulo no encontrado.' })
   async create(
@@ -58,10 +65,16 @@ export class CommentsController {
   }
 
   @Get('by-title/:titleId')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
-    summary:
-      'Obtener todos los comentarios de un título por ID (Acceso público)',
+    summary: 'Obtener todos los comentarios de un título específico',
+    description:
+      'Lista todos los comentarios asociados a un ID de título dado. **Acceso público**.',
+  })
+  @ApiParam({
+    name: 'titleId',
+    description: 'ID único del título',
+    type: String,
   })
   @ApiResponse({
     status: 200,
@@ -76,10 +89,16 @@ export class CommentsController {
   }
 
   @Get('by-chapter/:chapterId')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
-    summary:
-      'Obtener todos los comentarios de un capítulo por ID (Acceso público)',
+    summary: 'Obtener todos los comentarios de un capítulo específico',
+    description:
+      'Lista todos los comentarios asociados a un ID de capítulo dado. **Acceso público**.',
+  })
+  @ApiParam({
+    name: 'chapterId',
+    description: 'ID único del capítulo',
+    type: String,
   })
   @ApiResponse({
     status: 200,
@@ -94,8 +113,17 @@ export class CommentsController {
   }
 
   @Get(':id')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Obtener un comentario por ID (Acceso público)' })
+  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  @ApiOperation({
+    summary: 'Obtener un comentario por su ID',
+    description:
+      'Recupera los detalles de un comentario específico. **Acceso público**.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID único del comentario',
+    type: String,
+  })
   @ApiResponse({
     status: 200,
     description: 'Comentario encontrado.',
@@ -107,13 +135,22 @@ export class CommentsController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('Suscrito', 'admin') // Solo suscritos y admins pueden actualizar
-  @HttpCode(HttpStatus.OK)
+  // Se añaden PermissionsGuard y RequiredPermissions para admins/superadmins que moderen
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder (RolesGuard)
+  @RequiredPermissions('moderation_permission') // Solo si es admin/superadmin, debe tener este permiso
+  @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
-    summary: 'Actualizar un comentario por ID (propietario o Admin)',
+    summary: 'Actualizar un comentario por su ID',
+    description:
+      'Permite al propietario del comentario o a un **Admin/Superadmin** (con permiso de moderación) actualizar un comentario existente.',
   })
   @ApiBearerAuth('JWT-auth')
+  @ApiParam({
+    name: 'id',
+    description: 'ID único del comentario a actualizar',
+    type: String,
+  })
   @ApiResponse({
     status: 200,
     description: 'Comentario actualizado exitosamente.',
@@ -123,7 +160,8 @@ export class CommentsController {
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
-    description: 'No autorizado (no es el propietario o rol insuficiente).',
+    description:
+      'No autorizado (no es el propietario O rol/permiso insuficiente para moderar).',
   })
   @ApiResponse({ status: 404, description: 'Comentario no encontrado.' })
   async update(
@@ -132,23 +170,35 @@ export class CommentsController {
     @Body() updateCommentDto: UpdateCommentDto,
   ): Promise<CommentDto> {
     const user = req.user as User;
-    const isAdmin = user.role?.name === 'admin';
+    // La lógica de si es admin y tiene permiso de moderación se pasa al servicio
+    const hasModerationPermission =
+      (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
+      user.admin?.moderation_permission;
     return this.commentsService.update(
       id,
       user.auth0_id,
       updateCommentDto,
-      isAdmin,
+      hasModerationPermission,
     );
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('Suscrito', 'admin') // Solo suscritos y admins pueden eliminar
-  @HttpCode(HttpStatus.NO_CONTENT)
+  // Se añaden PermissionsGuard y RequiredPermissions para admins/superadmins que moderen
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder (RolesGuard)
+  @RequiredPermissions('moderation_permission') // Solo si es admin/superadmin, debe tener este permiso
+  @HttpCode(HttpStatus.NO_CONTENT) // Retorna 204 No Content
   @ApiOperation({
-    summary: 'Eliminar un comentario por ID (propietario o Admin)',
+    summary: 'Eliminar un comentario por su ID',
+    description:
+      'Permite al propietario del comentario o a un **Admin/Superadmin** (con permiso de moderación) eliminar un comentario existente.',
   })
   @ApiBearerAuth('JWT-auth')
+  @ApiParam({
+    name: 'id',
+    description: 'ID único del comentario a eliminar',
+    type: String,
+  })
   @ApiResponse({
     status: 204,
     description: 'Comentario eliminado exitosamente.',
@@ -156,12 +206,19 @@ export class CommentsController {
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
-    description: 'No autorizado (no es el propietario o rol insuficiente).',
+    description:
+      'No autorizado (no es el propietario O rol/permiso insuficiente para moderar).',
   })
   @ApiResponse({ status: 404, description: 'Comentario no encontrado.' })
   async remove(@Param('id') id: string, @Request() req): Promise<void> {
     const user = req.user as User;
-    const isAdmin = user.role?.name === 'admin';
-    await this.commentsService.remove(id, user.auth0_id, isAdmin);
+    const hasModerationPermission =
+      (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
+      user.admin?.moderation_permission;
+    await this.commentsService.remove(
+      id,
+      user.auth0_id,
+      hasModerationPermission,
+    );
   }
 }

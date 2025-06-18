@@ -2,40 +2,47 @@ import {
   Controller,
   Get,
   Post,
-  Patch,
-  Delete,
-  Param,
   Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
   HttpCode,
   HttpStatus,
-  UseGuards,
   Request,
 } from '@nestjs/common';
 import { RatingsService } from './ratings.service';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
-import { RatingDto } from './dto/rating.dto';
+import { RatingDto } from './dto/rating.dto'; // Asegúrate de que este DTO existe y es completo
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBearerAuth,
+  ApiParam,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/user/entities/user.entity'; // Importar User para tipado
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard'; // Importar
+import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator'; // Importar
 
-@ApiTags('ratings')
+@ApiTags('ratings') // Agrupa este controlador bajo la etiqueta 'ratings' en Swagger
 @Controller('ratings')
 export class RatingsController {
   constructor(private readonly ratingsService: RatingsService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('Suscrito', 'admin') // Solo suscritos y admins pueden calificar
-  @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Crear una nueva calificación (Suscrito o Admin)' })
+  @UseGuards(JwtAuthGuard, RolesGuard) // Requiere autenticación y rol
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede calificar
+  @HttpCode(HttpStatus.CREATED) // Retorna 201 Created
+  @ApiOperation({
+    summary: 'Crear una nueva calificación',
+    description:
+      'Permite a cualquier usuario autenticado añadir una calificación a un título o capítulo.',
+  })
   @ApiBearerAuth('JWT-auth')
   @ApiResponse({
     status: 201,
@@ -49,8 +56,12 @@ export class RatingsController {
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
-    description: 'No autorizado (rol requerido: Suscrito o Admin).',
+    description: 'No autorizado (rol insuficiente).',
   })
+  @ApiResponse({
+    status: 409,
+    description: 'El usuario ya ha calificado este título/capítulo.',
+  }) // Cambiado a 409
   @ApiResponse({ status: 404, description: 'Título o capítulo no encontrado.' })
   async create(
     @Request() req,
@@ -61,10 +72,16 @@ export class RatingsController {
   }
 
   @Get('by-title/:titleId')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
-    summary:
-      'Obtener todas las calificaciones de un título por ID (Acceso público)',
+    summary: 'Obtener todas las calificaciones de un título específico',
+    description:
+      'Lista todas las calificaciones asociadas a un ID de título dado. **Acceso público**.',
+  })
+  @ApiParam({
+    name: 'titleId',
+    description: 'ID único del título',
+    type: String,
   })
   @ApiResponse({
     status: 200,
@@ -79,8 +96,17 @@ export class RatingsController {
   }
 
   @Get(':id')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Obtener una calificación por ID (Acceso público)' })
+  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  @ApiOperation({
+    summary: 'Obtener una calificación por su ID',
+    description:
+      'Recupera los detalles de una calificación específica. **Acceso público**.',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'ID único de la calificación',
+    type: String,
+  })
   @ApiResponse({
     status: 200,
     description: 'Calificación encontrada.',
@@ -92,13 +118,22 @@ export class RatingsController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('Suscrito', 'admin') // Solo suscritos y admins pueden actualizar
-  @HttpCode(HttpStatus.OK)
+  // Se añade PermissionsGuard y RequiredPermissions para admins/superadmins que moderen
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder
+  @RequiredPermissions('moderation_permission') // Este permiso es para admins que editan ratings de otros
+  @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
-    summary: 'Actualizar una calificación por ID (propietario o Admin)',
+    summary: 'Actualizar una calificación por su ID',
+    description:
+      'Permite al propietario de la calificación o a un **Admin/Superadmin** (con permiso de moderación) actualizar una calificación existente.',
   })
   @ApiBearerAuth('JWT-auth')
+  @ApiParam({
+    name: 'id',
+    description: 'ID único de la calificación a actualizar',
+    type: String,
+  })
   @ApiResponse({
     status: 200,
     description: 'Calificación actualizada exitosamente.',
@@ -108,7 +143,8 @@ export class RatingsController {
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
-    description: 'No autorizado (no es el propietario o rol insuficiente).',
+    description:
+      'No autorizado (no es el propietario o rol/permiso insuficiente).',
   })
   @ApiResponse({ status: 404, description: 'Calificación no encontrada.' })
   async update(
@@ -117,23 +153,35 @@ export class RatingsController {
     @Body() updateRatingDto: UpdateRatingDto,
   ): Promise<RatingDto> {
     const user = req.user as User;
-    const isAdmin = user.role?.name === 'admin';
+    // Si el usuario es 'admin' o 'superadmin' y tiene el permiso 'moderation_permission'
+    const hasModerationPermission =
+      (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
+      user.admin?.moderation_permission;
     return this.ratingsService.update(
       id,
       user.auth0_id,
       updateRatingDto,
-      isAdmin,
+      hasModerationPermission, // Se pasa el permiso al servicio
     );
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('Suscrito', 'admin') // Solo suscritos y admins pueden eliminar
-  @HttpCode(HttpStatus.NO_CONTENT)
+  // Se añade PermissionsGuard y RequiredPermissions para admins/superadmins que moderen
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder
+  @RequiredPermissions('moderation_permission') // Este permiso es para admins que borran ratings de otros
+  @HttpCode(HttpStatus.NO_CONTENT) // Retorna 204 No Content
   @ApiOperation({
-    summary: 'Eliminar una calificación por ID (propietario o Admin)',
+    summary: 'Eliminar una calificación por su ID',
+    description:
+      'Permite al propietario de la calificación o a un **Admin/Superadmin** (con permiso de moderación) eliminar una calificación existente.',
   })
   @ApiBearerAuth('JWT-auth')
+  @ApiParam({
+    name: 'id',
+    description: 'ID único de la calificación a eliminar',
+    type: String,
+  })
   @ApiResponse({
     status: 204,
     description: 'Calificación eliminada exitosamente.',
@@ -141,12 +189,19 @@ export class RatingsController {
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
-    description: 'No autorizado (no es el propietario o rol insuficiente).',
+    description:
+      'No autorizado (no es el propietario o rol/permiso insuficiente).',
   })
   @ApiResponse({ status: 404, description: 'Calificación no encontrada.' })
   async remove(@Param('id') id: string, @Request() req): Promise<void> {
     const user = req.user as User;
-    const isAdmin = user.role?.name === 'admin';
-    await this.ratingsService.remove(id, user.auth0_id, isAdmin);
+    const hasModerationPermission =
+      (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
+      user.admin?.moderation_permission;
+    await this.ratingsService.remove(
+      id,
+      user.auth0_id,
+      hasModerationPermission,
+    );
   }
 }

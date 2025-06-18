@@ -11,7 +11,7 @@ import { Strategy, ExtractJwt } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
 import * as jwksRsa from 'jwks-rsa';
 import { UserService } from '../user/user.service';
-import { User } from '../user/entities/user.entity';
+import { User } from '../user/entities/user.entity'; // Importa User
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -57,7 +57,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
     this.logger.debug(`JwtStrategy: Auth0 ID extraído: ${auth0_id}`);
 
-    // --- Logs de duración del token ---
     if (payload.exp) {
       const expirationTime = new Date(payload.exp * 1000);
       const currentTime = new Date();
@@ -79,6 +78,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       );
     }
 
+    // Usamos el servicio de usuario para obtener o crear el usuario,
+    // que ahora eager-loads la relación 'admin' (gracias a UserRepository)
     const user = await this.userService.findOrCreateUserFromAuth0(
       auth0_id,
       email,
@@ -99,6 +100,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       `JwtStrategy: Usuario procesado en la DB: ${user.email} (ID: ${user.auth0_id})`,
     );
 
+    // Logs adicionales para los permisos de admin
+    if (user.role?.name === 'admin' || user.role?.name === 'superadmin') {
+      if (user.admin) {
+        this.logger.debug(
+          `JwtStrategy: Permisos de admin para ${user.email}: Content=${user.admin.content_permission}, User=${user.admin.user_permission}, Moderation=${user.admin.moderation_permission}`,
+        );
+      } else {
+        this.logger.warn(
+          `JwtStrategy: Usuario ${user.email} tiene rol '${user.role.name}' pero no tiene una entrada en la tabla 'admins'. Esto se resolverá con el SuperadminService al inicio.`,
+        );
+      }
+    }
+
     if (user.deleted_at) {
       this.logger.warn(
         `JwtStrategy: Cuenta de usuario "${user.email}" desactivada.`,
@@ -116,7 +130,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     this.logger.debug(
       'JwtStrategy: Validación de JWT exitosa. Usuario activo y autorizado.',
     );
-    (req as any).user = user;
-    return user;
+    // NestJS ya asigna 'user' a req.user automáticamente con PassportStrategy.
+    return user; // Retorna la entidad User enriquecida con role y admin
   }
 }
