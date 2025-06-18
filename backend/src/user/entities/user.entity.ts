@@ -1,8 +1,8 @@
 import { Role } from 'src/roles/entities/role.entity';
-import { Favorite } from '../../favorites/entities/favorite.entity'; // Importar
-import { Comment } from '../../comments/entities/comment.entity'; // Importar
-import { Rating } from '../../ratings/entities/rating.entity'; // Importar
-import { ReadingHistory } from '../../reading-history/entities/reading-history.entity'; // Importar
+import { Favorite } from '../../favorites/entities/favorite.entity';
+import { Comment } from '../../comments/entities/comment.entity';
+import { Rating } from '../../ratings/entities/rating.entity';
+import { ReadingHistory } from '../../reading-history/entities/reading-history.entity';
 import {
   Entity,
   Column,
@@ -12,13 +12,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  OneToOne, // Importar OneToMany
+  OneToOne,
 } from 'typeorm';
 import { Admin } from 'src/admins/entities/admin.entity';
 
 @Entity('users')
 export class User {
-  @PrimaryColumn({ type: 'text', name: 'auth0_id' }) // <-- Asegúrate que sea TEXT en tu DB
+  @PrimaryColumn({ type: 'text', name: 'auth0_id' })
   auth0_id: string;
 
   @Column({ type: 'text', nullable: true })
@@ -65,7 +65,6 @@ export class User {
   })
   deleted_at: Date | null;
 
-  // --- Nuevas Relaciones ---
   @OneToMany(() => Favorite, (favorite) => favorite.user)
   favorites: Favorite[];
 
@@ -78,6 +77,11 @@ export class User {
   @OneToMany(() => ReadingHistory, (history) => history.user)
   readingHistories: ReadingHistory[];
 
-  @OneToOne(() => Admin, (admin) => admin.user)
-  admin: Admin;
+  // Modificación CRÍTICA para cargar los permisos del Admin directamente con el usuario
+  @OneToOne(() => Admin, (admin) => admin.user, {
+    eager: true, // ¡IMPORTANTE! Carga la relación 'admin' automáticamente
+    nullable: true, // Un usuario puede no ser admin
+  })
+  @JoinColumn({ name: 'auth0_id', referencedColumnName: 'user_id' }) // Asegúrate que el JoinColumn esté en User
+  admin: Admin | null; // El usuario puede no tener una entrada de admin
 }

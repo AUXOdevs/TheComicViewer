@@ -4,6 +4,7 @@ import {
   BadRequestException,
   ConflictException,
   Logger,
+  ForbiddenException, // Importar ForbiddenException
 } from '@nestjs/common';
 import { CreateFavoriteDto } from './dto/create-favorite.dto';
 import { FavoriteDto } from './dto/favorite.dto';
@@ -33,25 +34,27 @@ export class FavoritesService {
 
     if (!title_id && !chapter_id) {
       throw new BadRequestException(
-        'Either title_id or chapter_id must be provided.',
+        'Debe proporcionar un title_id o un chapter_id.',
       );
     }
     if (title_id && chapter_id) {
       throw new BadRequestException(
-        'Cannot favorite both a title and a chapter in the same entry.',
+        'No se puede marcar como favorito un título y un capítulo en la misma entrada.',
       );
     }
 
     if (title_id) {
       const existingTitle = await this.titleRepository.findOneById(title_id);
       if (!existingTitle) {
-        throw new NotFoundException(`Title with ID "${title_id}" not found.`);
+        throw new NotFoundException(
+          `Título con ID "${title_id}" no encontrado.`,
+        );
       }
       const existingFavorite =
         await this.favoriteRepository.findOneByUserAndTitle(userId, title_id);
       if (existingFavorite) {
         throw new ConflictException(
-          `Title with ID "${title_id}" is already in user's favorites.`,
+          `Título con ID "${title_id}" ya está en los favoritos del usuario.`,
         );
       }
     }
@@ -61,7 +64,7 @@ export class FavoritesService {
         await this.chapterRepository.findOneById(chapter_id);
       if (!existingChapter) {
         throw new NotFoundException(
-          `Chapter with ID "${chapter_id}" not found.`,
+          `Capítulo con ID "${chapter_id}" no encontrado.`,
         );
       }
       const existingFavorite =
@@ -71,7 +74,7 @@ export class FavoritesService {
         );
       if (existingFavorite) {
         throw new ConflictException(
-          `Chapter with ID "${chapter_id}" is already in user's favorites.`,
+          `Capítulo con ID "${chapter_id}" ya está en los favoritos del usuario.`,
         );
       }
     }
@@ -84,7 +87,7 @@ export class FavoritesService {
 
     const savedFavorite = await this.favoriteRepository.save(newFavorite);
     this.logger.log(
-      `create(): Favorito (ID: ${savedFavorite.favorite_id}) añadido para usuario ${userId}.`,
+      `create(): Favorito (ID: ${savedFavorite.favorite_id}) añadido para usuario ${userId}.`, // Usar .favorite_id que es la PK de tu entidad
     );
     return plainToInstance(FavoriteDto, savedFavorite);
   }
@@ -94,30 +97,78 @@ export class FavoritesService {
       `findAllByUser(): Buscando favoritos para usuario ${userId}.`,
     );
     const favorites = await this.favoriteRepository.findAllByUserId(userId);
+    if (!favorites || favorites.length === 0) {
+      throw new NotFoundException(
+        `No se encontraron favoritos para el usuario con ID ${userId}.`,
+      );
+    }
     return plainToInstance(FavoriteDto, favorites);
   }
 
-  async findOne(id: string, userId: string): Promise<FavoriteDto> {
-    this.logger.debug(
-      `findOne(): Buscando favorito con ID: ${id} para usuario ${userId}.`,
-    );
+  /**
+   * Obtiene un favorito por su ID, con validación de propiedad o permiso de administrador.
+   * @param id El ID único del favorito.
+   * @param userId El ID de Auth0 del usuario que realiza la petición.
+   * @param hasUserPermission Indica si el usuario tiene permiso de gestión de usuarios (Admin/Superadmin).
+   * @returns El objeto FavoriteDto encontrado.
+   * @throws NotFoundException si el favorito no existe.
+   * @throws ForbiddenException si el usuario no es el propietario y no tiene permiso.
+   */
+  async findOne(
+    id: string,
+    userId: string,
+    hasUserPermission: boolean,
+  ): Promise<FavoriteDto> {
+    this.logger.debug(`findOne(): Buscando favorito con ID: ${id}.`);
     const favorite = await this.favoriteRepository.findOneById(id);
     if (!favorite) {
       this.logger.warn(`findOne(): Favorito con ID "${id}" no encontrado.`);
       throw new NotFoundException(`Favorite with ID "${id}" not found.`);
     }
-    if (favorite.user_id !== userId) {
+
+    // Verificar si el usuario es el propietario o si es un admin con permiso
+    const isOwner = favorite.user_id === userId; // Usar favorite.user_id de la entidad Favorite
+    if (!isOwner && !hasUserPermission) {
       this.logger.warn(
-        `findOne(): Usuario ${userId} intentó acceder al favorito ${id} de otro usuario.`,
+        `findOne(): Usuario ${userId} intentó acceder al favorito ${id} de otro usuario sin permiso.`,
       );
-      throw new BadRequestException(
-        `Favorite with ID "${id}" does not belong to user ${userId}.`,
+      throw new ForbiddenException(
+        'No tienes permisos para ver este favorito.',
       );
     }
+
     return plainToInstance(FavoriteDto, favorite);
   }
 
-  async remove(id: string, userId: string): Promise<void> {
+  /**
+   * Verifica si un usuario es el propietario de un favorito.
+   * Este método es interno para la lógica del controlador.
+   * @param favoriteId El ID del favorito.
+   * @param userId El ID de Auth0 del usuario.
+   * @returns True si el usuario es el propietario, false en caso contrario.
+   */
+  async isOwner(favoriteId: string, userId: string): Promise<boolean> {
+    this.logger.debug(
+      `isOwner(): Verificando propiedad para favorito ${favoriteId} y usuario ${userId}.`,
+    );
+    const favorite = await this.favoriteRepository.findOneById(favoriteId);
+    return !!favorite && favorite.user_id === userId; // Asumimos que Favorite tiene user_id directamente
+  }
+
+  /**
+   * Elimina un favorito por su ID, con validación de propiedad o permiso de administrador.
+   * @param id El ID único del favorito.
+   * @param userId El ID de Auth0 del usuario que intenta eliminar.
+   * @param hasUserPermission Indica si el usuario tiene permiso de gestión de usuarios (Admin/Superadmin).
+   * @returns void
+   * @throws NotFoundException si el favorito no existe.
+   * @throws ForbiddenException si el usuario no es el propietario y no tiene permiso.
+   */
+  async remove(
+    id: string,
+    userId: string,
+    hasUserPermission: boolean,
+  ): Promise<void> {
     this.logger.debug(
       `remove(): Eliminando favorito con ID: ${id} para usuario ${userId}.`,
     );
@@ -128,15 +179,19 @@ export class FavoritesService {
       );
       throw new NotFoundException(`Favorite with ID "${id}" not found.`);
     }
-    if (favorite.user_id !== userId) {
+
+    // Verificar si el usuario es el propietario O si es un admin con permiso
+    const isOwner = favorite.user_id === userId; // Usar favorite.user_id de la entidad Favorite
+    if (!isOwner && !hasUserPermission) {
       this.logger.warn(
-        `remove(): Usuario ${userId} intentó eliminar el favorito ${id} de otro usuario.`,
+        `remove(): Usuario ${userId} intentó eliminar el favorito ${id} de otro usuario sin permiso.`,
       );
-      throw new BadRequestException(
-        `Favorite with ID "${id}" does not belong to user ${userId}.`,
+      throw new ForbiddenException(
+        'No tienes permisos para eliminar este favorito.',
       );
     }
-    await this.favoriteRepository.delete(id);
+
+    await this.favoriteRepository.delete(id); // Asume que tu repositorio personalizado tiene un método delete(id)
     this.logger.log(
       `remove(): Favorito con ID "${id}" eliminado exitosamente para usuario ${userId}.`,
     );

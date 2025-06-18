@@ -4,6 +4,7 @@ import {
   BadRequestException,
   ConflictException,
   Logger,
+  ForbiddenException, // Asegúrate de importar ForbiddenException
 } from '@nestjs/common';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
@@ -32,11 +33,14 @@ export class RatingsService {
     const { title_id, chapter_id, score } = createRatingDto;
 
     if (!title_id) {
-      throw new BadRequestException('title_id must be provided for a rating.');
+      // Una calificación debe estar asociada a un título
+      throw new BadRequestException(
+        'title_id debe ser proporcionado para una calificación.',
+      );
     }
     const existingTitle = await this.titleRepository.findOneById(title_id);
     if (!existingTitle) {
-      throw new NotFoundException(`Title with ID "${title_id}" not found.`);
+      throw new NotFoundException(`Título con ID "${title_id}" no encontrado.`);
     }
 
     // Un usuario solo puede calificar un título/capítulo una vez
@@ -45,29 +49,30 @@ export class RatingsService {
         await this.chapterRepository.findOneById(chapter_id);
       if (!existingChapter) {
         throw new NotFoundException(
-          `Chapter with ID "${chapter_id}" not found.`,
+          `Capítulo con ID "${chapter_id}" no encontrado.`,
         );
       }
       if (existingChapter.title_id !== title_id) {
         throw new BadRequestException(
-          'Chapter does not belong to the specified title.',
+          'El capítulo no pertenece al título especificado.',
         );
       }
       const existingRating =
         await this.ratingRepository.findOneByUserAndChapter(userId, chapter_id);
       if (existingRating) {
         throw new ConflictException(
-          `User has already rated chapter "${chapter_id}".`,
+          `El usuario ya ha calificado el capítulo "${chapter_id}".`,
         );
       }
     } else {
+      // Si no hay chapter_id, es una calificación de título
       const existingRating = await this.ratingRepository.findOneByUserAndTitle(
         userId,
         title_id,
       );
       if (existingRating) {
         throw new ConflictException(
-          `User has already rated title "${title_id}".`,
+          `El usuario ya ha calificado el título "${title_id}".`,
         );
       }
     }
@@ -91,6 +96,13 @@ export class RatingsService {
       `findAllByTitle(): Buscando calificaciones para título con ID: ${titleId}.`,
     );
     const ratings = await this.ratingRepository.findAllByTitleId(titleId);
+    if (!ratings || ratings.length === 0) {
+      // Opcional: lanzar NotFound si no hay calificaciones
+      this.logger.warn(
+        `findAllByTitle(): No se encontraron calificaciones para el título "${titleId}".`,
+      );
+      // Si no quieres 404 para "no encontrado", simplemente retorna []
+    }
     return plainToInstance(RatingDto, ratings);
   }
 
@@ -108,7 +120,7 @@ export class RatingsService {
     id: string,
     userId: string,
     updateRatingDto: UpdateRatingDto,
-    isAdmin: boolean,
+    hasModerationPermission: boolean, // <-- Nombre del parámetro actualizado y alineado
   ): Promise<RatingDto> {
     this.logger.debug(
       `update(): Actualizando calificación con ID: ${id} por usuario ${userId}.`,
@@ -121,13 +133,15 @@ export class RatingsService {
       throw new NotFoundException(`Rating with ID "${id}" not found.`);
     }
 
-    // Solo el dueño de la calificación o un admin pueden actualizar
-    if (rating.user_id !== userId && !isAdmin) {
+    // Solo el dueño de la calificación o un admin con permiso de moderación pueden actualizar
+    const isOwner = rating.user_id === userId;
+    if (!isOwner && !hasModerationPermission) {
+      // Usar hasModerationPermission
       this.logger.warn(
         `update(): Usuario ${userId} no autorizado para actualizar la calificación ${id}.`,
       );
-      throw new BadRequestException(
-        'You are not authorized to update this rating.',
+      throw new ForbiddenException( // <-- Usar ForbiddenException
+        'No tienes permisos para actualizar esta calificación.',
       );
     }
 
@@ -139,7 +153,12 @@ export class RatingsService {
     return plainToInstance(RatingDto, updatedRating);
   }
 
-  async remove(id: string, userId: string, isAdmin: boolean): Promise<void> {
+  async remove(
+    id: string,
+    userId: string,
+    hasModerationPermission: boolean,
+  ): Promise<void> {
+    // <-- Nombre del parámetro actualizado y alineado
     this.logger.debug(
       `remove(): Eliminando calificación con ID: ${id} por usuario ${userId}.`,
     );
@@ -151,13 +170,15 @@ export class RatingsService {
       throw new NotFoundException(`Rating with ID "${id}" not found.`);
     }
 
-    // Solo el dueño de la calificación o un admin pueden eliminar
-    if (rating.user_id !== userId && !isAdmin) {
+    // Solo el dueño de la calificación o un admin con permiso de moderación pueden eliminar
+    const isOwner = rating.user_id === userId;
+    if (!isOwner && !hasModerationPermission) {
+      // Usar hasModerationPermission
       this.logger.warn(
         `remove(): Usuario ${userId} no autorizado para eliminar la calificación ${id}.`,
       );
-      throw new BadRequestException(
-        'You are not authorized to delete this rating.',
+      throw new ForbiddenException( // <-- Usar ForbiddenException
+        'No tienes permisos para eliminar esta calificación.',
       );
     }
 
