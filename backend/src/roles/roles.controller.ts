@@ -9,34 +9,39 @@ import {
   NotFoundException,
   HttpStatus,
   HttpCode,
+  UseGuards, // Importar UseGuards
 } from '@nestjs/common';
-import { RolesService } from './roles.service'; // Asume que tienes un servicio para los roles
-// import { CreateRoleDto, UpdateRoleDto, RoleDto } from './dto/role.dto';
-import { UserDto } from '../user/dto/user.dto'; // Importa UserDto para el endpoint de usuarios por rol
+import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { RoleDto } from './dto/role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { UserDto } from '../user/dto/user.dto'; // Importa UserDto
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'; // Importar
+import { RolesGuard } from '../auth/guards/roles.guard'; // Importar
+import { Roles } from '../auth/decorators/roles.decorator'; // Importar
 
 @Controller('roles')
+@UseGuards(JwtAuthGuard, RolesGuard) // Aplicar protección a todo el controlador
+@Roles('superadmin') // Solo superadmins pueden gestionar roles
 export class RolesController {
-  constructor(private readonly rolesService: RolesService) {} // Inyecta el servicio
+  constructor(private readonly rolesService: RolesService) {}
 
   @Post()
   async create(@Body() createRoleDto: CreateRoleDto): Promise<RoleDto> {
-    // Implementa la lógica para crear un rol.
-    // Recuerda que IsIn(['Invitado', 'Suscrito', 'Administrador']) ya valida el nombre.
     return this.rolesService.create(createRoleDto);
   }
 
   @Get()
+  // Esta ruta podría ser más flexible, quizás 'admin' también puede ver los roles
+  @Roles('admin', 'superadmin')
   async findAll(): Promise<RoleDto[]> {
-    // Este ya lo tienes, pero ahora con el tipo de retorno RoleDto[]
     return this.rolesService.findAll();
   }
 
   @Get(':id')
+  // Esta ruta también podría ser más flexible
+  @Roles('admin', 'superadmin')
   async findOne(@Param('id') id: string): Promise<RoleDto> {
-    // Permite obtener un rol específico por su ID.
     const role = await this.rolesService.findOne(id);
     if (!role) {
       throw new NotFoundException(`Role with ID "${id}" not found.`);
@@ -45,26 +50,23 @@ export class RolesController {
   }
 
   @Get(':id/users')
+  // ¿Quién puede ver qué usuarios tienen qué rol? Generalmente admins y superadmins.
+  @Roles('admin', 'superadmin')
   async findUsersByRoleId(@Param('id') id: string): Promise<UserDto[]> {
-    // Este es el endpoint clave al que se refería el comentario en RoleDto.
-    // Permite obtener una lista de todos los usuarios que tienen un rol específico.
-    // Esto evita cargar una lista de usuarios directamente en el RoleDto.
     const users = await this.rolesService.findUsersByRoleId(id);
     if (!users || users.length === 0) {
-      // Podrías lanzar un NotFoundException si el rol no existe o no tiene usuarios,
-      // o simplemente devolver un array vacío si el rol existe pero no tiene usuarios.
       throw new NotFoundException(`No users found for role with ID "${id}".`);
     }
     return users;
   }
 
   @Put(':id')
+  // Solo superadmin puede actualizar roles (incluyendo sus nombres)
+  @Roles('superadmin')
   async update(
     @Param('id') id: string,
     @Body() updateRoleDto: UpdateRoleDto,
   ): Promise<RoleDto> {
-    // Permite actualizar un rol, por ejemplo, su nombre si en el futuro se permite.
-    // La validación IsIn ya restringirá los nombres permitidos.
     const updatedRole = await this.rolesService.update(id, updateRoleDto);
     if (!updatedRole) {
       throw new NotFoundException(`Role with ID "${id}" not found.`);
@@ -73,11 +75,9 @@ export class RolesController {
   }
 
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT) // Retorna 204 No Content para eliminaciones exitosas
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Roles('superadmin') // Solo superadmin puede eliminar roles
   async remove(@Param('id') id: string): Promise<void> {
-    // El servicio ahora lanza excepciones (NotFoundException, BadRequestException)
-    // si hay un problema. Si llega hasta aquí sin una excepción, la operación fue exitosa.
     await this.rolesService.remove(id);
-    // Ya no necesitas la verificación 'if (!result)' aquí
   }
 }
