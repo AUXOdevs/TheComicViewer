@@ -6,15 +6,16 @@ export class UpdateRoleDto {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @IsIn(['Registrado', 'Suscrito'], {
-    // <-- ¡Cambiado aquí!
-    message: 'El nombre del rol debe ser Registrado o Suscrito.',
+  // Permite ahora la actualización de roles Registrado, Suscrito, admin y superadmin
+  @IsIn(['Registrado', 'Suscrito', 'admin', 'superadmin'], {
+    message:
+      'El nombre del rol debe ser Registrado, Suscrito, admin o superadmin.',
   })
   @ApiProperty({
     description: 'Nuevo nombre único del rol.',
     required: false,
     example: 'Suscrito',
-    enum: ['Registrado', 'Suscrito'],
+    enum: ['Registrado', 'Suscrito', 'admin', 'superadmin'],
   })
   name?: string;
 }

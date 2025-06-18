@@ -26,6 +26,7 @@ import { RequestLoggerMiddleware } from './common/middleware/request-logger.midd
 import { DatabaseModule } from './database/database.module';
 import { SettingsModule } from './settings/setting.module';
 import { Setting } from './settings/entities/setting.entity';
+import { SuperadminModule } from './super-admin/super-admin.module';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { Setting } from './settings/entities/setting.entity';
     ReadingHistoryModule,
     SettingsModule,
     DatabaseModule,
+    SuperadminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

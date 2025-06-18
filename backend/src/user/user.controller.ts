@@ -69,7 +69,7 @@ export class UsersController {
 
   @Post('admin-create')
   @UseGuards(JwtAuthGuard, RolesGuard) // Protegida con JWT y rol de admin
-  @Roles('admin')
+  @Roles('admin', 'superadmin') // ¡Ahora tanto 'admin' como 'superadmin' pueden crear usuarios!
   @HttpCode(HttpStatus.CREATED)
   async createByAdmin(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
     console.log(
@@ -82,7 +82,7 @@ export class UsersController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard) // Protegida con JWT y rol
-  @Roles('admin', 'moderator', 'Registrado', 'Suscrito')
+  @Roles('admin', 'superadmin', 'Registrado', 'Suscrito') // Permite a superadmin ver todos los usuarios
   async findAll(
     @Query('includeDeleted') includeDeleted?: string,
   ): Promise<UserDto[]> {
@@ -93,7 +93,7 @@ export class UsersController {
 
   @Get('deactivated')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @Roles('admin', 'superadmin') // Permite a superadmin ver usuarios desactivados
   async findDeactivatedUsers(): Promise<UserDto[]> {
     console.log(
       '🚧 [BACKEND] Ruta /users/deactivated - Buscando usuarios desactivados.',
@@ -118,13 +118,23 @@ export class UsersController {
       throw new UnauthorizedException('Authentication required.');
     }
 
-    if (currentUser.auth0_id !== id && currentUser.role?.name !== 'admin') {
+    // Permite a los superadmin y admin ver cualquier perfil, o al propio usuario ver su perfil.
+    if (
+      currentUser.auth0_id !== id &&
+      currentUser.role?.name !== 'admin' &&
+      currentUser.role?.name !== 'superadmin'
+    ) {
       throw new UnauthorizedException(
         'You are not authorized to view this user profile.',
       );
     }
 
-    if (bIncludeDeleted && currentUser.role?.name !== 'admin') {
+    // Permite a los superadmin y admin ver perfiles eliminados.
+    if (
+      bIncludeDeleted &&
+      currentUser.role?.name !== 'admin' &&
+      currentUser.role?.name !== 'superadmin'
+    ) {
       throw new UnauthorizedException(
         'You are not authorized to view deleted user profiles.',
       );
@@ -149,13 +159,25 @@ export class UsersController {
       throw new UnauthorizedException('Authentication required.');
     }
 
-    if (currentUser.auth0_id !== id && currentUser.role?.name !== 'admin') {
+    // Un superadmin o admin puede actualizar cualquier perfil, el usuario solo el suyo.
+    if (
+      currentUser.auth0_id !== id &&
+      currentUser.role?.name !== 'admin' &&
+      currentUser.role?.name !== 'superadmin'
+    ) {
       throw new UnauthorizedException(
         'You are not authorized to update this user profile.',
       );
     }
-    if (currentUser.role?.name !== 'admin' && updateUserDto.role_id) {
-      throw new BadRequestException('Users cannot change their own role.');
+    // Solo un admin o superadmin puede cambiar el rol de un usuario
+    if (
+      currentUser.role?.name !== 'admin' &&
+      currentUser.role?.name !== 'superadmin' &&
+      updateUserDto.role_id
+    ) {
+      throw new BadRequestException(
+        'Only admins or superadmins can change user roles.',
+      );
     }
 
     return this.userService.update(id, updateUserDto);
@@ -164,7 +186,7 @@ export class UsersController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @Roles('admin', 'superadmin') // Permite a superadmin desactivar usuarios
   async softDeleteUser(@Param('id') id: string): Promise<void> {
     console.log(
       `🚧 [BACKEND] Ruta /users/:id - Desactivando usuario con ID: ${id}`,
@@ -174,7 +196,7 @@ export class UsersController {
 
   @Patch(':id/reactivate')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @Roles('admin', 'superadmin') // Permite a superadmin reactivar usuarios
   async reactivateUser(@Param('id') id: string): Promise<UserDto> {
     console.log(
       `🚧 [BACKEND] Ruta /users/:id/reactivate - Reactivando usuario con ID: ${id}`,
