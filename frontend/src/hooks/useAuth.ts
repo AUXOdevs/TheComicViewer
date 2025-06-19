@@ -8,16 +8,22 @@ export const useAuth = () => {
     getAccessTokenSilently,
     loginWithRedirect,
     logout,
-    isLoading,
-    error,
+    isLoading: auth0Loading,
+    error: auth0Error,
   } = useAuth0();
+
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [loadingUserRole, setLoadingUserRole] = useState<boolean>(false);
+  const [roleError, setRoleError] = useState<Error | null>(null);
 
   const fetchUserRole = useCallback(async () => {
+    if (!isAuthenticated) return;
+
+    setLoadingUserRole(true);
+    setRoleError(null);
+
     try {
       const token = await getAccessTokenSilently();
-      console.log("🔑 Token obtenido del Auth0:", token); // <-- LOG importante
-
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`,
         {
@@ -27,27 +33,29 @@ export const useAuth = () => {
         }
       );
 
-      if (!response.ok) {
-        console.error(
-          "❗ Error al obtener el usuario desde el backend:",
-          response.statusText
-        );
-        throw new Error("Failed to fetch user");
-      }
-
+      if (!response.ok) throw new Error(`Error: ${response.statusText}`);
       const data = await response.json();
-      console.log("📦 Respuesta del backend /auth/me:", data); // <-- LOG importante
-      setUserRole(data.role);
+
+      console.log("📦 /auth/me:", data);
+
+      if (data?.role?.name) {
+        setUserRole(data.role.name.toLowerCase()); // <-- asegúrate que sea lowercase para comparar luego
+      } else {
+        setUserRole(null);
+      }
     } catch (error) {
-      console.error("❗ Error en fetchUserRole:", error);
+      setRoleError(error as Error);
+      setUserRole(null);
+    } finally {
+      setLoadingUserRole(false);
     }
-  }, [getAccessTokenSilently]);
+  }, [isAuthenticated, getAccessTokenSilently]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && userRole === null && !loadingUserRole) {
       fetchUserRole();
     }
-  }, [isAuthenticated, fetchUserRole]);
+  }, [isAuthenticated, userRole, fetchUserRole, loadingUserRole]);
 
   return {
     isAuthenticated,
@@ -55,7 +63,8 @@ export const useAuth = () => {
     userRole,
     loginWithRedirect,
     logout,
-    isLoading,
-    error,
+    isLoading: auth0Loading || loadingUserRole,
+    error: auth0Error || roleError,
+    refetchUserRole: fetchUserRole,
   };
 };
