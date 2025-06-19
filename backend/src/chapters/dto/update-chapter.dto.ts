@@ -1,3 +1,5 @@
+// src/chapters/dto/update-chapter.dto.ts
+import { PartialType, ApiProperty } from '@nestjs/swagger';
 import {
   IsString,
   IsOptional,
@@ -5,41 +7,43 @@ import {
   IsUrl,
   IsDateString,
   Min,
+  IsArray, // Importante: indica que es un array
+  ArrayMinSize, // Opcional: para asegurar al menos un elemento en el array
+  IsUUID, // Si puedes cambiar el title_id en el PATCH
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { CreateChapterDto } from './create-chapter.dto';
 
-export class UpdateChapterDto {
-  @IsOptional()
-  @IsString()
-  @ApiProperty({ description: 'Nuevo nombre del capítulo.', required: false })
-  name?: string;
+export class UpdateChapterDto extends PartialType(CreateChapterDto) {
+  // Las propiedades 'name', 'release_date', 'chapter_number' son heredadas
+  // de CreateChapterDto y se hacen opcionales por PartialType.
+  // No necesitas declararlas aquí de nuevo a menos que quieras
+  // cambiar sus validaciones o descripciones de Swagger específicamente para el update.
 
   @IsOptional()
-  @IsDateString()
+  @IsUUID() // Si se permite actualizar el title_id del capítulo
   @ApiProperty({
-    description: 'Nueva fecha de lanzamiento del capítulo (formato ISO 8601).',
+    description: 'ID del título al que pertenece el capítulo',
+    example: '996d7681-f76d-4e6f-bfa0-8af7aa83f83c',
     required: false,
-    example: '2024-06-01T15:00:00Z',
   })
-  release_date?: string;
+  title_id?: string;
 
   @IsOptional()
-  @IsUrl()
+  @IsArray({ message: 'pages must be an array of URL addresses' }) // Mensaje de error más claro si no es un array
+  @ArrayMinSize(1, { message: 'pages must contain at least 1 URL' }) // Opcional: requiere al menos 1 URL
+  @IsUrl(
+    {},
+    { each: true, message: 'Each page entry must be a valid URL address' },
+  ) // Valida cada elemento como URL
   @ApiProperty({
-    description: 'Nuevas URLs o paths de las páginas del capítulo.',
+    description: 'Nuevas URLs o rutas de las páginas del capítulo.',
     required: false,
-    example:
-      '["https://example.com/new-page1.jpg", "https://example.com/new-page2.jpg"]',
+    type: [String], // Esto le dice a Swagger que es un array de strings
+    example: [
+      'https://example.com/new-page1.jpg',
+      'https://example.com/new-page2.jpg',
+      'https://example.com/new-page3.jpg',
+    ],
   })
-  pages?: string;
-
-  @IsOptional()
-  @IsNumber()
-  @Min(1)
-  @ApiProperty({
-    description: 'Nuevo número de capítulo.',
-    required: false,
-    example: 2,
-  })
-  chapter_number?: number;
+  pages?: string[]; // ¡CORRECCIÓN CLAVE: el tipo debe ser string[]!
 }
