@@ -18,7 +18,7 @@ import { AdminService } from '../admins/admins.service';
 import { plainToInstance } from 'class-transformer';
 import { User } from './entities/user.entity';
 import { DataSource, IsNull } from 'typeorm';
-import { Auth0UserProvisionDto } from './dto/auth0-user-provision.dto'; // Importa el nuevo DTO
+import { Auth0UserProvisionDto } from './dto/auth0-user-provision.dto';
 
 @Injectable()
 export class UserService {
@@ -32,9 +32,6 @@ export class UserService {
     private readonly dataSource: DataSource,
   ) {}
 
-  // Nuevo método para encontrar o crear/reactivar el usuario en la DB local al iniciar sesión
-  // Ahora recibe Auth0UserProvisionDto como guía para el payload, pero usa sus propiedades directamente.
-  // Retorna la ENTIDAD User
   async findOrCreateUserFromAuth0(
     auth0Id: string,
     email: string,
@@ -46,8 +43,6 @@ export class UserService {
       `findOrCreateUserFromAuth0: Procesando usuario con Auth0 ID "${auth0Id}" y email "${email}".`,
     );
 
-    // Auth0 ID ya viene en el formato correcto (ej. 'google-oauth2|...').
-    // No necesitamos prefijar 'auth0|' aquí.
     const processedAuth0Id = auth0Id;
 
     // findByAuth0Id ahora carga automáticamente 'admin' y 'role'
@@ -67,30 +62,53 @@ export class UserService {
         userInDb = await this.reactivateUser(processedAuth0Id); // reactivateUser devuelve User con relaciones
       }
 
-      // Actualizar datos del perfil si cambiaron en Auth0 y actualizar last_login
+      // ************ CAMBIO CRÍTICO AQUÍ ************
+      // Usar un objeto parcial para las actualizaciones y luego el método update directo
       let needsUpdate = false;
+      const updatedFields: Partial<User> = {};
+
       if (userInDb.name !== name) {
-        userInDb.name = name;
+        updatedFields.name = name;
         needsUpdate = true;
       }
       if (userInDb.email_verified !== emailVerified) {
-        userInDb.email_verified = emailVerified;
+        updatedFields.email_verified = emailVerified;
         needsUpdate = true;
       }
       if (userInDb.picture !== picture) {
-        userInDb.picture = picture;
+        updatedFields.picture = picture;
         needsUpdate = true;
       }
 
-      // Actualizar last_login en cada login exitoso
-      userInDb.last_login = new Date();
+      // Siempre actualizar last_login
+      updatedFields.last_login = new Date();
       needsUpdate = true; // Forzar la actualización para registrar el last_login
 
       if (needsUpdate) {
         this.logger.debug(
           `findOrCreateUserFromAuth0: Actualizando datos de perfil para "${userInDb.email}".`,
         );
-        userInDb = await this.userRepository.save(userInDb); // Guarda y retorna la entidad actualizada
+        // Usar el nuevo método updateUserFields
+        await this.userRepository.updateUserFields(
+          userInDb.auth0_id,
+          updatedFields,
+        );
+
+        // Después de la actualización, es vital volver a cargar el usuario completo
+        // para asegurarse de que todas las relaciones (role, admin) estén actualizadas y disponibles
+        // para el resto del flujo (ej. JwtStrategy, RolesGuard, PermissionsGuard).
+        userInDb = await this.userRepository.findByAuth0Id(
+          userInDb.auth0_id,
+          true,
+        );
+        if (!userInDb) {
+          this.logger.error(
+            'findOrCreateUserFromAuth0: Falló al recuperar usuario después de la actualización de campos.',
+          );
+          throw new InternalServerErrorException(
+            'Failed to retrieve user after updating profile fields.',
+          );
+        }
       }
       return userInDb; // Retorna la entidad User (que ya tiene role y admin eager-loaded si existen)
     }
@@ -111,17 +129,15 @@ export class UserService {
     return this.create(newUserDto); // Llama a create, que ahora retorna User con sus relaciones
   }
 
-  // Ahora create retorna la ENTIDAD User
   async create(createUserDto: CreateUserDto): Promise<User> {
     this.logger.debug(
       'create(): Intentando crear o provisionar usuario en DB local.',
     );
-    // Ya no agregamos 'auth0|' aquí si viene del frontend, asumiendo que ya viene formateado
     const processedAuth0Id = createUserDto.auth0_id;
 
     let existingUserByAuth0Id = await this.userRepository.findByAuth0Id(
       processedAuth0Id,
-      true, // Incluir eliminados
+      true,
     );
 
     if (existingUserByAuth0Id) {
@@ -129,7 +145,7 @@ export class UserService {
         this.logger.log(
           `create(): Usuario con Auth0 ID "${processedAuth0Id}" está desactivado. Reactivando.`,
         );
-        return this.reactivateUser(processedAuth0Id); // reactivateUser devuelve User con relaciones
+        return this.reactivateUser(processedAuth0Id);
       }
       this.logger.warn(
         `create(): Usuario con Auth0 ID "${processedAuth0Id}" ya existe.`,
@@ -141,7 +157,7 @@ export class UserService {
 
     let existingUserByEmail = await this.userRepository.findByEmail(
       createUserDto.email,
-      true, // Incluir eliminados
+      true,
     );
 
     if (existingUserByEmail) {
@@ -149,7 +165,7 @@ export class UserService {
         this.logger.log(
           `create(): Usuario con email "${createUserDto.email}" está desactivado. Reactivando.`,
         );
-        return this.reactivateUser(existingUserByEmail.auth0_id!); // <-- ¡Asegúrate que auth0_id no sea nulo aquí!
+        return this.reactivateUser(existingUserByEmail.auth0_id!);
       }
       this.logger.warn(
         `create(): Usuario con email "${createUserDto.email}" ya existe.`,
@@ -170,16 +186,11 @@ export class UserService {
         );
       }
     } else {
-      // Asigna el rol 'Registrado' por defecto si no se proporciona uno
       role = await this.rolesRepository.findByName('Registrado');
       if (!role) {
         this.logger.warn(
           'create(): Rol por defecto "Registrado" no encontrado. Asegúrate de que existe en la DB y crea uno si es necesario.',
         );
-        // Si el rol "Registrado" no existe, considera cómo quieres manejarlo:
-        // - Lanzar un error para forzar al admin a crearlo.
-        // - Crear el rol "Registrado" programáticamente si no existe (SuperadminService lo hace).
-        // - Asignar null y dejar el rol sin definir (menos recomendado).
       }
     }
 
@@ -192,9 +203,8 @@ export class UserService {
       role: role,
       role_id: role ? role.role_id : null,
       last_login: new Date(),
-      // created_at se establece automáticamente con @CreateDateColumn
-      is_blocked: false, // Por defecto no bloqueado
-      deleted_at: null, // Por defecto no eliminado
+      is_blocked: false,
+      deleted_at: null,
     });
 
     const savedUser = await this.userRepository.save(userEntity);
@@ -202,8 +212,6 @@ export class UserService {
       `create(): Usuario "${savedUser.email}" guardado exitosamente en la DB local.`,
     );
 
-    // Debido a que findUserWithRole (ahora findByAuth0Id) carga eager la relación 'admin',
-    // el usuario retornado debería tenerla si existe.
     const userWithRoleAndAdmin = await this.userRepository.findUserWithRole(
       savedUser.auth0_id,
     );
@@ -218,14 +226,14 @@ export class UserService {
     this.logger.debug(
       'create(): Usuario creado/provisionado y recuperado con rol y admin.',
     );
-    return userWithRoleAndAdmin; // Retorna la entidad User completa
+    return userWithRoleAndAdmin;
   }
 
   async findAll(includeDeleted = false): Promise<UserDto[]> {
     this.logger.debug(
       `findAll(): Buscando todos los usuarios (incluir eliminados: ${includeDeleted}).`,
     );
-    const users = await this.userRepository.findAll(includeDeleted); // Este findAll ahora carga admin y role
+    const users = await this.userRepository.findAll(includeDeleted);
     return plainToInstance(UserDto, users);
   }
 
@@ -233,16 +241,14 @@ export class UserService {
     this.logger.debug(
       'findDeactivatedUsers(): Buscando usuarios desactivados.',
     );
-    const users = await this.userRepository.findDeactivatedUsers(); // Este también carga admin y role
+    const users = await this.userRepository.findDeactivatedUsers();
     return plainToInstance(UserDto, users);
   }
 
-  // Ahora findOne retorna UserDto
   async findOne(id: string, includeDeleted = false): Promise<UserDto> {
     this.logger.debug(
       `findOne(): Buscando usuario por ID "${id}" (incluir eliminados: ${includeDeleted}).`,
     );
-    // Este findUserWithRole ahora carga admin y role
     const user = await this.userRepository.findUserWithRole(id, includeDeleted);
     if (!user) {
       this.logger.warn(`findOne(): Usuario con ID "${id}" no encontrado.`);
@@ -250,10 +256,9 @@ export class UserService {
         `User with ID "${id}" not found or does not meet criteria.`,
       );
     }
-    return plainToInstance(UserDto, user); // Retorna DTO
+    return plainToInstance(UserDto, user);
   }
 
-  // findByEmail y findByAuth0IdForAuth retornan la entidad User
   async findByEmail(
     email: string,
     includeDeleted = false,
@@ -261,7 +266,7 @@ export class UserService {
     this.logger.debug(
       `findByEmail(): Buscando usuario por email "${email}" (incluir eliminados: ${includeDeleted}).`,
     );
-    const user = await this.userRepository.findByEmail(email, includeDeleted); // Este también carga admin y role
+    const user = await this.userRepository.findByEmail(email, includeDeleted);
     return user;
   }
 
@@ -269,14 +274,13 @@ export class UserService {
     this.logger.debug(
       `findByAuth0IdForAuth(): Buscando usuario con Auth0 ID "${auth0Id}".`,
     );
-    const user = await this.userRepository.findByAuth0Id(auth0Id, true); // Este también carga admin y role
+    const user = await this.userRepository.findByAuth0Id(auth0Id, true);
     return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<UserDto> {
     this.logger.debug(`update(): Actualizando usuario con ID "${id}".`);
-    // Asegurarse de cargar el rol y el admin para las verificaciones
-    const user = await this.userRepository.findUserWithRole(id, true); // Incluir eliminados para actualizar
+    const user = await this.userRepository.findUserWithRole(id, true);
     if (!user) {
       this.logger.warn(
         `update(): Usuario con ID "${id}" no encontrado para actualizar.`,
@@ -284,7 +288,6 @@ export class UserService {
       throw new NotFoundException(`User with ID "${id}" not found.`);
     }
     if (user.deleted_at && updateUserDto.deleted_at === undefined) {
-      // No permitir update si está soft-deleted a menos que se esté reactivando
       this.logger.warn(
         `update(): Usuario con ID "${id}" está desactivado y no puede ser actualizado sin reactivación explícita.`,
       );
@@ -301,7 +304,7 @@ export class UserService {
       );
     }
 
-    const { auth0_id, email, ...allowedUpdates } = updateUserDto as any; // No permitir actualización directa de auth0_id o email
+    const { auth0_id, email, ...allowedUpdates } = updateUserDto as any;
 
     if (allowedUpdates.role_id !== undefined) {
       if (allowedUpdates.role_id === null) {
@@ -321,25 +324,20 @@ export class UserService {
       }
     }
 
-    // Manejar deleted_at explícitamente para reactivación/desactivación
     if (updateUserDto.deleted_at !== undefined) {
       if (updateUserDto.deleted_at === null && user.deleted_at !== null) {
-        // Se intenta reactivar
         user.deleted_at = null;
-        user.last_login = new Date(); // Actualizar last_login al reactivar
+        user.last_login = new Date();
         this.logger.log(`update(): Usuario ${user.email} reactivado.`);
       } else if (
         updateUserDto.deleted_at instanceof Date &&
         user.deleted_at === null
       ) {
-        // Se intenta desactivar
         user.deleted_at = new Date();
         this.logger.log(`update(): Usuario ${user.email} desactivado.`);
       }
-      // Si no se cambia, o ya estaba en el estado deseado, no hacer nada
     }
 
-    // Aplicar las actualizaciones permitidas
     Object.assign(user, allowedUpdates);
 
     const updatedUser = await this.userRepository.save(user);
@@ -347,7 +345,6 @@ export class UserService {
       `update(): Usuario "${updatedUser.email}" actualizado exitosamente.`,
     );
 
-    // Recuperar el usuario con sus relaciones completas para asegurar que el DTO esté bien
     const userWithRoleAndAdmin = await this.userRepository.findUserWithRole(
       updatedUser.auth0_id,
     );
@@ -362,12 +359,11 @@ export class UserService {
     return plainToInstance(UserDto, userWithRoleAndAdmin);
   }
 
-  // softDeleteUser y reactivateUser ahora usan el User entity completo
   async softDeleteUser(auth0_id: string): Promise<void> {
     this.logger.debug(
       `softDeleteUser(): Realizando soft delete para usuario con Auth0 ID "${auth0_id}".`,
     );
-    const user = await this.userRepository.findByAuth0Id(auth0_id, false); // Solo usuarios activos
+    const user = await this.userRepository.findByAuth0Id(auth0_id, false);
     if (!user) {
       this.logger.warn(
         `softDeleteUser(): Usuario activo con ID "${auth0_id}" no encontrado para soft delete.`,
@@ -393,17 +389,15 @@ export class UserService {
           `softDeleteUser(): Usuario con ID "${auth0_id}" no se pudo desactivar (posiblemente ya desactivado).`,
         );
         throw new NotFoundException(
-          `Active user with ID "${auth0_id}" not found for soft deletion (possibly already deactivated).`, // Texto más claro
+          `Active user with ID "${auth0_id}" not found for soft deletion (possibly already deactivated).`,
         );
       }
 
-      // Eliminar permisos de admin si el usuario desactivado era admin
       const adminEntry = await this.adminService.findByUserIdInternal(auth0_id);
       if (adminEntry) {
         this.logger.log(
           `softDeleteUser(): Eliminando permisos de admin para "${auth0_id}" durante soft delete.`,
         );
-        // Usar removeAdminPermissionsByUserIdInternal con el queryRunner
         await this.adminService.removeAdminPermissionsByUserIdInternal(
           auth0_id,
           queryRunner,
@@ -436,11 +430,10 @@ export class UserService {
   }
 
   async reactivateUser(auth0_id: string): Promise<User> {
-    // Retorna User, no UserDto
     this.logger.debug(
       `reactivateUser(): Reactivando usuario con Auth0 ID "${auth0_id}".`,
     );
-    const user = await this.userRepository.findByAuth0Id(auth0_id, true); // Incluir eliminados para encontrarlo
+    const user = await this.userRepository.findByAuth0Id(auth0_id, true);
     if (!user) {
       this.logger.warn(
         `reactivateUser(): Usuario con ID "${auth0_id}" no encontrado para reactivar.`,
@@ -464,7 +457,6 @@ export class UserService {
       `reactivateUser(): Usuario "${reactivatedUser.email}" reactivado exitosamente.`,
     );
 
-    // Asegurarse de que el usuario retornado tiene todas las relaciones cargadas
     const userWithRoleAndAdmin = await this.userRepository.findUserWithRole(
       reactivatedUser.auth0_id,
     );
@@ -476,6 +468,6 @@ export class UserService {
         'Failed to retrieve user after reactivation.',
       );
     }
-    return userWithRoleAndAdmin; // Retorna la entidad User completa
+    return userWithRoleAndAdmin;
   }
 }
