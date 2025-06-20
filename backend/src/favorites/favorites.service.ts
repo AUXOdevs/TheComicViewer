@@ -14,7 +14,7 @@ import { Favorite } from './entities/favorite.entity';
 import { FavoriteRepository } from './favorites.repository';
 import { TitleRepository } from 'src/titles/titles.repository';
 import { ChapterRepository } from 'src/chapters/chapters.repository';
-import { UserService } from 'src/user/user.service'; // Importar UserService
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class FavoritesService {
@@ -24,7 +24,7 @@ export class FavoritesService {
     private readonly favoriteRepository: FavoriteRepository,
     private readonly titleRepository: TitleRepository,
     private readonly chapterRepository: ChapterRepository,
-    private readonly userService: UserService, // Inyectar UserService
+    private readonly userService: UserService,
   ) {}
 
   async create(
@@ -140,7 +140,6 @@ export class FavoritesService {
     return plainToInstance(FavoriteDto, favorites);
   }
 
-  // --- NUEVO MÉTODO: BUSCAR FAVORITOS POR ID DE USUARIO O EMAIL ---
   async findAllFavoritesOfUserByQuery(query: string): Promise<FavoriteDto[]> {
     this.logger.debug(
       `findAllFavoritesOfUserByQuery(): Buscando favoritos para usuario por query: "${query}".`,
@@ -183,6 +182,67 @@ export class FavoritesService {
       `findAllFavoritesOfUserByQuery(): Encontrados ${favorites.length} favoritos para el usuario (Auth0 ID: ${targetAuth0Id}).`,
     );
     return plainToInstance(FavoriteDto, favorites);
+  }
+
+  // --- NUEVO MÉTODO: checkFavoriteStatus ---
+  async checkFavoriteStatus(
+    userId: string, // El ID del usuario autenticado
+    title_id?: string,
+    chapter_id?: string,
+  ): Promise<boolean> {
+    this.logger.debug(
+      `checkFavoriteStatus(): Verificando favorito para usuario ${userId}, title_id: ${title_id}, chapter_id: ${chapter_id}.`,
+    );
+
+    let finalTitleId: string;
+    let finalChapterId: string | null = null;
+
+    // Validar que al menos uno esté presente
+    if (!title_id && !chapter_id) {
+      throw new BadRequestException(
+        'Debe proporcionar un title_id o un chapter_id para verificar el estado del favorito.',
+      );
+    }
+
+    // Lógica para determinar finalTitleId y finalChapterId (similar a 'create')
+    if (chapter_id) {
+      const chapter = await this.chapterRepository.findOneById(chapter_id);
+      if (!chapter) {
+        // Si el capítulo no existe, no puede ser favorito
+        return false;
+      }
+      if (!chapter.title_id) {
+        this.logger.error(
+          `Capítulo con ID "${chapter_id}" no está asociado a un título.`,
+        );
+        throw new InternalServerErrorException(
+          `El capítulo con ID "${chapter_id}" no tiene un título asociado.`,
+        );
+      }
+
+      finalChapterId = chapter_id;
+      finalTitleId = chapter.title_id;
+
+      // Si title_id también fue proporcionado, verificar que coincida
+      if (title_id && title_id !== finalTitleId) {
+        // Si no coinciden, no es un favorito válido
+        return false;
+      }
+    } else {
+      finalTitleId = title_id!;
+      finalChapterId = null;
+    }
+
+    // Buscar el favorito usando las claves compuestas
+    const existingFavorite =
+      await this.favoriteRepository.findOneByCompositeKeys(
+        userId,
+        finalTitleId,
+        finalChapterId,
+      );
+
+    // Devolver true si se encontró un favorito, false en caso contrario
+    return !!existingFavorite;
   }
   // --- FIN NUEVO MÉTODO ---
 

@@ -23,12 +23,12 @@ import {
 } from '@nestjs/swagger';
 import { FavoriteDto } from './dto/favorite.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { Request } from 'express'; // Para obtener el user del request (ajustar tipos si es necesario)
+import { Request } from 'express';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
 import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator';
-import { User } from 'src/user/entities/user.entity'; // Importar la entidad User para tipado
+import { User } from 'src/user/entities/user.entity';
 
 @ApiTags('favorites')
 @Controller('favorites')
@@ -38,8 +38,8 @@ export class FavoritesController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede añadir favoritos
-  @UseGuards(RolesGuard) // Aplica RolesGuard
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Añadir un título o capítulo a favoritos' })
   @ApiBearerAuth('JWT-auth')
   @ApiResponse({
@@ -59,14 +59,14 @@ export class FavoritesController {
     @Req() req: Request,
     @Body() createFavoriteDto: CreateFavoriteDto,
   ): Promise<FavoriteDto> {
-    const userId = (req.user as User).auth0_id; // Usa auth0_id
+    const userId = (req.user as User).auth0_id;
     return this.favoritesService.create(userId, createFavoriteDto);
   }
 
   @Get('my-favorites')
   @HttpCode(HttpStatus.OK)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede ver sus propios favoritos
-  @UseGuards(RolesGuard) // Aplica RolesGuard
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary: 'Obtener todos los favoritos del usuario autenticado',
   })
@@ -86,17 +86,74 @@ export class FavoritesController {
     description: 'No autorizado (rol insuficiente).',
   })
   async findAllMyFavorites(@Req() req: Request): Promise<FavoriteDto[]> {
-    const userId = (req.user as User).auth0_id; // Usa auth0_id
+    const userId = (req.user as User).auth0_id;
     return this.favoritesService.findAllByUser(userId);
   }
 
-  // --- NUEVA RUTA: BUSCAR FAVORITOS DE OTRO USUARIO POR ID O EMAIL ---
+  // --- NUEVA RUTA: Verificar si un favorito existe ---
+  @Get('status')
+  @HttpCode(HttpStatus.OK)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede verificar sus propios favoritos
+  @UseGuards(RolesGuard) // Aplica RolesGuard
+  @ApiOperation({
+    summary:
+      'Verificar si un título o capítulo está en favoritos del usuario autenticado',
+  })
+  @ApiBearerAuth('JWT-auth')
+  @ApiQuery({
+    name: 'title_id',
+    required: false,
+    description:
+      'ID del título a verificar. Requerido si chapter_id no está presente.',
+    type: String,
+  })
+  @ApiQuery({
+    name: 'chapter_id',
+    required: false,
+    description:
+      'ID del capítulo a verificar. Requerido si title_id no está presente.',
+    type: String,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Estado del favorito. Retorna { isFavorited: true/false }.',
+    schema: {
+      type: 'object',
+      properties: {
+        isFavorited: { type: 'boolean', example: true },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description:
+      'Parámetros inválidos (ni title_id ni chapter_id proporcionados).',
+  })
+  @ApiResponse({ status: 401, description: 'No autenticado.' })
+  @ApiResponse({
+    status: 403,
+    description: 'No autorizado (rol insuficiente).',
+  })
+  async checkFavoriteStatus(
+    @Req() req: Request,
+    @Query('title_id') title_id?: string,
+    @Query('chapter_id') chapter_id?: string,
+  ): Promise<{ isFavorited: boolean }> {
+    const userId = (req.user as User).auth0_id;
+    const isFavorited = await this.favoritesService.checkFavoriteStatus(
+      userId,
+      title_id,
+      chapter_id,
+    );
+    return { isFavorited };
+  }
+  // --- FIN NUEVA RUTA ---
+
   @Get('search-by-user')
   @HttpCode(HttpStatus.OK)
-  // Seguridad: Solo Admin/Superadmin con permiso de usuario puede buscar favoritos de otros
   @Roles('admin', 'superadmin')
   @RequiredPermissions('user_permission')
-  @UseGuards(RolesGuard, PermissionsGuard) // Aplica RolesGuard y PermissionsGuard
+  @UseGuards(RolesGuard, PermissionsGuard)
   @ApiOperation({ summary: 'Buscar favoritos de un usuario por ID o email' })
   @ApiBearerAuth('JWT-auth')
   @ApiQuery({
@@ -124,12 +181,11 @@ export class FavoritesController {
   ): Promise<FavoriteDto[]> {
     return this.favoritesService.findAllFavoritesOfUserByQuery(query);
   }
-  // --- FIN NUEVA RUTA ---
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder
-  @UseGuards(RolesGuard, PermissionsGuard) // Aplica RolesGuard y PermissionsGuard
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
+  @UseGuards(RolesGuard, PermissionsGuard)
   @ApiOperation({ summary: 'Obtener un favorito por ID' })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({ name: 'id', description: 'ID único del favorito', type: String })
@@ -150,7 +206,6 @@ export class FavoritesController {
     @Req() req: Request,
   ): Promise<FavoriteDto> {
     const user = req.user as User;
-    // req.user.admin será eager-loaded debido a la entidad User.
     const hasUserPermission =
       (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
       user.admin?.user_permission;
@@ -159,8 +214,8 @@ export class FavoritesController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder
-  @UseGuards(RolesGuard, PermissionsGuard) // Aplica RolesGuard y PermissionsGuard
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
+  @UseGuards(RolesGuard, PermissionsGuard)
   @ApiOperation({ summary: 'Eliminar un favorito por ID' })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
