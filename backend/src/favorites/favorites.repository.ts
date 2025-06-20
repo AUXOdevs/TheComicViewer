@@ -1,4 +1,4 @@
-import { Repository, DataSource } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { Favorite } from './entities/favorite.entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -30,7 +30,7 @@ export class FavoriteRepository {
     return this.createQueryBuilder('favorite')
       .where('favorite.user_id = :userId', { userId })
       .andWhere('favorite.title_id = :titleId', { titleId })
-      .andWhere('favorite.chapter_id IS NULL') // Asegura que es un favorito de título, no de capítulo
+      .andWhere('favorite.chapter_id IS NULL')
       .getOne();
   }
 
@@ -42,6 +42,23 @@ export class FavoriteRepository {
       .where('favorite.user_id = :userId', { userId })
       .andWhere('favorite.chapter_id = :chapterId', { chapterId })
       .getOne();
+  }
+
+  async findOneByCompositeKeys(
+    userId: string,
+    titleId: string,
+    chapterId: string | null,
+  ): Promise<Favorite | null> {
+    const query = this.createQueryBuilder('favorite')
+      .where('favorite.user_id = :userId', { userId })
+      .andWhere('favorite.title_id = :titleId', { titleId });
+
+    if (chapterId === null) {
+      query.andWhere('favorite.chapter_id IS NULL');
+    } else {
+      query.andWhere('favorite.chapter_id = :chapterId', { chapterId });
+    }
+    return query.getOne();
   }
 
   async findOneById(favoriteId: string): Promise<Favorite | null> {

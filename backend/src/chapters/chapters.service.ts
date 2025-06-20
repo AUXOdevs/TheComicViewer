@@ -84,6 +84,7 @@ export class ChaptersService {
     this.logger.debug(
       `findOne(): Buscando capítulo con ID: ${id}. Autenticado: ${isAuthenticated}, Rol: ${userRole}`,
     );
+    // Este findOneById ya carga el título gracias al repositorio
     const chapter = await this.chapterRepository.findOneById(id);
     if (!chapter) {
       this.logger.warn(`findOne(): Capítulo con ID "${id}" no encontrado.`);
@@ -129,6 +130,23 @@ export class ChaptersService {
     return chapterDto;
   }
 
+  // Se remueve findOneByIdWithTitle aquí ya que el findOneById del repositorio ya lo hace.
+  // Pero si necesitas exponerlo como parte de tu API de servicio, podrías crear un alias o re-exportar.
+  // Para el FavoritesService, el findOneById del ChapterRepository es suficiente.
+
+  async findByTitle(titleId: string): Promise<ChapterDto[]> {
+    this.logger.debug(
+      `findByTitle(): Buscando capítulos para título con ID: ${titleId}`,
+    );
+    const chapters = await this.chapterRepository.findAllByTitleId(titleId);
+    if (!chapters || chapters.length === 0) {
+      throw new NotFoundException(
+        `No se encontraron capítulos para el título con ID ${titleId}.`,
+      );
+    }
+    return plainToInstance(ChapterDto, chapters);
+  }
+
   async update(
     id: string,
     updateChapterDto: UpdateChapterDto,
@@ -142,8 +160,6 @@ export class ChaptersService {
       throw new NotFoundException(`Chapter with ID "${id}" not found.`);
     }
 
-    // Desestructurar updateChapterDto.
-    // 'pages' ahora es un `string[]` si viene en el DTO.
     const { title_id, pages, release_date, ...restOfUpdateDto } =
       updateChapterDto;
 
@@ -159,14 +175,10 @@ export class ChaptersService {
       chapter.release_date = release_date ? new Date(release_date) : null;
     }
 
-    // Manejar 'pages': si está presente, stringificarlo para la DB
     if (pages !== undefined) {
-      // No necesitas verificar Array.isArray(pages) aquí porque
-      // class-validator en UpdateChapterDto ya lo habrá validado.
-      chapter.pages = JSON.stringify(pages); // pages es string[], lo convertimos a string para la DB
+      chapter.pages = JSON.stringify(pages);
     }
 
-    // Aplicar las demás propiedades (name, chapter_number)
     Object.assign(chapter, restOfUpdateDto);
 
     const updatedChapter = await this.chapterRepository.save(chapter);
@@ -175,7 +187,7 @@ export class ChaptersService {
     );
 
     const chapterDto = plainToInstance(ChapterDto, updatedChapter);
-    chapterDto.pages = JSON.parse(updatedChapter.pages); // Parseamos de vuelta a array para el DTO de salida
+    chapterDto.pages = JSON.parse(updatedChapter.pages);
     return chapterDto;
   }
 
