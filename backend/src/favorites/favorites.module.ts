@@ -8,10 +8,12 @@ import { Chapter } from 'src/chapters/entities/chapter.entity';
 import { FavoriteRepository } from './favorites.repository';
 import { TitleRepository } from 'src/titles/titles.repository';
 import { ChapterRepository } from 'src/chapters/chapters.repository';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Favorite, Title, Chapter]), // Añadir Title y Chapter
+    UserModule,
   ],
   controllers: [FavoritesController],
   providers: [

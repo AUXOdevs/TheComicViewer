@@ -22,14 +22,16 @@ export class ChapterRepository {
       .getMany();
   }
 
+  // ************ CLAVE: Este método ya carga la relación con el título ************
   async findOneById(chapterId: string): Promise<Chapter | null> {
     return this.createQueryBuilder('chapter')
-      .leftJoinAndSelect('chapter.title', 'title')
+      .leftJoinAndSelect('chapter.title', 'title') // Importante: carga la relación 'title'
       .where('chapter.chapter_id = :chapterId', { chapterId })
       .getOne();
   }
 
-  // Nuevo método: encontrar capítulo por title_id y chapter_number
+  // El método findOneByIdWithTitle ya no es necesario ya que findOneById hace lo mismo
+
   async findByTitleIdAndChapterNumber(
     titleId: string,
     chapterNumber: number,
