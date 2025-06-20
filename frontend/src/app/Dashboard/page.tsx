@@ -9,27 +9,30 @@ export default function DashboardRedirect() {
   const { isAuthenticated, userRole, isLoading } = useAuth();
 
   useEffect(() => {
-    if (!isLoading) {
-      if (!isAuthenticated) {
-        router.push("/");
-      } else {
-        switch (userRole) {
-          case "admin":
-          case "superadmin":
-            router.push("/Dashboard"); // ← esto renderiza el slot @admin
-            break;
-          case "registrado":
-            router.push("/Dashboard"); // ← esto renderiza el slot @registrado
-            break;
-          case "suscrito":
-            router.push("/Dashboard"); // ← esto renderiza el slot @suscrito
-            break;
-          default:
-            router.push("/");
-        }
+    if (isLoading) return; // espera a que termine el loading
+
+    if (!isAuthenticated) {
+      router.replace("/");
+      return;
+    }
+
+    if (userRole) {
+      switch (userRole) {
+        case "admin":
+        case "superadmin":
+          router.replace("/Dashboard/admin");
+          break;
+        case "registrado":
+          router.replace("/Dashboard/registrado");
+          break;
+        case "suscrito":
+          router.replace("/Dashboard/suscrito");
+          break;
+        default:
+          router.replace("/");
       }
     }
   }, [isAuthenticated, userRole, isLoading, router]);
 
-  return <p>Redirigiendo al dashboard...</p>;
+  return <p className="p-4 text-center">🔄 Cargando dashboard...</p>;
 }

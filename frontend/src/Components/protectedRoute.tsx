@@ -1,32 +1,38 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function ProtectedLayout({
+export const AuthGuard = ({
+  allowedRoles,
   children,
 }: {
+  allowedRoles: string[];
   children: React.ReactNode;
-}) {
-  const { isAuthenticated, isLoading, userRole } = useAuth();
+}) => {
+  const { isAuthenticated, userRole, isLoading } = useAuth();
   const router = useRouter();
-
+console.log("Rol actual:", userRole)
   useEffect(() => {
+    // Esperar mientras se carga
+    console.log("Rol actual:", userRole);
     if (!isLoading) {
       if (!isAuthenticated) {
-        router.push("/login");
-      } else if (userRole === "admin" || userRole === "superadmin") {
-        router.push("/dashboard/admin");
-      } else if (userRole === "registrado") {
-        router.push("/dashboard/registrado");
-      } else if (userRole === "suscrito") {
-        router.push("/dashboard/suscrito");
+        router.replace("/");
+      } else if (userRole && !allowedRoles.includes(userRole)) {
+        router.replace("/");
       }
     }
-  }, [isAuthenticated, isLoading, userRole, router]);
+  }, [isAuthenticated, userRole, isLoading, router, allowedRoles]);
 
-  if (isLoading || !userRole) return <p>Cargando...</p>;
+  if (isLoading || !userRole) {
+    return <p className="p-4 text-center">🔄 Cargando dashboard...</p>;
+  }
+
+  if (!isAuthenticated || !allowedRoles.includes(userRole)) {
+    return null; // Evita parpadeo del contenido
+  }
 
   return <>{children}</>;
-}
+};

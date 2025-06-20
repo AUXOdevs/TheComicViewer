@@ -1,6 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState, useCallback } from "react";
 
+type UserRole = "admin" | "superadmin" | "registrado" | "suscrito" | null;
+
 export const useAuth = () => {
   const {
     isAuthenticated,
@@ -12,18 +14,18 @@ export const useAuth = () => {
     error: auth0Error,
   } = useAuth0();
 
-  const [userRole, setUserRole] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<UserRole>(null);
   const [loadingUserRole, setLoadingUserRole] = useState<boolean>(false);
   const [roleError, setRoleError] = useState<Error | null>(null);
 
   const fetchUserRole = useCallback(async () => {
-    if (!isAuthenticated) return;
-
     setLoadingUserRole(true);
     setRoleError(null);
 
     try {
       const token = await getAccessTokenSilently();
+      console.log("🔑 Token obtenido del Auth0:", token);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/auth/me`,
         {
@@ -33,34 +35,47 @@ export const useAuth = () => {
         }
       );
 
-      if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+      if (!response.ok) {
+        console.error(
+          "❗ Error al obtener el usuario desde el backend:",
+          response.status,
+          response.statusText
+        );
+        throw new Error(`Failed to fetch user: ${response.statusText}`);
+      }
+
       const data = await response.json();
+      console.log("📦 Respuesta completa del backend /auth/me:", data);
 
-      console.log("📦 /auth/me:", data);
+      // Extraer el nombre del rol de forma segura
+      const roleName = data?.role?.name?.trim().toLowerCase();
 
-      if (data?.role?.name) {
-        setUserRole(data.role.name.toLowerCase()); // <-- asegúrate que sea lowercase para comparar luego
+      if (roleName) {
+        console.log("✅ Rol encontrado:", roleName);
+        setUserRole(roleName as UserRole);
       } else {
+        console.warn("⚠️ No se encontró el nombre del rol en la respuesta.");
         setUserRole(null);
       }
     } catch (error) {
+      console.error("❗ Error en fetchUserRole:", error);
       setRoleError(error as Error);
       setUserRole(null);
     } finally {
       setLoadingUserRole(false);
     }
-  }, [isAuthenticated, getAccessTokenSilently]);
+  }, [getAccessTokenSilently]);
 
   useEffect(() => {
-    if (isAuthenticated && userRole === null && !loadingUserRole) {
+    if (isAuthenticated && !userRole && !loadingUserRole) {
       fetchUserRole();
     }
-  }, [isAuthenticated, userRole, fetchUserRole, loadingUserRole]);
+  }, [isAuthenticated, fetchUserRole, userRole, loadingUserRole]);
 
   return {
     isAuthenticated,
     user,
-    userRole,
+    userRole, // Ejemplo: "admin", "superadmin", "registrado", "suscrito", etc.
     loginWithRedirect,
     logout,
     isLoading: auth0Loading || loadingUserRole,
