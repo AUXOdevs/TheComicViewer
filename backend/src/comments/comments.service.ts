@@ -2,7 +2,7 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
-  ForbiddenException, // Importar ForbiddenException
+  ForbiddenException,
   Logger,
 } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -13,6 +13,7 @@ import { Comment } from './entities/comment.entity';
 import { CommentRepository } from './comments.repository';
 import { TitleRepository } from 'src/titles/titles.repository';
 import { ChapterRepository } from 'src/chapters/chapters.repository';
+import { User } from 'src/user/entities/user.entity'; // Importar la entidad User
 
 @Injectable()
 export class CommentsService {
@@ -25,13 +26,12 @@ export class CommentsService {
   ) {}
 
   async create(
-    userId: string,
+    userId: string, // auth0_id del usuario creador
     createCommentDto: CreateCommentDto,
   ): Promise<CommentDto> {
     this.logger.debug(`create(): Creando comentario para usuario ${userId}.`);
-    const { title_id, chapter_id, content } = createCommentDto;
+    const { title_id, chapter_id, comment_text } = createCommentDto;
 
-    // Un comentario DEBE estar asociado a un título, y opcionalmente a un capítulo de ese título.
     if (!title_id) {
       throw new BadRequestException(
         'title_id debe ser proporcionado para un comentario.',
@@ -51,7 +51,6 @@ export class CommentsService {
           `Capítulo con ID "${chapter_id}" no encontrado.`,
         );
       }
-      // Validación: el capítulo debe pertenecer al título especificado
       if (existingChapter.title_id !== title_id) {
         throw new BadRequestException(
           'El capítulo no pertenece al título especificado.',
@@ -62,8 +61,8 @@ export class CommentsService {
     const newComment = this.commentRepository.create({
       user_id: userId,
       title_id,
-      chapter_id: chapter_id || null, // Asegura que sea null si no se proporciona
-      content,
+      chapter_id: chapter_id || null,
+      comment_text,
     });
 
     const savedComment = await this.commentRepository.save(newComment);
@@ -79,12 +78,9 @@ export class CommentsService {
     );
     const comments = await this.commentRepository.findAllByTitleId(titleId);
     if (!comments || comments.length === 0) {
-      // Añadir un log/excepción si no hay comentarios
       this.logger.warn(
         `findAllByTitle(): No se encontraron comentarios para el título "${titleId}".`,
       );
-      // No lanzar NotFoundException aquí, ya que una lista vacía es una respuesta válida.
-      // return []; // O manejar de otra forma si quieres una 404 explícita cuando no hay nada.
     }
     return plainToInstance(CommentDto, comments);
   }
@@ -95,11 +91,9 @@ export class CommentsService {
     );
     const comments = await this.commentRepository.findAllByChapterId(chapterId);
     if (!comments || comments.length === 0) {
-      // Añadir un log/excepción si no hay comentarios
       this.logger.warn(
         `findAllByChapter(): No se encontraron comentarios para el capítulo "${chapterId}".`,
       );
-      // return [];
     }
     return plainToInstance(CommentDto, comments);
   }
@@ -116,13 +110,14 @@ export class CommentsService {
 
   async update(
     id: string,
-    userId: string,
+    currentUser: User, // Recibe el objeto User completo del usuario autenticado
     updateCommentDto: UpdateCommentDto,
-    hasModerationPermission: boolean, // <-- Nombre del parámetro actualizado
   ): Promise<CommentDto> {
     this.logger.debug(
-      `update(): Actualizando comentario con ID: ${id} por usuario ${userId}.`,
+      `update(): Actualizando comentario con ID: ${id} por usuario ${currentUser.auth0_id}.`,
     );
+    // Necesitamos cargar el comentario con su relación 'user' para verificar el rol del dueño
+    // El findOneById del CommentRepository ya carga 'comment.user', 'comment.title', 'comment.chapter'
     const comment = await this.commentRepository.findOneById(id);
     if (!comment) {
       this.logger.warn(
@@ -131,33 +126,59 @@ export class CommentsService {
       throw new NotFoundException(`Comment with ID "${id}" not found.`);
     }
 
-    // Solo el dueño del comentario o un admin con permiso de moderación pueden actualizar
-    const isOwner = comment.user_id === userId;
-    if (!isOwner && !hasModerationPermission) {
-      // Usar hasModerationPermission
-      this.logger.warn(
-        `update(): Usuario ${userId} no autorizado para actualizar el comentario ${id}.`,
-      );
-      throw new ForbiddenException( // Usar ForbiddenException
-        'No tienes permisos para actualizar este comentario.',
-      );
+    const isOwner = comment.user_id === currentUser.auth0_id;
+    const currentUserRole = currentUser.role?.name; // 'admin', 'superadmin', 'Registrado', 'Suscrito'
+    const commentOwnerRole = comment.user?.role?.name; // Rol del dueño del comentario
+
+    const hasModerationPermission =
+      (currentUserRole === 'admin' || currentUserRole === 'superadmin') &&
+      currentUser.admin?.moderation_permission;
+
+    // Lógica de permisos detallada:
+    if (!isOwner) {
+      // Si no es el propietario
+      if (!hasModerationPermission) {
+        // Y no tiene permiso de moderación
+        this.logger.warn(
+          `update(): Usuario ${currentUser.auth0_id} no autorizado (no propietario y sin permiso de moderación) para actualizar el comentario ${id}.`,
+        );
+        throw new ForbiddenException(
+          'No tienes permisos para actualizar este comentario.',
+        );
+      }
+
+      // Si tiene permiso de moderación, verificar jerarquía
+      if (
+        currentUserRole === 'admin' && // Si el usuario actual es un admin
+        commentOwnerRole === 'superadmin' // Y el dueño del comentario es un superadmin
+      ) {
+        this.logger.warn(
+          `update(): Admin ${currentUser.auth0_id} intentó actualizar comentario de Superadmin ${comment.user_id}. Acceso denegado.`,
+        );
+        throw new ForbiddenException(
+          'Un administrador no puede modificar comentarios de superadministradores.',
+        );
+      }
     }
 
-    Object.assign(comment, updateCommentDto);
+    // Si llegó hasta aquí, el usuario tiene permiso para actualizar
+    if (updateCommentDto.comment_text !== undefined) {
+      comment.comment_text = updateCommentDto.comment_text;
+    }
+
     const updatedComment = await this.commentRepository.save(comment);
     this.logger.log(
-      `update(): Comentario (ID: ${updatedComment.comment_id}) actualizado exitosamente.`,
+      `update(): Comentario (ID: ${updatedComment.comment_id}) actualizado exitosamente por usuario ${currentUser.auth0_id}.`,
     );
     return plainToInstance(CommentDto, updatedComment);
   }
 
   async remove(
     id: string,
-    userId: string,
-    hasModerationPermission: boolean,
+    currentUser: User, // Recibe el objeto User completo del usuario autenticado
   ): Promise<void> {
     this.logger.debug(
-      `remove(): Eliminando comentario con ID: ${id} por usuario ${userId}.`,
+      `remove(): Eliminando comentario con ID: ${id} por usuario ${currentUser.auth0_id}.`,
     );
     const comment = await this.commentRepository.findOneById(id);
     if (!comment) {
@@ -167,21 +188,45 @@ export class CommentsService {
       throw new NotFoundException(`Comment with ID "${id}" not found.`);
     }
 
-    // Solo el dueño del comentario o un admin con permiso de moderación pueden eliminar
-    const isOwner = comment.user_id === userId;
-    if (!isOwner && !hasModerationPermission) {
-      // Usar hasModerationPermission
-      this.logger.warn(
-        `remove(): Usuario ${userId} no autorizado para eliminar el comentario ${id}.`,
-      );
-      throw new ForbiddenException( // Usar ForbiddenException
-        'No tienes permisos para eliminar este comentario.',
-      );
+    const isOwner = comment.user_id === currentUser.auth0_id;
+    const currentUserRole = currentUser.role?.name;
+    const commentOwnerRole = comment.user?.role?.name;
+
+    const hasModerationPermission =
+      (currentUserRole === 'admin' || currentUserRole === 'superadmin') &&
+      currentUser.admin?.moderation_permission;
+
+    // Lógica de permisos detallada:
+    if (!isOwner) {
+      // Si no es el propietario
+      if (!hasModerationPermission) {
+        // Y no tiene permiso de moderación
+        this.logger.warn(
+          `remove(): Usuario ${currentUser.auth0_id} no autorizado (no propietario y sin permiso de moderación) para eliminar el comentario ${id}.`,
+        );
+        throw new ForbiddenException(
+          'No tienes permisos para eliminar este comentario.',
+        );
+      }
+
+      // Si tiene permiso de moderación, verificar jerarquía
+      if (
+        currentUserRole === 'admin' && // Si el usuario actual es un admin
+        commentOwnerRole === 'superadmin' // Y el dueño del comentario es un superadmin
+      ) {
+        this.logger.warn(
+          `remove(): Admin ${currentUser.auth0_id} intentó eliminar comentario de Superadmin ${comment.user_id}. Acceso denegado.`,
+        );
+        throw new ForbiddenException(
+          'Un administrador no puede eliminar comentarios de superadministradores.',
+        );
+      }
     }
 
+    // Si llegó hasta aquí, el usuario tiene permiso para eliminar
     await this.commentRepository.delete(id);
     this.logger.log(
-      `remove(): Comentario con ID "${id}" eliminado exitosamente.`,
+      `remove(): Comentario con ID "${id}" eliminado exitosamente por usuario ${currentUser.auth0_id}.`,
     );
   }
 }
