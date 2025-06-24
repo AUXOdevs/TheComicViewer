@@ -4,7 +4,7 @@ import {
   BadRequestException,
   ConflictException,
   Logger,
-  ForbiddenException, // Asegúrate de importar ForbiddenException
+  ForbiddenException,
 } from '@nestjs/common';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
@@ -14,10 +14,12 @@ import { Rating } from './entities/rating.entity';
 import { RatingRepository } from './ratings.repository';
 import { TitleRepository } from 'src/titles/titles.repository';
 import { ChapterRepository } from 'src/chapters/chapters.repository';
+import { User } from 'src/user/entities/user.entity'; // Importar la entidad User
 
 @Injectable()
 export class RatingsService {
   private readonly logger = new Logger(RatingsService.name);
+  private readonly DEFAULT_RATING_IF_NONE = 3; // Media por defecto si no hay calificaciones
 
   constructor(
     private readonly ratingRepository: RatingRepository,
@@ -26,14 +28,13 @@ export class RatingsService {
   ) {}
 
   async create(
-    userId: string,
+    userId: string, // auth0_id del usuario creador
     createRatingDto: CreateRatingDto,
   ): Promise<RatingDto> {
     this.logger.debug(`create(): Creando calificación para usuario ${userId}.`);
     const { title_id, chapter_id, score } = createRatingDto;
 
     if (!title_id) {
-      // Una calificación debe estar asociada a un título
       throw new BadRequestException(
         'title_id debe ser proporcionado para una calificación.',
       );
@@ -97,14 +98,40 @@ export class RatingsService {
     );
     const ratings = await this.ratingRepository.findAllByTitleId(titleId);
     if (!ratings || ratings.length === 0) {
-      // Opcional: lanzar NotFound si no hay calificaciones
       this.logger.warn(
         `findAllByTitle(): No se encontraron calificaciones para el título "${titleId}".`,
       );
-      // Si no quieres 404 para "no encontrado", simplemente retorna []
     }
     return plainToInstance(RatingDto, ratings);
   }
+
+  // ************ NUEVO MÉTODO: Obtener promedio de calificación de un título ************
+  async getAverageRatingForTitle(titleId: string): Promise<number> {
+    this.logger.debug(
+      `getAverageRatingForTitle(): Calculando promedio para título ${titleId}.`,
+    );
+    const average =
+      await this.ratingRepository.findAverageScoreByTitleId(titleId);
+    // Si no hay calificaciones, devuelve la media por defecto
+    return average !== null
+      ? parseFloat(average.toFixed(1))
+      : this.DEFAULT_RATING_IF_NONE;
+  }
+  // ************ FIN NUEVO MÉTODO ************
+
+  // ************ NUEVO MÉTODO: Obtener promedio de calificación de un capítulo ************
+  async getAverageRatingForChapter(chapterId: string): Promise<number> {
+    this.logger.debug(
+      `getAverageRatingForChapter(): Calculando promedio para capítulo ${chapterId}.`,
+    );
+    const average =
+      await this.ratingRepository.findAverageScoreByChapterId(chapterId);
+    // Si no hay calificaciones, devuelve la media por defecto
+    return average !== null
+      ? parseFloat(average.toFixed(1))
+      : this.DEFAULT_RATING_IF_NONE;
+  }
+  // ************ FIN NUEVO MÉTODO ************
 
   async findOne(id: string): Promise<RatingDto> {
     this.logger.debug(`findOne(): Buscando calificación con ID: ${id}.`);
@@ -118,13 +145,13 @@ export class RatingsService {
 
   async update(
     id: string,
-    userId: string,
+    currentUser: User, // Recibe el objeto User completo del usuario autenticado
     updateRatingDto: UpdateRatingDto,
-    hasModerationPermission: boolean, // <-- Nombre del parámetro actualizado y alineado
   ): Promise<RatingDto> {
     this.logger.debug(
-      `update(): Actualizando calificación con ID: ${id} por usuario ${userId}.`,
+      `update(): Actualizando calificación con ID: ${id} por usuario ${currentUser.auth0_id}.`,
     );
+    // Necesitamos cargar el rating con su relación 'user' para verificar el rol del dueño
     const rating = await this.ratingRepository.findOneById(id);
     if (!rating) {
       this.logger.warn(
@@ -133,34 +160,56 @@ export class RatingsService {
       throw new NotFoundException(`Rating with ID "${id}" not found.`);
     }
 
-    // Solo el dueño de la calificación o un admin con permiso de moderación pueden actualizar
-    const isOwner = rating.user_id === userId;
-    if (!isOwner && !hasModerationPermission) {
-      // Usar hasModerationPermission
-      this.logger.warn(
-        `update(): Usuario ${userId} no autorizado para actualizar la calificación ${id}.`,
-      );
-      throw new ForbiddenException( // <-- Usar ForbiddenException
-        'No tienes permisos para actualizar esta calificación.',
-      );
+    const isOwner = rating.user_id === currentUser.auth0_id;
+    const currentUserRole = currentUser.role?.name;
+    const ratingOwnerRole = rating.user?.role?.name; // Rol del dueño de la calificación
+
+    const hasModerationPermission =
+      (currentUserRole === 'admin' || currentUserRole === 'superadmin') &&
+      currentUser.admin?.moderation_permission;
+
+    // Lógica de permisos detallada:
+    if (!isOwner) {
+      // Si no es el propietario
+      if (!hasModerationPermission) {
+        // Y no tiene permiso de moderación
+        this.logger.warn(
+          `update(): Usuario ${currentUser.auth0_id} no autorizado (no propietario y sin permiso de moderación) para actualizar la calificación ${id}.`,
+        );
+        throw new ForbiddenException(
+          'No tienes permisos para actualizar esta calificación.',
+        );
+      }
+
+      // Si tiene permiso de moderación, verificar jerarquía
+      if (
+        currentUserRole === 'admin' && // Si el usuario actual es un admin
+        ratingOwnerRole === 'superadmin' // Y el dueño de la calificación es un superadmin
+      ) {
+        this.logger.warn(
+          `update(): Admin ${currentUser.auth0_id} intentó actualizar calificación de Superadmin ${rating.user_id}. Acceso denegado.`,
+        );
+        throw new ForbiddenException(
+          'Un administrador no puede modificar calificaciones de superadministradores.',
+        );
+      }
     }
 
-    Object.assign(rating, updateRatingDto);
+    // Si llegó hasta aquí, el usuario tiene permiso para actualizar
+    Object.assign(rating, updateRatingDto); // Asignar el nuevo score
     const updatedRating = await this.ratingRepository.save(rating);
     this.logger.log(
-      `update(): Calificación (ID: ${updatedRating.rating_id}) actualizada exitosamente a score ${updatedRating.score}.`,
+      `update(): Calificación (ID: ${updatedRating.rating_id}) actualizada exitosamente a score ${updatedRating.score} por usuario ${currentUser.auth0_id}.`,
     );
     return plainToInstance(RatingDto, updatedRating);
   }
 
   async remove(
     id: string,
-    userId: string,
-    hasModerationPermission: boolean,
+    currentUser: User, // Recibe el objeto User completo del usuario autenticado
   ): Promise<void> {
-    // <-- Nombre del parámetro actualizado y alineado
     this.logger.debug(
-      `remove(): Eliminando calificación con ID: ${id} por usuario ${userId}.`,
+      `remove(): Eliminando calificación con ID: ${id} por usuario ${currentUser.auth0_id}.`,
     );
     const rating = await this.ratingRepository.findOneById(id);
     if (!rating) {
@@ -170,21 +219,45 @@ export class RatingsService {
       throw new NotFoundException(`Rating with ID "${id}" not found.`);
     }
 
-    // Solo el dueño de la calificación o un admin con permiso de moderación pueden eliminar
-    const isOwner = rating.user_id === userId;
-    if (!isOwner && !hasModerationPermission) {
-      // Usar hasModerationPermission
-      this.logger.warn(
-        `remove(): Usuario ${userId} no autorizado para eliminar la calificación ${id}.`,
-      );
-      throw new ForbiddenException( // <-- Usar ForbiddenException
-        'No tienes permisos para eliminar esta calificación.',
-      );
+    const isOwner = rating.user_id === currentUser.auth0_id;
+    const currentUserRole = currentUser.role?.name;
+    const ratingOwnerRole = rating.user?.role?.name;
+
+    const hasModerationPermission =
+      (currentUserRole === 'admin' || currentUserRole === 'superadmin') &&
+      currentUser.admin?.moderation_permission;
+
+    // Lógica de permisos detallada:
+    if (!isOwner) {
+      // Si no es el propietario
+      if (!hasModerationPermission) {
+        // Y no tiene permiso de moderación
+        this.logger.warn(
+          `remove(): Usuario ${currentUser.auth0_id} no autorizado (no propietario y sin permiso de moderación) para eliminar la calificación ${id}.`,
+        );
+        throw new ForbiddenException(
+          'No tienes permisos para eliminar esta calificación.',
+        );
+      }
+
+      // Si tiene permiso de moderación, verificar jerarquía
+      if (
+        currentUserRole === 'admin' && // Si el usuario actual es un admin
+        ratingOwnerRole === 'superadmin' // Y el dueño de la calificación es un superadmin
+      ) {
+        this.logger.warn(
+          `remove(): Admin ${currentUser.auth0_id} intentó eliminar calificación de Superadmin ${rating.user_id}. Acceso denegado.`,
+        );
+        throw new ForbiddenException(
+          'Un administrador no puede eliminar calificaciones de superadministradores.',
+        );
+      }
     }
 
+    // Si llegó hasta aquí, el usuario tiene permiso para eliminar
     await this.ratingRepository.delete(id);
     this.logger.log(
-      `remove(): Calificación con ID "${id}" eliminada exitosamente.`,
+      `remove(): Calificación con ID "${id}" eliminada exitosamente por usuario ${currentUser.auth0_id}.`,
     );
   }
 }
