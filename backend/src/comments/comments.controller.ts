@@ -14,7 +14,7 @@ import {
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
-import { CommentDto } from './dto/comment.dto'; // Asegúrate de que este DTO existe y es completo
+import { CommentDto } from './dto/comment.dto';
 import {
   ApiTags,
   ApiOperation,
@@ -25,19 +25,21 @@ import {
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { User } from 'src/user/entities/user.entity'; // Importar User para tipado
-import { PermissionsGuard } from 'src/auth/guards/permissions.guard'; // Importar
-import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator'; // Importar
+import { User } from 'src/user/entities/user.entity';
+// Importamos PermissionsGuard y RequiredPermissions para otras rutas si es necesario,
+// pero los eliminamos de PATCH/DELETE de comentarios.
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator';
 
-@ApiTags('comments') // Agrupa este controlador bajo la etiqueta 'comments' en Swagger
+@ApiTags('comments')
 @Controller('comments')
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard) // Requiere autenticación y rol
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede comentar
-  @HttpCode(HttpStatus.CREATED) // Retorna 201 Created
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
+  @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
     summary: 'Crear un nuevo comentario',
     description:
@@ -65,7 +67,7 @@ export class CommentsController {
   }
 
   @Get('by-title/:titleId')
-  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Obtener todos los comentarios de un título específico',
     description:
@@ -89,7 +91,7 @@ export class CommentsController {
   }
 
   @Get('by-chapter/:chapterId')
-  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Obtener todos los comentarios de un capítulo específico',
     description:
@@ -113,7 +115,7 @@ export class CommentsController {
   }
 
   @Get(':id')
-  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Obtener un comentario por su ID',
     description:
@@ -135,15 +137,17 @@ export class CommentsController {
   }
 
   @Patch(':id')
-  // Se añaden PermissionsGuard y RequiredPermissions para admins/superadmins que moderen
-  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder (RolesGuard)
-  @RequiredPermissions('moderation_permission') // Solo si es admin/superadmin, debe tener este permiso
-  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  // ************ CAMBIO CLAVE AQUÍ ************
+  // Eliminamos PermissionsGuard y RequiredPermissions, la lógica fina se maneja en el servicio.
+  @UseGuards(JwtAuthGuard, RolesGuard) // Solo JwtAuthGuard y RolesGuard (todos pueden llegar al controlador)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Todos los roles autenticados pueden intentar modificar
+  // @RequiredPermissions('moderation_permission') // <<-- ELIMINADO
+  // ************ FIN CAMBIO CLAVE ************
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Actualizar un comentario por su ID',
     description:
-      'Permite al propietario del comentario o a un **Admin/Superadmin** (con permiso de moderación) actualizar un comentario existente.',
+      'Permite al propietario del comentario actualizarlo. Un **Admin/Superadmin** (con permiso de moderación) puede actualizar cualquier comentario, excepto los de un Superadmin si el editor es Admin.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
@@ -161,7 +165,7 @@ export class CommentsController {
   @ApiResponse({
     status: 403,
     description:
-      'No autorizado (no es el propietario O rol/permiso insuficiente para moderar).',
+      'No autorizado (no es el propietario, o rol/permiso insuficiente, o intento de modificar comentario de Superadmin).',
   })
   @ApiResponse({ status: 404, description: 'Comentario no encontrado.' })
   async update(
@@ -169,29 +173,22 @@ export class CommentsController {
     @Request() req,
     @Body() updateCommentDto: UpdateCommentDto,
   ): Promise<CommentDto> {
-    const user = req.user as User;
-    // La lógica de si es admin y tiene permiso de moderación se pasa al servicio
-    const hasModerationPermission =
-      (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
-      user.admin?.moderation_permission;
-    return this.commentsService.update(
-      id,
-      user.auth0_id,
-      updateCommentDto,
-      hasModerationPermission,
-    );
+    const currentUser = req.user as User; // Pasar el objeto User completo
+    return this.commentsService.update(id, currentUser, updateCommentDto);
   }
 
   @Delete(':id')
-  // Se añaden PermissionsGuard y RequiredPermissions para admins/superadmins que moderen
-  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder (RolesGuard)
-  @RequiredPermissions('moderation_permission') // Solo si es admin/superadmin, debe tener este permiso
-  @HttpCode(HttpStatus.NO_CONTENT) // Retorna 204 No Content
+  // ************ CAMBIO CLAVE AQUÍ ************
+  // Eliminamos PermissionsGuard y RequiredPermissions, la lógica fina se maneja en el servicio.
+  @UseGuards(JwtAuthGuard, RolesGuard) // Solo JwtAuthGuard y RolesGuard (todos pueden llegar al controlador)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Todos los roles autenticados pueden intentar eliminar
+  // @RequiredPermissions('moderation_permission') // <<-- ELIMINADO
+  // ************ FIN CAMBIO CLAVE ************
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Eliminar un comentario por su ID',
     description:
-      'Permite al propietario del comentario o a un **Admin/Superadmin** (con permiso de moderación) eliminar un comentario existente.',
+      'Permite al propietario del comentario eliminarlo. Un **Admin/Superadmin** (con permiso de moderación) puede eliminar cualquier comentario, excepto los de un Superadmin si el eliminador es Admin.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
@@ -207,18 +204,11 @@ export class CommentsController {
   @ApiResponse({
     status: 403,
     description:
-      'No autorizado (no es el propietario O rol/permiso insuficiente para moderar).',
+      'No autorizado (no es el propietario, o rol/permiso insuficiente, o intento de eliminar comentario de Superadmin).',
   })
   @ApiResponse({ status: 404, description: 'Comentario no encontrado.' })
   async remove(@Param('id') id: string, @Request() req): Promise<void> {
-    const user = req.user as User;
-    const hasModerationPermission =
-      (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
-      user.admin?.moderation_permission;
-    await this.commentsService.remove(
-      id,
-      user.auth0_id,
-      hasModerationPermission,
-    );
+    const currentUser = req.user as User; // Pasar el objeto User completo
+    await this.commentsService.remove(id, currentUser);
   }
 }

@@ -42,8 +42,9 @@ export class Comment {
   @JoinColumn({ name: 'chapter_id', referencedColumnName: 'chapter_id' })
   chapter: Chapter | null;
 
-  @Column({ type: 'text', nullable: false })
-  content: string;
+
+  @Column({ type: 'text', name: 'comment_text', nullable: false })
+  comment_text: string;
 
   @CreateDateColumn({ type: 'timestamptz', name: 'comment_date' })
   comment_date: Date;
