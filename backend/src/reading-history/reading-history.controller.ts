@@ -10,32 +10,31 @@ import {
   HttpCode,
   HttpStatus,
   Request,
-  ForbiddenException, // Importar ForbiddenException
-  Query, // Importar Query para los parámetros de consulta
+  ForbiddenException,
+  Query,
 } from '@nestjs/common';
 import { ReadingHistoryService } from './reading-history.service';
 import { CreateReadingHistoryDto } from './dto/create-reading-history.dto';
 import { UpdateReadingHistoryDto } from './dto/update-reading-history.dto';
-import { ReadingHistoryDto } from './dto/reading-history.dto'; // Asegúrate de que este DTO existe y es completo
+import { ReadingHistoryDto } from './dto/reading-history.dto';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBearerAuth,
   ApiParam,
-  ApiQuery, // Importar ApiQuery para documentar parámetros de consulta
+  ApiQuery,
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { User } from 'src/user/entities/user.entity'; // Importar User para tipado
-import { PermissionsGuard } from 'src/auth/guards/permissions.guard'; // Importar
-import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator'; // Importar
+import { User } from 'src/user/entities/user.entity';
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator';
 
 @ApiTags('reading-history') // Agrupa este controlador bajo la etiqueta 'reading-history' en Swagger
 @Controller('reading-history')
-// Todas las rutas requieren autenticación. RolesGuard y PermissionsGuard aplicados por método si es necesario.
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard) // Todas las rutas en este controlador requieren autenticación JWT
 export class ReadingHistoryController {
   constructor(private readonly readingHistoryService: ReadingHistoryService) {}
 
@@ -47,14 +46,14 @@ export class ReadingHistoryController {
   @ApiOperation({
     summary: 'Registrar o actualizar el progreso de lectura de un capítulo',
     description:
-      'Permite a cualquier usuario autenticado registrar el progreso de lectura de un capítulo o actualizarlo si ya existe. Los Admins/Superadmins pueden hacerlo para **cualquier usuario** si tienen el permiso de gestión de usuarios.',
+      'Permite a cualquier usuario autenticado registrar el progreso de lectura de un capítulo o actualizarlo si ya existe. Los **Admins/Superadmins** con `user_permission` pueden hacerlo para **cualquier usuario** especificando `userId` en el query param.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiQuery({
     name: 'userId',
     required: false,
     description:
-      'ID de Auth0 del usuario para quien se registra el historial (solo para Admin/Superadmin con user_permission). Si no se provee, se usa el ID del usuario autenticado.',
+      'ID de Auth0 del usuario para quien se registra/actualiza el historial (solo para Admin/Superadmin con `user_permission`). Si no se provee, se usa el ID del usuario autenticado.',
     type: String,
   })
   @ApiResponse({
@@ -67,13 +66,13 @@ export class ReadingHistoryController {
   @ApiResponse({
     status: 403,
     description:
-      'No autorizado (rol o permiso insuficiente para el usuario objetivo).', // Ajustar descripción
+      'No autorizado (rol o permiso insuficiente para el usuario objetivo, o intento de manipular historial ajeno sin permisos).',
   })
-  @ApiResponse({ status: 404, description: 'Capítulo no encontrado.' })
+  @ApiResponse({ status: 404, description: 'Capítulo o título no encontrado.' })
   async createOrUpdate(
     @Request() req,
     @Body() createReadingHistoryDto: CreateReadingHistoryDto,
-    @Query('userId') targetUserIdQueryParam?: string, // Opcional para admin
+    @Query('userId') targetUserIdQueryParam?: string, // Parámetro de consulta opcional para admins
   ): Promise<ReadingHistoryDto> {
     const user = req.user as User;
     const hasUserPermission =
@@ -90,7 +89,7 @@ export class ReadingHistoryController {
 
     if (!actualUserIdForHistory) {
       throw new ForbiddenException(
-        'User ID must be provided or you must be logged in.',
+        'Se debe proporcionar un ID de usuario o debe estar logueado.',
       );
     }
 
@@ -101,7 +100,7 @@ export class ReadingHistoryController {
       targetUserIdQueryParam !== user.auth0_id
     ) {
       throw new ForbiddenException(
-        "You do not have permission to modify another user's reading history.",
+        'No tienes permiso para modificar el historial de lectura de otro usuario.',
       );
     }
 
@@ -120,14 +119,14 @@ export class ReadingHistoryController {
     summary:
       'Obtener el historial de lectura del usuario autenticado o de otro usuario',
     description:
-      'Lista todos los registros del historial de lectura. Un usuario normal ve su propio historial. Un **Admin/Superadmin** con permiso de gestión de usuarios puede ver el historial de cualquier usuario (se puede especificar `userId` como Query Param).',
+      'Lista todos los registros del historial de lectura. Un usuario normal ve su propio historial. Un **Admin/Superadmin** con `user_permission` puede ver el historial de cualquier usuario especificando `userId` como Query Param.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiQuery({
     name: 'userId',
     required: false,
     description:
-      'ID de Auth0 del usuario cuyo historial se desea ver (solo para Admin/Superadmin con user_permission). Si no se provee, se usa el ID del usuario autenticado.',
+      'ID de Auth0 del usuario cuyo historial se desea ver (solo para Admin/Superadmin con `user_permission`). Si no se provee, se usa el ID del usuario autenticado.',
     type: String,
   })
   @ApiResponse({
@@ -139,7 +138,7 @@ export class ReadingHistoryController {
   @ApiResponse({ status: 403, description: 'No autorizado.' })
   async findAllByUser(
     @Request() req,
-    @Query('userId') targetUserIdQueryParam?: string, // <-- CAMBIO: De @Param a @Query
+    @Query('userId') targetUserIdQueryParam?: string, // Parámetro de consulta
   ): Promise<ReadingHistoryDto[]> {
     const user = req.user as User;
     const hasUserPermission =
@@ -153,7 +152,7 @@ export class ReadingHistoryController {
 
     if (!actualUserId) {
       throw new ForbiddenException(
-        'User ID must be provided or you must be logged in.',
+        'Se debe proporcionar un ID de usuario o debe estar logueado.',
       );
     }
     // Si un usuario normal intenta ver un historial diferente al suyo, denegar
@@ -163,7 +162,7 @@ export class ReadingHistoryController {
       targetUserIdQueryParam !== user.auth0_id
     ) {
       throw new ForbiddenException(
-        "You do not have permission to view another user's reading history.",
+        'No tienes permiso para ver el historial de lectura de otro usuario.',
       );
     }
     return this.readingHistoryService.findAllByUser(actualUserId);
@@ -172,12 +171,12 @@ export class ReadingHistoryController {
   @Get(':id')
   @UseGuards(RolesGuard, PermissionsGuard) // RolesGuard y PermissionsGuard se aplican aquí
   @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Admins necesitan este permiso para ver historial ajeno
+  @RequiredPermissions('user_permission') // Los Admins necesitan este permiso para ver historial ajeno
   @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
     summary: 'Obtener un registro de historial de lectura por ID',
     description:
-      'Recupera los detalles de un registro específico del historial de lectura. Solo el **propietario** o un **Admin/Superadmin** (con permiso de gestión de usuarios) puede acceder.',
+      'Recupera los detalles de un registro específico del historial de lectura. Solo el **propietario** o un **Admin/Superadmin** (con `user_permission`) puede acceder.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
@@ -209,18 +208,18 @@ export class ReadingHistoryController {
       id,
       user.auth0_id,
       hasUserPermission,
-    ); // <-- Pasa hasUserPermission
+    );
   }
 
   @Patch(':id')
   @UseGuards(RolesGuard, PermissionsGuard) // RolesGuard y PermissionsGuard se aplican aquí
   @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Admins necesitan este permiso para actualizar historial ajeno
+  @RequiredPermissions('user_permission') // Los Admins necesitan este permiso para actualizar historial ajeno
   @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
     summary: 'Actualizar un registro de historial de lectura por ID',
     description:
-      'Permite al propietario del registro o a un **Admin/Superadmin** (con permiso de gestión de usuarios) actualizar un registro existente del historial de lectura.',
+      'Permite al propietario del registro o a un **Admin/Superadmin** (con `user_permission`) actualizar un registro existente del historial de lectura. Un **Admin** no puede modificar el historial de un **Superadmin**.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
@@ -238,7 +237,7 @@ export class ReadingHistoryController {
   @ApiResponse({
     status: 403,
     description:
-      'No autorizado (no es el propietario o rol/permiso insuficiente).',
+      'No autorizado (no es el propietario, rol/permiso insuficiente, o intento de modificar historial de Superadmin).',
   })
   @ApiResponse({ status: 404, description: 'Historial no encontrado.' })
   async update(
@@ -250,23 +249,24 @@ export class ReadingHistoryController {
     const hasUserPermission =
       (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
       user.admin?.user_permission;
+    // Pasar el ID de Auth0 del usuario actual y el permiso al servicio para las comprobaciones de rol
     return this.readingHistoryService.update(
       id,
-      user.auth0_id,
+      user.auth0_id, // Pasar el ID de Auth0
       updateReadingHistoryDto,
-      hasUserPermission, // <-- Pasa hasUserPermission
+      hasUserPermission,
     );
   }
 
   @Delete(':id')
   @UseGuards(RolesGuard, PermissionsGuard) // RolesGuard y PermissionsGuard se aplican aquí
   @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Admins necesitan este permiso para eliminar historial ajeno
+  @RequiredPermissions('user_permission') // Los Admins necesitan este permiso para eliminar historial ajeno
   @HttpCode(HttpStatus.NO_CONTENT) // Retorna 204 No Content
   @ApiOperation({
     summary: 'Eliminar un registro de historial de lectura por ID',
     description:
-      'Permite al propietario del registro o a un **Admin/Superadmin** (con permiso de gestión de usuarios) eliminar un registro existente del historial de lectura.',
+      'Permite al propietario del registro o a un **Admin/Superadmin** (con `user_permission`) eliminar un registro existente del historial de lectura. Un **Admin** no puede eliminar el historial de un **Superadmin**.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
@@ -282,7 +282,7 @@ export class ReadingHistoryController {
   @ApiResponse({
     status: 403,
     description:
-      'No autorizado (no es el propietario o rol/permiso insuficiente).',
+      'No autorizado (no es el propietario, rol/permiso insuficiente, o intento de eliminar historial de Superadmin).',
   })
   @ApiResponse({ status: 404, description: 'Historial no encontrado.' })
   async remove(@Param('id') id: string, @Request() req): Promise<void> {
@@ -290,10 +290,11 @@ export class ReadingHistoryController {
     const hasUserPermission =
       (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
       user.admin?.user_permission;
+    // Pasar el ID de Auth0 del usuario actual y el permiso al servicio para las comprobaciones de rol
     await this.readingHistoryService.remove(
       id,
-      user.auth0_id,
-      hasUserPermission, // <-- Pasa hasUserPermission
+      user.auth0_id, // Pasar el ID de Auth0
+      hasUserPermission,
     );
   }
 }
