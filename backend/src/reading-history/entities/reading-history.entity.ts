@@ -1,5 +1,3 @@
-// src/reading-history/entities/reading-history.entity.ts
-
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,12 +6,14 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Unique, // Importar Unique
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { Chapter } from '../../chapters/entities/chapter.entity';
 import { Title } from '../../titles/entities/title.entity';
 
 @Entity('reading_history')
+@Unique(['user_id', 'chapter_id']) // Asegura que solo haya un registro de historial por usuario y capítulo
 export class ReadingHistory {
   @PrimaryGeneratedColumn('uuid', { name: 'history_id' })
   history_id: string;
@@ -21,7 +21,7 @@ export class ReadingHistory {
   @Column({ type: 'text', name: 'user_id', nullable: false })
   user_id: string;
 
-  @Column({ type: 'uuid', name: 'title_id', nullable: false })
+  @Column({ type: 'uuid', name: 'title_id', nullable: false }) // El ID del título al que pertenece el capítulo
   title_id: string;
 
   @Column({ type: 'uuid', name: 'chapter_id', nullable: false })
@@ -33,10 +33,10 @@ export class ReadingHistory {
   @Column({ type: 'boolean', name: 'completed', default: false })
   completed: boolean;
 
-  @Column({
+  @CreateDateColumn({
+    // Fecha del primer acceso o registro del historial
     type: 'timestamptz',
     name: 'access_date',
-    default: () => 'CURRENT_TIMESTAMP',
   })
   access_date: Date;
 
@@ -45,20 +45,19 @@ export class ReadingHistory {
 
   // Relaciones ManyToOne
   @ManyToOne(() => User, (user) => user.readingHistories, {
-    onDelete: 'CASCADE',
+    onDelete: 'CASCADE', // Si el usuario es eliminado, también su historial
   })
   @JoinColumn({ name: 'user_id', referencedColumnName: 'auth0_id' })
   user: User;
 
   @ManyToOne(() => Title, (title) => title.readingHistory, {
-    onDelete: 'CASCADE',
+    onDelete: 'CASCADE', // Si el título es eliminado, también su historial
   })
   @JoinColumn({ name: 'title_id', referencedColumnName: 'title_id' })
   title: Title;
 
   @ManyToOne(() => Chapter, (chapter) => chapter.readingHistory, {
-    // <-- Corregido aquí
-    onDelete: 'CASCADE',
+    onDelete: 'CASCADE', // Si el capítulo es eliminado, también su historial
   })
   @JoinColumn({ name: 'chapter_id', referencedColumnName: 'chapter_id' })
   chapter: Chapter;

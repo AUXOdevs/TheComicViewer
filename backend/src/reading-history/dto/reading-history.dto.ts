@@ -10,6 +10,7 @@ import {
 import { Type } from 'class-transformer';
 import { UserDto } from '../../user/dto/user.dto';
 import { ChapterDto } from '../../chapters/dto/chapter.dto';
+import { TitleDto } from '../../titles/dto/title.dto'; // Importar TitleDto
 
 export class ReadingHistoryDto {
   @IsUUID()
@@ -31,6 +32,22 @@ export class ReadingHistoryDto {
     nullable: true,
   })
   user?: UserDto;
+
+  @IsUUID()
+  @IsString()
+  @ApiProperty({
+    description: 'ID del título al que pertenece el capítulo leído.',
+  })
+  title_id: string; // Incluir title_id aquí
+
+  @IsOptional()
+  @Type(() => TitleDto)
+  @ApiProperty({
+    description: 'Información del título asociado.',
+    type: () => TitleDto,
+    nullable: true,
+  })
+  title?: TitleDto; // Añadir DTO de relación de título
 
   @IsUUID()
   @IsString()
@@ -57,7 +74,7 @@ export class ReadingHistoryDto {
   @IsDate()
   @Type(() => Date)
   @ApiProperty({
-    description: 'Fecha de último acceso al capítulo.',
+    description: 'Fecha del último acceso al capítulo.',
     type: 'string',
     format: 'date-time',
   })
