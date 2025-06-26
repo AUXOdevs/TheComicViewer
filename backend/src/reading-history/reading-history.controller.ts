@@ -29,6 +29,9 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { User } from 'src/user/entities/user.entity';
+// Importamos PermissionsGuard y RequiredPermissions, pero solo se usarán si alguna otra ruta los necesita,
+// no para las rutas de historial de lectura propiedad del usuario.
+// Los eliminaremos de las rutas específicas del historial de lectura.
 import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
 import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator';
 
@@ -39,14 +42,13 @@ export class ReadingHistoryController {
   constructor(private readonly readingHistoryService: ReadingHistoryService) {}
 
   @Post()
-  @UseGuards(RolesGuard, PermissionsGuard) // RolesGuard y PermissionsGuard se aplican aquí
+  @UseGuards(RolesGuard) // Solo RolesGuard (todos los roles permitidos pueden llegar al controlador)
   @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede registrar/actualizar su historial
-  @RequiredPermissions('user_permission') // Se usa para que admins puedan especificar targetUserId
   @HttpCode(HttpStatus.CREATED) // Retorna 201 Created
   @ApiOperation({
     summary: 'Registrar o actualizar el progreso de lectura de un capítulo',
     description:
-      'Permite a cualquier usuario autenticado registrar el progreso de lectura de un capítulo o actualizarlo si ya existe. Los **Admins/Superadmins** con `user_permission` pueden hacerlo para **cualquier usuario** especificando `userId` en el query param.',
+      'Permite a cualquier usuario autenticado registrar el progreso de lectura de un capítulo o actualizarlo si ya existe. Los **Admins/Superadmins** con `user_permission` pueden hacerlo para **cualquier usuario** especificando `userId` en el query param. Los usuarios `Registrado` y `Suscrito` solo pueden gestionar su propio historial.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiQuery({
@@ -111,9 +113,8 @@ export class ReadingHistoryController {
   }
 
   @Get()
-  @UseGuards(RolesGuard, PermissionsGuard) // RolesGuard y PermissionsGuard se aplican aquí
+  @UseGuards(RolesGuard) // Solo RolesGuard (todos los roles permitidos pueden llegar al controlador)
   @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Se usa para que admins puedan especificar targetUserId en el query
   @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
     summary:
@@ -169,9 +170,11 @@ export class ReadingHistoryController {
   }
 
   @Get(':id')
-  @UseGuards(RolesGuard, PermissionsGuard) // RolesGuard y PermissionsGuard se aplican aquí
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Los Admins necesitan este permiso para ver historial ajeno
+  // ************ ¡CAMBIO CLAVE AQUÍ: Eliminamos PermissionsGuard y RequiredPermissions! ************
+  @UseGuards(RolesGuard) // Solo RolesGuard
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier rol autenticado puede intentar acceder
+  // @RequiredPermissions('user_permission') // <<-- ELIMINADO
+  // ************ FIN CAMBIO CLAVE ************
   @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
     summary: 'Obtener un registro de historial de lectura por ID',
@@ -212,9 +215,11 @@ export class ReadingHistoryController {
   }
 
   @Patch(':id')
-  @UseGuards(RolesGuard, PermissionsGuard) // RolesGuard y PermissionsGuard se aplican aquí
+  // ************ ¡CAMBIO CLAVE AQUÍ: Eliminamos PermissionsGuard y RequiredPermissions! ************
+  @UseGuards(RolesGuard) // Solo RolesGuard
   @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Los Admins necesitan este permiso para actualizar historial ajeno
+  // @RequiredPermissions('user_permission') // <<-- ELIMINADO
+  // ************ FIN CAMBIO CLAVE ************
   @HttpCode(HttpStatus.OK) // Retorna 200 OK
   @ApiOperation({
     summary: 'Actualizar un registro de historial de lectura por ID',
@@ -259,10 +264,12 @@ export class ReadingHistoryController {
   }
 
   @Delete(':id')
-  @UseGuards(RolesGuard, PermissionsGuard) // RolesGuard y PermissionsGuard se aplican aquí
+  // ************ ¡CAMBIO CLAVE AQUÍ: Eliminamos PermissionsGuard y RequiredPermissions! ************
+  @UseGuards(RolesGuard) // Solo RolesGuard
   @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Los Admins necesitan este permiso para eliminar historial ajeno
-  @HttpCode(HttpStatus.NO_CONTENT) // Retorna 204 No Content
+  // @RequiredPermissions('user_permission') // <<-- ELIMINADO
+  // ************ FIN CAMBIO CLAVE ************
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Eliminar un registro de historial de lectura por ID',
     description:
@@ -298,3 +305,5 @@ export class ReadingHistoryController {
     );
   }
 }
+// Este controlador maneja las operaciones CRUD del historial de lectura, permitiendo a los usuarios registrar, actualizar, consultar y eliminar su historial de lectura de capítulos.
+// Los administradores pueden gestionar el historial de otros usuarios si tienen los permisos adecuados.
