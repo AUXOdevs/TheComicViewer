@@ -27,18 +27,25 @@ export class ReadingHistory {
   @Column({ type: 'uuid', name: 'chapter_id', nullable: false })
   chapter_id: string;
 
-  @Column({ type: 'int', name: 'last_page', nullable: true })
+  // ************ ¡CORRECCIÓN AQUÍ! ELIMINAMOS 'name' ************
+  // La columna en la DB es 'last_page' y la propiedad de la entidad es 'last_page'.
+  // Por lo tanto, no necesitamos el atributo 'name'.
+  @Column({ type: 'int', nullable: true })
   last_page: number | null;
+  // ************ FIN CORRECCIÓN ************
 
   @Column({ type: 'boolean', name: 'completed', default: false })
   completed: boolean;
 
+  // ************ ¡CORRECCIÓN AQUÍ! ELIMINAMOS 'name' ************
+  // La columna en la DB es 'access_date' y la propiedad de la entidad es 'access_date'.
+  // Por lo tanto, no necesitamos el atributo 'name'.
   @CreateDateColumn({
     // Fecha del primer acceso o registro del historial
     type: 'timestamptz',
-    name: 'access_date',
   })
   access_date: Date;
+  // ************ FIN CORRECCIÓN ************
 
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updated_at: Date;
