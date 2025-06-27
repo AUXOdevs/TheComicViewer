@@ -1,3 +1,4 @@
+// src/chapters/dto/chapter.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsString,
@@ -10,7 +11,7 @@ import {
   IsUrl,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { TitleDto } from '../../titles/dto/title.dto'; // Si quieres anidar el título
+import { TitleDto } from '../../titles/dto/title.dto';
 
 export class ChapterDto {
   @IsUUID()
@@ -30,7 +31,7 @@ export class ChapterDto {
     type: () => TitleDto,
     nullable: true,
   })
-  title?: TitleDto; // Opcional, para incluir el título si se necesita
+  title?: TitleDto;
 
   @IsString()
   @IsNotEmpty()
@@ -54,7 +55,7 @@ export class ChapterDto {
     description: 'URLs (o rutas) de las páginas del capítulo.',
     type: [String],
   })
-  pages: string[];
+  pages: string[]; // La API externa sigue usando 'pages'
 
   @IsNumber()
   @IsNotEmpty()

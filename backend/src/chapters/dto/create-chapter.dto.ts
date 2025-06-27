@@ -1,3 +1,4 @@
+// src/chapters/dto/create-chapter.dto.ts
 import {
   IsString,
   IsNotEmpty,
@@ -7,7 +8,7 @@ import {
   IsNumber,
   IsArray,
   ArrayMinSize,
-  IsUrl, // Asumiendo que las páginas son URLs
+  IsUrl,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -25,20 +26,23 @@ export class CreateChapterDto {
   @IsOptional()
   @IsDateString()
   @ApiProperty({
-    description: 'Fecha de lanzamiento del capítulo.',
+    description: 'Fecha de lanzamiento del capítulo (formato ISO 8601).',
     nullable: true,
   })
   release_date?: string;
 
   @IsArray()
   @ArrayMinSize(1)
-  @IsUrl({}, { each: true }) // Cada elemento debe ser una URL válida
+  @IsUrl({}, { each: true, message: 'Cada elemento debe ser una URL válida.' })
   @ApiProperty({
     description: 'Array de URLs (o rutas) de las páginas del capítulo.',
     type: [String],
-    example: ['http://example.com/page1.jpg', 'http://example.com/page2.jpg'],
+    example: [
+      'http://ejemplo.com/pagina1.jpg',
+      'http://ejemplo.com/pagina2.jpg',
+    ],
   })
-  pages: string[];
+  pages: string[]; // La API externa sigue usando 'pages'
 
   @IsNumber()
   @IsNotEmpty()
