@@ -11,7 +11,7 @@ import { Strategy, ExtractJwt } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
 import * as jwksRsa from 'jwks-rsa';
 import { UserService } from '../user/user.service';
-import { User } from '../user/entities/user.entity'; // Importa User
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -46,8 +46,21 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     );
 
     const auth0_id = payload.sub;
-    const email = payload.email;
-    const name = payload.name || payload.nickname;
+    // Ajustar cómo se obtienen estos claims. Usaré un enfoque más genérico.
+    // Auth0 por defecto usa `email`, `name`, `email_verified`, `picture` en el root del payload.
+    // Si usas reglas de Auth0 para añadir claims personalizados con un namespace,
+    // asegúrate de que `AUTH0_NAMESPACE` esté configurado en tus variables de entorno (ej. 'https://tu-dominio.com').
+    const namespace = this.configService.get<string>('AUTH0_NAMESPACE');
+    const email = (namespace && payload[`${namespace}/email`]) || payload.email;
+    const name =
+      (namespace && payload[`${namespace}/name`]) ||
+      payload.name ||
+      payload.nickname;
+    const emailVerified =
+      (namespace && payload[`${namespace}/email_verified`]) ||
+      payload.email_verified;
+    const picture =
+      (namespace && payload[`${namespace}/picture`]) || payload.picture;
 
     if (!auth0_id) {
       this.logger.error(
@@ -78,14 +91,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       );
     }
 
-    // Usamos el servicio de usuario para obtener o crear el usuario,
-    // que ahora eager-loads la relación 'admin' (gracias a UserRepository)
-    const user = await this.userService.findOrCreateUserFromAuth0(
+    // Llama al método correcto del servicio de usuario
+    const user = await this.userService.createInitialUser(
       auth0_id,
       email,
       name,
-      payload.email_verified,
-      payload.picture,
+      emailVerified,
+      picture,
     );
 
     if (!user) {
@@ -100,7 +112,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       `JwtStrategy: Usuario procesado en la DB: ${user.email} (ID: ${user.auth0_id})`,
     );
 
-    // Logs adicionales para los permisos de admin
     if (user.role?.name === 'admin' || user.role?.name === 'superadmin') {
       if (user.admin) {
         this.logger.debug(
@@ -130,7 +141,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     this.logger.debug(
       'JwtStrategy: Validación de JWT exitosa. Usuario activo y autorizado.',
     );
-    // NestJS ya asigna 'user' a req.user automáticamente con PassportStrategy.
-    return user; // Retorna la entidad User enriquecida con role y admin
+    return user;
   }
 }

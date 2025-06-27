@@ -11,11 +11,12 @@ import {
 import { Admin } from './entities/admin.entity';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
-import { UserService } from '../user/user.service';
+import { UserService } from '../user/user.service'; // Asegúrate de que esta ruta sea correcta
 import { AdminRepository } from './admins.repository';
 import { QueryRunner, DeleteResult, Repository } from 'typeorm';
 import { RolesRepository } from '../roles/roles.repository';
 import { User } from '../user/entities/user.entity';
+import { plainToInstance } from 'class-transformer'; // Importar para convertir a DTO
 
 @Injectable()
 export class AdminService {
@@ -110,7 +111,6 @@ export class AdminService {
         { auth0_id: userEntity.auth0_id },
         { role_id: adminRole.role_id },
       );
-      // Opcional: Actualizar la entidad en memoria para reflejar el cambio si se necesita más adelante en este scope
       userEntity.role = adminRole;
       userEntity.role_id = adminRole.role_id;
       this.logger.log(
@@ -157,6 +157,109 @@ export class AdminService {
       if (ownQueryRunner) {
         await ownQueryRunner.release();
       }
+    }
+  }
+
+  // NUEVO MÉTODO: createOrUpdateAdminEntry (para ser llamado desde UserService)
+  async createOrUpdateAdminEntry(
+    userId: string,
+    permissions: Partial<Admin>, // Permisos a establecer o actualizar
+  ): Promise<Admin> {
+    this.logger.debug(
+      `createOrUpdateAdminEntry(): Procesando entrada de admin para user_id: ${userId}`,
+    );
+
+    let adminEntry = await this.adminRepository.findByUserId(userId);
+
+    if (adminEntry) {
+      // Si la entrada de admin ya existe, actualizar los permisos
+      this.logger.log(
+        `createOrUpdateAdminEntry(): Actualizando permisos para admin existente con user_id: ${userId}`,
+      );
+      Object.assign(adminEntry, permissions);
+      return this.adminRepository.save(adminEntry);
+    } else {
+      // Si no existe, crear una nueva entrada de admin
+      this.logger.log(
+        `createOrUpdateAdminEntry(): Creando nueva entrada de admin para user_id: ${userId}`,
+      );
+      const createAdminDto: CreateAdminDto = {
+        user_id: userId,
+        content_permission: permissions.content_permission,
+        user_permission: permissions.user_permission,
+        moderation_permission: permissions.moderation_permission,
+      };
+      // Reutiliza el método `create` existente para manejar la creación, transacción y asignación de rol.
+      // Pasa `null` o `undefined` para `existingQueryRunner` ya que createOrUpdateAdminEntry no lo gestiona.
+      return this.create(createAdminDto);
+    }
+  }
+
+  // NUEVO MÉTODO: deleteAdminEntry (para ser llamado desde UserService)
+  async deleteAdminEntry(userId: string): Promise<void> {
+    this.logger.debug(
+      `deleteAdminEntry(): Eliminando entrada de admin para user_id: ${userId}`,
+    );
+    const adminEntry = await this.adminRepository.findByUserId(userId);
+    if (!adminEntry) {
+      this.logger.warn(
+        `deleteAdminEntry(): No se encontró entrada de admin para user_id: ${userId}. No se eliminó nada.`,
+      );
+      return; // No hay nada que eliminar
+    }
+
+    const queryRunner =
+      this.adminRepository.manager.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const userRepo = queryRunner.manager.getRepository(User);
+      const adminRepo = queryRunner.manager.getRepository(Admin);
+
+      // Primero, eliminar la entrada de admin
+      await adminRepo.delete({ user: { auth0_id: userId } });
+      this.logger.log(
+        `deleteAdminEntry(): Entrada de admin eliminada para user_id: ${userId}.`,
+      );
+
+      // Luego, resetear el rol del usuario a 'Registrado'
+      const registradoRole = await this.rolesRepository.findByName(
+        'Registrado',
+        queryRunner.manager,
+      );
+      if (!registradoRole) {
+        this.logger.error(
+          `deleteAdminEntry(): Rol 'Registrado' no encontrado. No se pudo resetear el rol del usuario ${userId}.`,
+        );
+        throw new InternalServerErrorException(
+          'Default role "Registrado" not found.',
+        );
+      }
+
+      await userRepo.update(
+        { auth0_id: userId },
+        { role_id: registradoRole.role_id },
+      );
+      this.logger.log(
+        `deleteAdminEntry(): Rol del usuario ${userId} reseteado a 'Registrado'.`,
+      );
+
+      await queryRunner.commitTransaction();
+      this.logger.log(
+        `deleteAdminEntry(): Transacción de eliminación de admin completada para user_id: ${userId}.`,
+      );
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      this.logger.error(
+        `deleteAdminEntry(): Error durante la transacción de eliminación de admin para user_id ${userId}:`,
+        error.message,
+      );
+      throw new InternalServerErrorException(
+        'Failed to remove admin entry and reset user role.',
+      );
+    } finally {
+      await queryRunner.release();
     }
   }
 
@@ -265,11 +368,9 @@ export class AdminService {
       this.logger.log(`remove(): Entrada de admin ${admin_id} eliminada.`);
 
       if (admin.user) {
-        // ************ CAMBIO CRÍTICO AQUÍ ************
-        // Usar update directo para cambiar el rol del usuario, evita problemas con el primary key en save
         await userRepo.update(
-          { auth0_id: admin.user.auth0_id }, // Condición WHERE
-          { role_id: registradoRole.role_id }, // Valores a SET
+          { auth0_id: admin.user.auth0_id },
+          { role_id: registradoRole.role_id },
         );
         this.logger.log(
           `remove(): Rol del usuario ${admin.user.email} reseteado a 'Registrado' mediante actualización directa.`,
@@ -297,7 +398,9 @@ export class AdminService {
         'Failed to remove admin due to an internal error.',
       );
     } finally {
-      await queryRunner.release();
+      if (queryRunner) {
+        await queryRunner.release();
+      }
     }
   }
 
@@ -327,11 +430,9 @@ export class AdminService {
         queryRunner.manager,
       );
       if (registradoRole) {
-        // ************ CAMBIO CRÍTICO AQUÍ ************
-        // Usar update directo para cambiar el rol del usuario, evita problemas con el primary key en save
         await transactionalUserRepository.update(
-          { auth0_id: userToResetRole.auth0_id }, // Condición WHERE
-          { role_id: registradoRole.role_id }, // Valores a SET
+          { auth0_id: userToResetRole.auth0_id },
+          { role_id: registradoRole.role_id },
         );
         this.logger.log(
           `removeAdminPermissionsByUserIdInternal(): Rol del usuario ${userToResetRole.email} reseteado a 'Registrado' mediante actualización directa.`,

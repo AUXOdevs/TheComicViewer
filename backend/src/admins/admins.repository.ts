@@ -34,4 +34,9 @@ export class AdminRepository extends Repository<Admin> {
   async removeByAdminId(admin_id: string): Promise<DeleteResult> {
     return this.delete({ admin_id });
   }
+
+  // Nuevo método: Eliminar un admin por el ID del usuario asociado
+  async removeByUserId(user_id: string): Promise<DeleteResult> {
+    return this.delete({ user: { auth0_id: user_id } }); // Usar la relación para eliminar
+  }
 }
