@@ -1,19 +1,22 @@
+// src/titles/dto/title.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsString,
   IsNotEmpty,
   IsOptional,
   IsEnum,
-  IsDate,
+  IsDate, // <-- Importante: para validar objeto Date
   IsUrl,
+  IsUUID, // Para title_id
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ChapterDto } from '../../chapters/dto/chapter.dto'; // Importar si se incluyen capítulos anidados
-import { GenreDto } from '../../genres/dto/genre.dto'; // Importar si se incluyen géneros anidados
+import { ChapterDto } from '../../chapters/dto/chapter.dto';
+import { GenreDto } from '../../genres/dto/genre.dto';
 
 export class TitleDto {
   @IsString()
   @IsNotEmpty()
+  @IsUUID() // Asumo que title_id es UUID
   @ApiProperty({ description: 'ID único del título.' })
   title_id: string;
 
@@ -50,15 +53,15 @@ export class TitleDto {
   status?: string | null;
 
   @IsOptional()
-  @IsDate()
-  @Type(() => Date)
+  @IsDate() // <<-- Tipo: Date
+  @Type(() => Date) // <<-- Transformador necesario
   @ApiProperty({
     description: 'Fecha de publicación.',
     type: 'string',
     format: 'date-time',
     nullable: true,
   })
-  publication_date?: Date | null;
+  publication_date?: Date | null; // <<-- Tipo: Date
 
   @IsOptional()
   @IsUrl()
@@ -104,5 +107,5 @@ export class TitleDto {
     nullable: true,
   })
   @Type(() => GenreDto)
-  genres?: GenreDto[]; // Aquí mapearemos los géneros a través de titleGenres
+  genres?: GenreDto[];
 }
