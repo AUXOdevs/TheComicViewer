@@ -1,5 +1,4 @@
 // src/chapters/entities/chapter.entity.ts
-
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -24,14 +23,15 @@ export class Chapter {
   @Column({ type: 'uuid', name: 'title_id', nullable: false })
   title_id: string;
 
-  @Column({ name: 'chapter_name', type: 'text', nullable: true }) // Mapea a 'chapter_name' en DB, y es nullable: true
-  name: string; // La propiedad en la entidad se llama 'name'
+  @Column({ name: 'chapter_name', type: 'text', nullable: false })
+  name: string;
 
-  @Column({ type: 'date', name: 'release_date', nullable: true })
+  @Column({ type: 'timestamptz', name: 'release_date', nullable: true })
   release_date: Date | null;
 
-  @Column({ name: 'content_url', type: 'jsonb', nullable: true }) // Mapea a 'content_url' en DB, tipo JSONB
-  pages: string; // La propiedad en la entidad se llama 'pages', almacena JSON string
+  // CLAVE: El nombre de la columna en la base de datos es 'content_url'
+  @Column({ name: 'content_url', type: 'jsonb', nullable: false })
+  pages: string; // La propiedad en la entidad sigue llamándose 'pages' para la lógica interna y consistencia
 
   @Column({ type: 'int', name: 'chapter_number', nullable: false })
   chapter_number: number;
@@ -42,12 +42,10 @@ export class Chapter {
   @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updated_at: Date;
 
-  // Relaciones ManyToOne
   @ManyToOne(() => Title, (title) => title.chapters, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'title_id', referencedColumnName: 'title_id' })
   title: Title;
 
-  // Relaciones OneToMany
   @OneToMany(() => Favorite, (favorite) => favorite.chapter)
   favorites: Favorite[];
 
@@ -57,8 +55,6 @@ export class Chapter {
   @OneToMany(() => Rating, (rating) => rating.chapter)
   ratings: Rating[];
 
-  // Asegúrate de que esta propiedad exista en ReadingHistory y que la relación sea correcta.
-  // El nombre de la propiedad en Chapter es 'readingHistory' (singular)
   @OneToMany(() => ReadingHistory, (readingHistory) => readingHistory.chapter)
   readingHistory: ReadingHistory[];
 }
