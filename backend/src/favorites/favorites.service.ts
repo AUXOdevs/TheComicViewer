@@ -14,7 +14,8 @@ import { Favorite } from './entities/favorite.entity';
 import { FavoriteRepository } from './favorites.repository';
 import { TitleRepository } from 'src/titles/titles.repository';
 import { ChapterRepository } from 'src/chapters/chapters.repository';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/user/user.service'; // Asegúrate que esta ruta es correcta
+import { TitlesService } from 'src/titles/titles.service'; // Asegúrate de importar TitlesService
 
 @Injectable()
 export class FavoritesService {
@@ -25,6 +26,7 @@ export class FavoritesService {
     private readonly titleRepository: TitleRepository,
     private readonly chapterRepository: ChapterRepository,
     private readonly userService: UserService,
+    private readonly titlesService: TitlesService, // Inyectar TitlesService
   ) {}
 
   async create(
@@ -145,21 +147,20 @@ export class FavoritesService {
       `findAllFavoritesOfUserByQuery(): Buscando favoritos para usuario por query: "${query}".`,
     );
 
-    let targetAuth0Id: string; // Usamos auth0_id como identificador principal del usuario
+    let targetAuth0Id: string;
 
-    // Determinar si la query es un email o un Auth0 ID
     if (query.includes('@')) {
-      // Parece ser un email
-      const user = await this.userService.findByEmail(query, false); // No incluir eliminados
+      // <<-- CORRECCIÓN AQUÍ: Llamar findByEmail sin el segundo argumento
+      const user = await this.userService.findByEmail(query);
       if (!user) {
         throw new NotFoundException(
           `Usuario con email "${query}" no encontrado o inactivo.`,
         );
       }
-      targetAuth0Id = user.auth0_id; // Obtener el auth0_id del usuario encontrado
+      targetAuth0Id = user.auth0_id;
     } else {
-      // Asumimos que es un Auth0 ID
-      const user = await this.userService.findByAuth0IdForAuth(query); // findByAuth0IdForAuth ya busca incluyendo eliminados si es necesario para autenticación
+      // <<-- CORRECCIÓN AQUÍ: Usar findOne y pasar `true` para `includeDeleted` si es para Auth.
+      const user = await this.userService.findOne(query, true); // `true` para incluir usuarios soft-deleted
       if (!user) {
         throw new NotFoundException(
           `Usuario con ID "${query}" no encontrado o inactivo.`,
@@ -168,7 +169,6 @@ export class FavoritesService {
       targetAuth0Id = query;
     }
 
-    // Usar el método existente para obtener los favoritos del usuario encontrado
     const favorites =
       await this.favoriteRepository.findAllByUserId(targetAuth0Id);
 
@@ -184,9 +184,8 @@ export class FavoritesService {
     return plainToInstance(FavoriteDto, favorites);
   }
 
-  // --- NUEVO MÉTODO: checkFavoriteStatus ---
   async checkFavoriteStatus(
-    userId: string, // El ID del usuario autenticado
+    userId: string,
     title_id?: string,
     chapter_id?: string,
   ): Promise<boolean> {
@@ -197,18 +196,15 @@ export class FavoritesService {
     let finalTitleId: string;
     let finalChapterId: string | null = null;
 
-    // Validar que al menos uno esté presente
     if (!title_id && !chapter_id) {
       throw new BadRequestException(
         'Debe proporcionar un title_id o un chapter_id para verificar el estado del favorito.',
       );
     }
 
-    // Lógica para determinar finalTitleId y finalChapterId (similar a 'create')
     if (chapter_id) {
       const chapter = await this.chapterRepository.findOneById(chapter_id);
       if (!chapter) {
-        // Si el capítulo no existe, no puede ser favorito
         return false;
       }
       if (!chapter.title_id) {
@@ -223,9 +219,7 @@ export class FavoritesService {
       finalChapterId = chapter_id;
       finalTitleId = chapter.title_id;
 
-      // Si title_id también fue proporcionado, verificar que coincida
       if (title_id && title_id !== finalTitleId) {
-        // Si no coinciden, no es un favorito válido
         return false;
       }
     } else {
@@ -233,7 +227,6 @@ export class FavoritesService {
       finalChapterId = null;
     }
 
-    // Buscar el favorito usando las claves compuestas
     const existingFavorite =
       await this.favoriteRepository.findOneByCompositeKeys(
         userId,
@@ -241,15 +234,13 @@ export class FavoritesService {
         finalChapterId,
       );
 
-    // Devolver true si se encontró un favorito, false en caso contrario
     return !!existingFavorite;
   }
-  // --- FIN NUEVO MÉTODO ---
 
   async findOne(
     id: string,
-    userId: string, // auth0_id del usuario autenticado
-    hasUserPermission: boolean, // de req.user.admin?.user_permission
+    userId: string,
+    hasUserPermission: boolean,
   ): Promise<FavoriteDto> {
     this.logger.debug(`findOne(): Buscando favorito con ID: ${id}.`);
     const favorite = await this.favoriteRepository.findOneById(id);
@@ -281,8 +272,8 @@ export class FavoritesService {
 
   async remove(
     id: string,
-    userId: string, // auth0_id del usuario autenticado
-    hasUserPermission: boolean, // de req.user.admin?.user_permission
+    userId: string,
+    hasUserPermission: boolean,
   ): Promise<void> {
     this.logger.debug(
       `remove(): Eliminando favorito con ID: ${id} para usuario ${userId}.`,
