@@ -1,10 +1,12 @@
 import { AuthGuard } from "@/Components/protectedRoute";
+import { ProfileSection } from "./components/profileForm";
 
 export default function RegistradoDashboardPage() {
   return (
     <AuthGuard allowedRoles={["registrado"]}>
-      <h1 className="text-2xl font-bold">Dashboard Registrado</h1>
-      <p>Bienvenido al dashboard de usuarios registrados.</p>
+      <div className="max-w-xl mx-auto space-y-6">
+        <ProfileSection isLoading={false} />
+      </div>
     </AuthGuard>
   );
 }
