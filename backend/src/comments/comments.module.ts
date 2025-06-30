@@ -10,9 +10,7 @@ import { TitleRepository } from 'src/titles/titles.repository';
 import { ChapterRepository } from 'src/chapters/chapters.repository';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Comment, Title, Chapter]), // Añadir Title y Chapter
-  ],
+  imports: [TypeOrmModule.forFeature([Comment, Title, Chapter])],
   controllers: [CommentsController],
   providers: [
     CommentsService,

@@ -14,7 +14,7 @@ import {
 import { RatingsService } from './ratings.service';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
-import { RatingDto } from './dto/rating.dto'; // Asegúrate de que este DTO existe y es completo
+import { RatingDto } from './dto/rating.dto';
 import {
   ApiTags,
   ApiOperation,
@@ -25,23 +25,25 @@ import {
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-import { User } from 'src/user/entities/user.entity'; // Importar User para tipado
-import { PermissionsGuard } from 'src/auth/guards/permissions.guard'; // Importar
-import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator'; // Importar
+import { User } from 'src/user/entities/user.entity';
+// PermissionsGuard y RequiredPermissions se eliminan de PATCH/DELETE de rating,
+// pero se mantienen importados si se usan en otras partes de tu app.
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator';
 
-@ApiTags('ratings') // Agrupa este controlador bajo la etiqueta 'ratings' en Swagger
+@ApiTags('ratings')
 @Controller('ratings')
 export class RatingsController {
   constructor(private readonly ratingsService: RatingsService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard) // Requiere autenticación y rol
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede calificar
-  @HttpCode(HttpStatus.CREATED) // Retorna 201 Created
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
+  @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
     summary: 'Crear una nueva calificación',
     description:
-      'Permite a cualquier usuario autenticado añadir una calificación a un título o capítulo.',
+      'Permite a cualquier usuario autenticado añadir una calificación a un título o capítulo. Un usuario solo puede calificar un elemento una vez.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiResponse({
@@ -61,7 +63,7 @@ export class RatingsController {
   @ApiResponse({
     status: 409,
     description: 'El usuario ya ha calificado este título/capítulo.',
-  }) // Cambiado a 409
+  })
   @ApiResponse({ status: 404, description: 'Título o capítulo no encontrado.' })
   async create(
     @Request() req,
@@ -72,7 +74,7 @@ export class RatingsController {
   }
 
   @Get('by-title/:titleId')
-  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Obtener todas las calificaciones de un título específico',
     description:
@@ -95,8 +97,69 @@ export class RatingsController {
     return this.ratingsService.findAllByTitle(titleId);
   }
 
+  // ************ NUEVA RUTA: Promedio de calificación por título ************
+  @Get('average/title/:titleId')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Obtener la calificación promedio de un título',
+    description:
+      'Calcula y retorna la calificación promedio de un título. Retorna 3 si no hay calificaciones.',
+  })
+  @ApiParam({
+    name: 'titleId',
+    description: 'ID único del título',
+    type: String,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Calificación promedio del título.',
+    schema: {
+      type: 'object',
+      properties: { average: { type: 'number', example: 4.5 } },
+    },
+  })
+  @ApiResponse({ status: 404, description: 'Título no encontrado.' })
+  async getAverageTitleRating(
+    @Param('titleId') titleId: string,
+  ): Promise<{ average: number }> {
+    const average = await this.ratingsService.getAverageRatingForTitle(titleId);
+    return { average };
+  }
+  // ************ FIN NUEVA RUTA ************
+
+  // ************ NUEVA RUTA: Promedio de calificación por capítulo ************
+  @Get('average/chapter/:chapterId')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Obtener la calificación promedio de un capítulo',
+    description:
+      'Calcula y retorna la calificación promedio de un capítulo. Retorna 3 si no hay calificaciones.',
+  })
+  @ApiParam({
+    name: 'chapterId',
+    description: 'ID único del capítulo',
+    type: String,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Calificación promedio del capítulo.',
+    schema: {
+      type: 'object',
+      properties: { average: { type: 'number', example: 4.5 } },
+    },
+  })
+  @ApiResponse({ status: 404, description: 'Capítulo no encontrado.' })
+  async getAverageChapterRating(
+    @Param('chapterId') chapterId: string,
+  ): Promise<{ average: number }> {
+    const average =
+      await this.ratingsService.getAverageRatingForChapter(chapterId);
+    return { average };
+  }
+  // ************ FIN NUEVA RUTA ************
+
   @Get(':id')
-  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Obtener una calificación por su ID',
     description:
@@ -118,15 +181,16 @@ export class RatingsController {
   }
 
   @Patch(':id')
-  // Se añade PermissionsGuard y RequiredPermissions para admins/superadmins que moderen
-  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder
-  @RequiredPermissions('moderation_permission') // Este permiso es para admins que editan ratings de otros
-  @HttpCode(HttpStatus.OK) // Retorna 200 OK
+  // ************ CAMBIO CLAVE: Eliminar PermissionsGuard y RequiredPermissions ************
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Todos los roles autenticados pueden intentar modificar
+  // @RequiredPermissions('moderation_permission') // <<-- ELIMINADO
+  // ************ FIN CAMBIO CLAVE ************
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Actualizar una calificación por su ID',
     description:
-      'Permite al propietario de la calificación o a un **Admin/Superadmin** (con permiso de moderación) actualizar una calificación existente.',
+      'Permite al propietario de la calificación actualizarla. Un **Admin/Superadmin** (con permiso de moderación) puede actualizar cualquier calificación, excepto las de un Superadmin si el editor es Admin.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
@@ -144,7 +208,7 @@ export class RatingsController {
   @ApiResponse({
     status: 403,
     description:
-      'No autorizado (no es el propietario o rol/permiso insuficiente).',
+      'No autorizado (no es el propietario, o rol/permiso insuficiente, o intento de modificar calificación de Superadmin).',
   })
   @ApiResponse({ status: 404, description: 'Calificación no encontrada.' })
   async update(
@@ -152,29 +216,22 @@ export class RatingsController {
     @Request() req,
     @Body() updateRatingDto: UpdateRatingDto,
   ): Promise<RatingDto> {
-    const user = req.user as User;
-    // Si el usuario es 'admin' o 'superadmin' y tiene el permiso 'moderation_permission'
-    const hasModerationPermission =
-      (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
-      user.admin?.moderation_permission;
-    return this.ratingsService.update(
-      id,
-      user.auth0_id,
-      updateRatingDto,
-      hasModerationPermission, // Se pasa el permiso al servicio
-    );
+    const currentUser = req.user as User;
+    // La lógica de permisos (incluyendo moderación y jerarquía) se delega al servicio
+    return this.ratingsService.update(id, currentUser, updateRatingDto);
   }
 
   @Delete(':id')
-  // Se añade PermissionsGuard y RequiredPermissions para admins/superadmins que moderen
-  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder
-  @RequiredPermissions('moderation_permission') // Este permiso es para admins que borran ratings de otros
-  @HttpCode(HttpStatus.NO_CONTENT) // Retorna 204 No Content
+  // ************ CAMBIO CLAVE: Eliminar PermissionsGuard y RequiredPermissions ************
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Todos los roles autenticados pueden intentar eliminar
+  // @RequiredPermissions('moderation_permission') // <<-- ELIMINADO
+  // ************ FIN CAMBIO CLAVE ************
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Eliminar una calificación por su ID',
     description:
-      'Permite al propietario de la calificación o a un **Admin/Superadmin** (con permiso de moderación) eliminar una calificación existente.',
+      'Permite al propietario de la calificación eliminarla. Un **Admin/Superadmin** (con permiso de moderación) puede eliminar cualquier calificación, excepto las de un Superadmin si el eliminador es Admin.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
@@ -190,18 +247,12 @@ export class RatingsController {
   @ApiResponse({
     status: 403,
     description:
-      'No autorizado (no es el propietario o rol/permiso insuficiente).',
+      'No autorizado (no es el propietario, o rol/permiso insuficiente, o intento de eliminar calificación de Superadmin).',
   })
   @ApiResponse({ status: 404, description: 'Calificación no encontrada.' })
   async remove(@Param('id') id: string, @Request() req): Promise<void> {
-    const user = req.user as User;
-    const hasModerationPermission =
-      (user.role?.name === 'admin' || user.role?.name === 'superadmin') &&
-      user.admin?.moderation_permission;
-    await this.ratingsService.remove(
-      id,
-      user.auth0_id,
-      hasModerationPermission,
-    );
+    const currentUser = req.user as User;
+    // La lógica de permisos (incluyendo moderación y jerarquía) se delega al servicio
+    await this.ratingsService.remove(id, currentUser);
   }
 }

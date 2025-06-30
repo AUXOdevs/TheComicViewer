@@ -15,13 +15,11 @@ import {
 } from '@nestjs/swagger';
 import { UserDto } from 'src/user/dto/user.dto'; // Importar UserDto para los tipos de respuesta
 import { User } from 'src/user/entities/user.entity'; // Importar la entidad User
+import { plainToInstance } from 'class-transformer'; // Necesario para la transformación a DTO
 
 @ApiTags('auth') // Etiqueta para agrupar en Swagger
 @Controller('auth')
 export class AuthController {
-  // No hay constructor o servicio de Auth aquí, ya que el flujo de Auth0 se maneja en el frontend
-  // y la validación del token en JwtStrategy.
-
   @UseGuards(JwtAuthGuard) // Esta ruta requiere un token JWT válido
   @Get('me')
   @HttpCode(HttpStatus.OK) // Retorna 200 OK
@@ -42,14 +40,12 @@ export class AuthController {
       'No autenticado (token JWT inválido o ausente, o usuario bloqueado/desactivado).',
   })
   getProfile(@Req() req: Request): UserDto {
-    // Tipamos req como Request para extraer user
-    const user = req['user'] as User; // El objeto 'user' se adjunta a la request por Passport.js
+    const user = req['user'] as User;
     console.log(
       '✅ [BACKEND] Ruta /auth/me - Usuario extraído del token:',
       user,
     );
-    // Transformar la entidad User a UserDto si es necesario, para controlar qué datos se exponen
-    // return plainToInstance(UserDto, user);
-    return user; // Si User y UserDto son compatibles directamente o se maneja en un interceptor
+    // Transforma la entidad User a UserDto para asegurar que solo se exponen los datos deseados
+    return plainToInstance(UserDto, user);
   }
 }

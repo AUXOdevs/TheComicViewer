@@ -58,7 +58,7 @@ export class CommentDto {
 
   @IsString()
   @ApiProperty({ description: 'Contenido del comentario.' })
-  content: string;
+  comment_text: string;
 
   @IsDate()
   @Type(() => Date)

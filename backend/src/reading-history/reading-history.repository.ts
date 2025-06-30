@@ -18,7 +18,7 @@ export class ReadingHistoryRepository {
     return this.createQueryBuilder('history')
       .leftJoinAndSelect('history.user', 'user')
       .leftJoinAndSelect('history.chapter', 'chapter')
-      .leftJoinAndSelect('chapter.title', 'title')
+      .leftJoinAndSelect('history.title', 'title') // Asegura que el título se carga
       .where('history.user_id = :userId', { userId })
       .orderBy('history.updated_at', 'DESC')
       .getMany();
@@ -38,8 +38,9 @@ export class ReadingHistoryRepository {
   async findOneById(historyId: string): Promise<ReadingHistory | null> {
     return this.createQueryBuilder('history')
       .where('history.history_id = :historyId', { historyId })
-      .leftJoinAndSelect('history.user', 'user')
+      .leftJoinAndSelect('history.user', 'user') // IMPORTANTE: Cargar 'user' para las verificaciones de permisos en el servicio
       .leftJoinAndSelect('history.chapter', 'chapter')
+      .leftJoinAndSelect('history.title', 'title') // Asegura que el título se carga
       .getOne();
   }
 

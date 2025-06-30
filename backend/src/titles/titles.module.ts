@@ -8,9 +8,9 @@ import { TitleRepository } from './titles.repository';
 import { ChapterRepository } from 'src/chapters/chapters.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Title, Chapter])], // Añadir Chapter para usar ChapterRepository
+  imports: [TypeOrmModule.forFeature([Title, Chapter])],
   controllers: [TitlesController],
   providers: [TitlesService, TitleRepository, ChapterRepository],
-  exports: [TitlesService, TitleRepository], // Exportar si otros módulos necesitan usar TitlesService o TitleRepository
+  exports: [TitlesService, TitleRepository, ChapterRepository],
 })
 export class TitlesModule {}

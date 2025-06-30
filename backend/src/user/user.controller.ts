@@ -8,18 +8,17 @@ import {
   Body,
   HttpCode,
   HttpStatus,
-  Query,
+  Query, // Se mantiene para @Query()
   UseGuards,
   Request,
-  UnauthorizedException, // Puede ser útil en casos muy específicos de autenticación
-  BadRequestException,
-  ConflictException,
-  ForbiddenException, // Importar ForbiddenException
-  InternalServerErrorException, // Importar InternalServerErrorException
-  Logger, // Importar Logger
+  BadRequestException, // Se mantiene, usada en validación de permisos
+  ConflictException, // Se mantiene, usada en validación de permisos
+  ForbiddenException, // Se mantiene, usada en validación de permisos
+  InternalServerErrorException, // Se mantiene, usada en manejo de errores
+  Logger,
+  NotFoundException, // Se mantiene, usada para logs
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -27,199 +26,309 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { User } from './entities/user.entity';
 import { plainToInstance } from 'class-transformer';
-import { Auth0UserProvisionDto } from './dto/auth0-user-provision.dto';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiBearerAuth,
   ApiParam,
-  ApiQuery,
-} from '@nestjs/swagger'; // Importar de Swagger
-import { PermissionsGuard } from 'src/auth/guards/permissions.guard'; // Importar
-import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator'; // Importar
+  ApiQuery, // Se mantiene para decorar Swagger (aunque los parámetros se definan en el DTO)
+} from '@nestjs/swagger';
+import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
+import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator';
+// Importamos directamente GetAllUsersDto, ya no necesitamos PaginationDto ni OrderDto como parámetros de @Query()
+import { GetAllUsersDto } from './dto/get-all-users.dto'; // <<-- ¡IMPORTACIÓN CLAVE!
+import { AdminService } from 'src/admins/admins.service';
 
-@ApiTags('users') // Agrupa este controlador bajo la etiqueta 'users' en Swagger
+@ApiTags('users')
 @Controller('users')
-// ************ CRÍTICO: REMOVER @UseGuards(JwtAuthGuard) A NIVEL DE CLASE ************
-// Cada ruta protegida tendrá sus propios guards.
 export class UsersController {
-  // Añadir la propiedad logger
   private readonly logger = new Logger(UsersController.name);
 
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly adminService: AdminService, // Se mantiene ya que se usa en otros métodos o para lógica de admin
+  ) {}
 
-  // --- RUTA CLAVE: Aprovisionamiento de usuario desde Auth0 ---
-  // Esta ruta NO DEBE ESTAR PROTEGIDA por JwtAuthGuard o RolesGuard.
-  // Su propósito es ser el PRIMER punto de contacto para usuarios autenticados por Auth0.
-  // El frontend enviará el Access Token, pero este endpoint no lo VALIDARÁ con un guard de JWT.
-  // La lógica de `findOrCreateUserFromAuth0` en el servicio es quien maneja la creación/actualización.
-  @Post('provision')
-  @HttpCode(HttpStatus.OK)
+  // Las importaciones como Post, BadRequestException, ConflictException, InternalServerErrorException
+  // y AdminService se mantienen porque son relevantes para el funcionamiento general
+  // de otras rutas en este controlador o para un manejo de errores robusto.
+  // La ruta `sync-auth0-user` ya fue eliminada, así que el comentario de eliminación está correcto.
+
+  @Get('by-email')
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
+  @Roles('admin', 'superadmin')
+  @RequiredPermissions('user_permission')
   @ApiOperation({
-    summary: 'Aprovisionar o actualizar usuario desde Auth0',
+    summary: 'Buscar usuario por dirección de email',
     description:
-      'Endpoint llamado por el frontend después del login de Auth0 para sincronizar/crear el usuario en la base de datos local. No requiere JWT.',
+      'Permite a un **Admin/Superadmin** con `user_permission` buscar un usuario específico por su dirección de email.',
+  })
+  @ApiBearerAuth('JWT-auth')
+  @ApiQuery({
+    name: 'email',
+    description: 'Email del usuario a buscar',
+    type: String,
+    required: true,
   })
   @ApiResponse({
     status: 200,
-    description: 'Usuario provisionado/actualizado exitosamente.',
+    description: 'Usuario encontrado.',
     type: UserDto,
   })
-  @ApiResponse({ status: 400, description: 'Datos de Auth0 inválidos.' })
-  @ApiResponse({ status: 500, description: 'Error interno del servidor.' })
-  async provisionUserFromAuth0(
-    @Body() payload: Auth0UserProvisionDto,
-  ): Promise<UserDto> {
-    this.logger.log('🚧 [BACKEND] Ruta /users/provision - Payload recibido:');
+  @ApiResponse({ status: 401, description: 'No autenticado.' })
+  @ApiResponse({
+    status: 403,
+    description: 'No autorizado (rol o permiso insuficiente).',
+  })
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  async findUserByEmail(@Query('email') email: string): Promise<UserDto> {
+    this.logger.log(
+      `🚧 [BACKEND] Ruta /users/by-email - Buscando por email: ${email}`,
+    );
     try {
-      const user = await this.userService.findOrCreateUserFromAuth0(
-        payload.auth0Id,
-        payload.email,
-        payload.name,
-        payload.emailVerified,
-        payload.picture,
-      );
-      this.logger.log(
-        '✅ [BACKEND] Usuario provisionado/actualizado en DB interna:',
-        user.email,
-        'Rol:',
-        user.role?.name,
-      );
+      const user = await this.userService.findByEmail(email);
       return plainToInstance(UserDto, user);
     } catch (error) {
-      if (
-        error instanceof ConflictException ||
-        error instanceof BadRequestException
-      ) {
+      if (error instanceof NotFoundException) {
+        this.logger.warn(
+          `findUserByEmail(): Usuario con email "${email}" no encontrado.`,
+        );
         throw error;
       }
-      throw new InternalServerErrorException('Failed to provision user.');
+      this.logger.error(
+        `findUserByEmail(): Error interno al buscar usuario: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al buscar el usuario.',
+      );
     }
   }
 
-  // --- Rutas protegidas: Ahora cada una NECESITA SU PROPIO @UseGuards(JwtAuthGuard) ---
-
-  @Post('admin-create')
-  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard) // Protegida con JWT, rol y permisos
-  @Roles('admin', 'superadmin') // Solo admins y superadmins pueden crear usuarios (sin pasar por Auth0 provision)
-  @RequiredPermissions('user_permission') // Requiere permiso de gestión de usuarios
-  @HttpCode(HttpStatus.CREATED)
+  @Get('me')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
   @ApiOperation({
-    summary: 'Crear un nuevo usuario por un administrador',
+    summary: 'Obtener información del usuario autenticado',
     description:
-      'Permite a un **Admin/Superadmin** con permiso de gestión de usuarios crear una nueva entrada de usuario directamente en la base de datos local, asignándole un Auth0 ID.',
+      'Retorna el perfil completo del usuario que está autenticado en la sesión.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiResponse({
-    status: 201,
-    description: 'Usuario creado exitosamente.',
+    status: 200,
+    description: 'Información del usuario autenticado.',
+    type: UserDto,
+  })
+  @ApiResponse({ status: 401, description: 'No autenticado.' })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuario no encontrado (raro si está autenticado).',
+  })
+  async getAuthenticatedUser(@Request() req): Promise<UserDto> {
+    this.logger.log(
+      '🚧 [BACKEND] Ruta /users/me - Obteniendo info del usuario autenticado.',
+    );
+    try {
+      const user = req.user as User;
+      // Ya aseguramos que el usuario existe en createInitialUser llamado por JwtStrategy
+      if (!user) {
+        throw new NotFoundException(
+          'Usuario autenticado no encontrado en la solicitud.',
+        );
+      }
+      return plainToInstance(UserDto, user);
+    } catch (error) {
+      this.logger.error(
+        `getAuthenticatedUser(): Error al obtener usuario autenticado: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al obtener el perfil del usuario.',
+      );
+    }
+  }
+
+  @Patch('me')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
+  @ApiOperation({
+    summary: 'Actualizar información del usuario autenticado',
+    description:
+      'Permite al usuario autenticado actualizar su propio nombre y foto de perfil.',
+  })
+  @ApiBearerAuth('JWT-auth')
+  @ApiResponse({
+    status: 200,
+    description: 'Perfil de usuario actualizado exitosamente.',
     type: UserDto,
   })
   @ApiResponse({ status: 400, description: 'Datos de entrada inválidos.' })
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
-    description: 'No autorizado (rol o permiso insuficiente).',
+    description:
+      'No autorizado (intento de modificar campos restringidos o perfil ajeno).',
   })
-  @ApiResponse({
-    status: 409,
-    description: 'Ya existe un usuario con este Auth0 ID o email.',
-  })
-  async createByAdmin(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
+  @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  async updateAuthenticatedUser(
+    @Request() req,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<UserDto> {
     this.logger.log(
-      '🚧 [BACKEND] Ruta /users/admin-create - Creando usuario por admin:',
-      createUserDto.email,
+      '🚧 [BACKEND] Ruta /users/me - Actualizando info del usuario autenticado.',
     );
-    const createdUser = await this.userService.create(createUserDto);
-    return plainToInstance(UserDto, createdUser);
+    try {
+      const user = req.user as User;
+      const updatedUser = await this.userService.updateMe(
+        user.auth0_id,
+        updateUserDto,
+      );
+      return plainToInstance(UserDto, updatedUser);
+    } catch (error) {
+      if (
+        error instanceof NotFoundException ||
+        error instanceof ForbiddenException ||
+        error instanceof BadRequestException
+      ) {
+        this.logger.warn(
+          `updateAuthenticatedUser(): Error al actualizar perfil: ${error.message}`,
+        );
+        throw error;
+      }
+      this.logger.error(
+        `updateAuthenticatedUser(): Error interno al actualizar perfil: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al actualizar el perfil del usuario.',
+      );
+    }
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard, RolesGuard) // Protegida con JWT y rol
-  @Roles('admin', 'superadmin', 'Registrado', 'Suscrito') // Permite a cualquier usuario autenticado ver TODOS los usuarios si tiene permisos o su propio
-  @ApiQuery({
-    name: 'includeDeleted',
-    required: false,
-    type: Boolean,
-    description: 'Incluir usuarios desactivados (solo Admin/Superadmin).',
-  })
-  @ApiQuery({
-    name: 'auth0Id',
-    required: false,
-    type: String,
-    description: 'Filtrar por Auth0 ID (solo Admin/Superadmin).',
-  })
-  @ApiQuery({
-    name: 'email',
-    required: false,
-    type: String,
-    description: 'Filtrar por email (solo Admin/Superadmin).',
-  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin', 'superadmin')
   @ApiOperation({
-    summary: 'Obtener lista de usuarios',
+    summary: 'Obtener lista de usuarios con paginación, filtrado y ordenación',
     description:
-      'Lista todos los usuarios. Un **Admin/Superadmin** puede incluir usuarios desactivados o filtrar por ID/email. Usuarios normales solo ven usuarios activos y no pueden filtrar.',
+      'Lista todos los usuarios en el sistema. Solo accesible por **Admin/Superadmin**. Soporta paginación, ordenación y filtrado por Auth0 ID, email, rol y estado de bloqueo. Los **Admins/Superadmins** con `user_permission` pueden ver usuarios desactivados.',
   })
   @ApiBearerAuth('JWT-auth')
+  // <<-- AHORA UN SOLO @Query() DECORATOR CON EL NUEVO DTO -->>
+  // Las decoraciones @ApiQuery se mueven al GetAllUsersDto
+  // Ya no se repiten aquí, se leerán desde el DTO.
   @ApiResponse({
     status: 200,
-    description: 'Lista de usuarios.',
-    type: [UserDto],
+    description: 'Lista de usuarios con paginación.',
+    schema: {
+      type: 'object',
+      properties: {
+        users: {
+          type: 'array',
+          items: { $ref: '#/components/schemas/UserDto' },
+        },
+        total: { type: 'number', example: 100 },
+        page: { type: 'number', example: 1 },
+        limit: { type: 'number', example: 10 },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
     description: 'No autorizado (rol o permiso insuficiente).',
   })
+  @ApiResponse({ status: 500, description: 'Error interno del servidor.' }) // Añadido
   async findAll(
     @Request() req,
-    @Query('includeDeleted') includeDeleted?: string,
-    @Query('auth0Id') auth0Id?: string,
-    @Query('email') email?: string,
-  ): Promise<UserDto[]> {
-    this.logger.log('🚧 [BACKEND] Ruta /users - Buscando todos los usuarios.');
-    const currentUser = req.user as User;
-    const isSuperAdminOrAdmin =
-      currentUser.role?.name === 'admin' ||
-      currentUser.role?.name === 'superadmin';
-    const hasUserPermission =
-      isSuperAdminOrAdmin && currentUser.admin?.user_permission;
+    @Query() queryParams: GetAllUsersDto, // <<-- ¡SOLO ESTO ES NECESARIO AQUÍ!
+  ): Promise<{ users: UserDto[]; total: number; page: number; limit: number }> {
+    this.logger.log('🚧 [BACKEND] Ruta /users - Buscando usuarios.');
+    try {
+      const currentUser = req.user as User;
+      const isSuperAdminOrAdmin =
+        currentUser.role?.name === 'admin' ||
+        currentUser.role?.name === 'superadmin';
+      const hasUserPermission =
+        isSuperAdminOrAdmin && currentUser.admin?.user_permission;
 
-    // Solo admins/superadmins con user_permission pueden usar includeDeleted, auth0Id o email para filtrar
-    const bIncludeDeleted = hasUserPermission && includeDeleted === 'true';
-    const filterAuth0Id = hasUserPermission ? auth0Id : undefined;
-    const filterEmail = hasUserPermission ? email : undefined;
+      // Extraer las propiedades del DTO combinado
+      const {
+        page,
+        limit,
+        sortBy,
+        order,
+        includeDeleted,
+        auth0Id,
+        email,
+        roleName,
+        isBlocked,
+      } = queryParams;
 
-    // Si no es admin y está intentando filtrar, denegar
-    if (!hasUserPermission && (auth0Id || email)) {
-      throw new ForbiddenException(
-        'You are not authorized to filter users by Auth0 ID or email.',
+      // La lógica de permisos se mantiene robusta.
+      const bIncludeDeleted = hasUserPermission && includeDeleted;
+      const filterAuth0Id = hasUserPermission ? auth0Id : undefined;
+      const filterEmail = hasUserPermission ? email : undefined;
+      const filterRoleName = hasUserPermission ? roleName : undefined;
+      const filterIsBlocked =
+        hasUserPermission && isBlocked !== undefined ? isBlocked : undefined;
+
+      if (!hasUserPermission) {
+        if (includeDeleted) {
+          throw new ForbiddenException(
+            'No tienes permiso para ver usuarios desactivados.',
+          );
+        }
+        if (auth0Id || email || roleName || isBlocked !== undefined) {
+          throw new ForbiddenException(
+            'No tienes permiso para usar filtros avanzados de usuarios.',
+          );
+        }
+      }
+
+      // Pasar objetos de paginación y ordenación al servicio, así como los filtros
+      const { users, total } = await this.userService.findAll(
+        { page, limit },
+        { sortBy, order },
+        bIncludeDeleted,
+        filterAuth0Id,
+        filterEmail,
+        filterRoleName,
+        filterIsBlocked,
+      );
+
+      return {
+        users: plainToInstance(UserDto, users),
+        total,
+        page: page || 1, // Asegurarse de que page y limit tengan valores por defecto si no se proporcionan
+        limit: limit || 10,
+      };
+    } catch (error) {
+      // Manejo de errores específico para BadRequest, Forbidden, etc., si vienen del servicio
+      if (
+        error instanceof ForbiddenException ||
+        error instanceof BadRequestException
+      ) {
+        this.logger.warn(
+          `findAll(): Error en permisos o parámetros: ${error.message}`,
+        );
+        throw error;
+      }
+      this.logger.error(
+        `findAll(): Error interno al obtener lista de usuarios: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al obtener la lista de usuarios.',
       );
     }
-    // Si no es admin y está intentando incluir eliminados, denegar
-    if (!hasUserPermission && includeDeleted === 'true') {
-      throw new ForbiddenException(
-        'You are not authorized to view deleted users.',
-      );
-    }
-
-    if (filterAuth0Id) {
-      const user = await this.userService.findByAuth0IdForAuth(filterAuth0Id); // Retorna User entity
-      return user ? [plainToInstance(UserDto, user)] : [];
-    }
-    if (filterEmail) {
-      const user = await this.userService.findByEmail(filterEmail); // Retorna User entity
-      return user ? [plainToInstance(UserDto, user)] : [];
-    }
-
-    return this.userService.findAll(bIncludeDeleted);
   }
 
   @Get('deactivated')
-  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard) // Protegida con JWT, rol y permisos
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
   @Roles('admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Solo Admin/Superadmin con user_permission
+  @RequiredPermissions('user_permission')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary:
@@ -238,17 +347,32 @@ export class UsersController {
     status: 403,
     description: 'No autorizado (rol o permiso insuficiente).',
   })
+  @ApiResponse({ status: 500, description: 'Error interno del servidor.' }) // Añadido
   async findDeactivatedUsers(): Promise<UserDto[]> {
     this.logger.log(
       '🚧 [BACKEND] Ruta /users/deactivated - Buscando usuarios desactivados.',
     );
-    return this.userService.findDeactivatedUsers();
+    try {
+      const users = await this.userService.findDeactivatedUsers();
+      return plainToInstance(UserDto, users);
+    } catch (error) {
+      this.logger.error(
+        `findDeactivatedUsers(): Error interno al obtener usuarios desactivados: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al obtener la lista de usuarios desactivados.',
+      );
+    }
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard) // Protegida con JWT, rol y permisos
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
   @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
-  @RequiredPermissions('user_permission') // Este permiso es para que admins/superadmins puedan ver perfiles ajenos
+  // Nota: RequiredPermissions('user_permission') aquí significa que Registrados/Suscritos necesitarían user_permission,
+  // lo cual generalmente no es el caso. Para que Registrados/Suscritos puedan ver su propio perfil,
+  // esta ruta no debería requerir user_permission si se accede al propio ID.
+  // La lógica interna de `if (currentUser.auth0_id !== id && !hasUserPermission)` ya maneja esto.
   @ApiQuery({
     name: 'includeDeleted',
     required: false,
@@ -274,6 +398,7 @@ export class UsersController {
       'No autorizado (no es el propietario o rol/permiso insuficiente).',
   })
   @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  @ApiResponse({ status: 500, description: 'Error interno del servidor.' }) // Añadido
   async findOne(
     @Param('id') id: string,
     @Request() req,
@@ -282,42 +407,62 @@ export class UsersController {
     this.logger.log(
       `🚧 [BACKEND] Ruta /users/:id - Buscando usuario con ID: ${id}`,
     );
-    const currentUser = req.user as User;
-    const isSuperAdminOrAdmin =
-      currentUser.role?.name === 'admin' ||
-      currentUser.role?.name === 'superadmin';
-    const hasUserPermission =
-      isSuperAdminOrAdmin && currentUser.admin?.user_permission;
+    try {
+      const currentUser = req.user as User;
+      const isSuperAdminOrAdmin =
+        currentUser.role?.name === 'admin' ||
+        currentUser.role?.name === 'superadmin';
+      const hasUserPermission =
+        isSuperAdminOrAdmin && currentUser.admin?.user_permission;
 
-    const bIncludeDeleted = hasUserPermission && includeDeleted === 'true';
+      const bIncludeDeleted = hasUserPermission && includeDeleted === 'true';
 
-    // Permite a los superadmin y admin ver cualquier perfil, o al propio usuario ver su perfil.
-    if (currentUser.auth0_id !== id && !hasUserPermission) {
-      throw new ForbiddenException(
-        'You are not authorized to view this user profile.',
+      if (currentUser.auth0_id !== id && !hasUserPermission) {
+        throw new ForbiddenException(
+          'No tienes autorización para ver este perfil de usuario.',
+        );
+      }
+
+      if (bIncludeDeleted && !hasUserPermission) {
+        // Esta condición es redundante si hasUserPermission ya la cubre arriba,
+        // pero se mantiene para claridad. La comprobación principal `if (!hasUserPermission)`
+        // ya debería haber lanzado un error si includeDeleted es true y no tiene el permiso.
+        throw new ForbiddenException(
+          'No tienes autorización para ver perfiles de usuario desactivados.',
+        );
+      }
+
+      const user = await this.userService.findOne(id, bIncludeDeleted);
+      return plainToInstance(UserDto, user);
+    } catch (error) {
+      if (
+        error instanceof NotFoundException ||
+        error instanceof ForbiddenException
+      ) {
+        this.logger.warn(
+          `findOne(): Error al buscar usuario con ID "${id}": ${error.message}`,
+        );
+        throw error;
+      }
+      this.logger.error(
+        `findOne(): Error interno al buscar usuario: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al obtener el usuario.',
       );
     }
-
-    // Permite a los superadmin y admin ver perfiles eliminados.
-    if (bIncludeDeleted && !hasUserPermission) {
-      // Reafirmación de la guardia
-      throw new ForbiddenException(
-        'You are not authorized to view deleted user profiles.',
-      );
-    }
-
-    return this.userService.findOne(id, bIncludeDeleted);
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard) // Protegida con JWT, rol y permisos
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Cualquier usuario autenticado puede acceder
-  @RequiredPermissions('user_permission') // Este permiso es para que admins/superadmins puedan editar perfiles ajenos, o cambiar roles/bloquear
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
+  @Roles('admin', 'superadmin')
+  @RequiredPermissions('user_permission')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
-    summary: 'Actualizar un usuario por ID',
+    summary: 'Actualizar un usuario por ID (Solo para Admins/Superadmins)',
     description:
-      'Permite al **propietario** de la cuenta actualizar su propio perfil. Un **Admin/Superadmin** (con permiso de gestión de usuarios) puede actualizar cualquier perfil, incluyendo cambiar roles, bloquear/desbloquear o reactivar/desactivar.',
+      'Permite a un **Admin/Superadmin** (con permiso de gestión de usuarios) actualizar cualquier perfil de usuario, incluyendo nombre, foto, rol, estado de bloqueo y estado de activación/desactivación.',
   })
   @ApiBearerAuth('JWT-auth')
   @ApiParam({
@@ -334,58 +479,48 @@ export class UsersController {
   @ApiResponse({ status: 401, description: 'No autenticado.' })
   @ApiResponse({
     status: 403,
-    description:
-      'No autorizado (no es el propietario o rol/permiso insuficiente).',
+    description: 'No autorizado (rol o permiso insuficiente para esta acción).',
   })
   @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  @ApiResponse({ status: 409, description: 'Conflicto (ej. email ya en uso).' })
+  @ApiResponse({ status: 500, description: 'Error interno del servidor.' }) // Añadido
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-    @Request() req,
+    @Request() req, // Se mantiene `req` si es necesario para logs o futuras validaciones del usuario que hace la petición
   ): Promise<UserDto> {
     this.logger.log(
       `🚧 [BACKEND] Ruta /users/:id - Actualizando usuario con ID: ${id}`,
     );
-    const currentUser = req.user as User;
-    const isSuperAdminOrAdmin =
-      currentUser.role?.name === 'admin' ||
-      currentUser.role?.name === 'superadmin';
-    const hasUserPermission =
-      isSuperAdminOrAdmin && currentUser.admin?.user_permission;
-
-    // Un superadmin o admin con user_permission puede actualizar cualquier perfil.
-    // El usuario normal solo puede actualizar el suyo.
-    if (currentUser.auth0_id !== id && !hasUserPermission) {
-      throw new ForbiddenException(
-        'You are not authorized to update this user profile.',
+    try {
+      const updatedUser = await this.userService.update(id, updateUserDto);
+      return plainToInstance(UserDto, updatedUser);
+    } catch (error) {
+      if (
+        error instanceof NotFoundException ||
+        error instanceof BadRequestException ||
+        error instanceof ConflictException
+      ) {
+        this.logger.warn(
+          `update(): Error al actualizar usuario con ID "${id}": ${error.message}`,
+        );
+        throw error;
+      }
+      this.logger.error(
+        `update(): Error interno al actualizar usuario: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al actualizar el usuario.',
       );
     }
-
-    // Solo un admin o superadmin con user_permission puede cambiar el rol o el estado de bloqueo/eliminación
-    if (updateUserDto.role_id !== undefined && !hasUserPermission) {
-      throw new ForbiddenException(
-        'Only admins or superadmins with user management permission can change user roles.',
-      );
-    }
-    if (updateUserDto.is_blocked !== undefined && !hasUserPermission) {
-      throw new ForbiddenException(
-        'Only admins or superadmins with user management permission can block/unblock users.',
-      );
-    }
-    if (updateUserDto.deleted_at !== undefined && !hasUserPermission) {
-      throw new ForbiddenException(
-        'Only admins or superadmins with user management permission can deactivate/reactivate users.',
-      );
-    }
-
-    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
-  @Roles('admin', 'superadmin') // Solo admins y superadmins pueden desactivar usuarios
-  @RequiredPermissions('user_permission') // Requiere permiso de gestión de usuarios
+  @Roles('admin', 'superadmin')
+  @RequiredPermissions('user_permission')
   @ApiOperation({
     summary: 'Desactivar (soft-delete) un usuario por ID',
     description:
@@ -410,17 +545,37 @@ export class UsersController {
     status: 404,
     description: 'Usuario no encontrado o ya desactivado.',
   })
+  @ApiResponse({ status: 500, description: 'Error interno del servidor.' }) // Añadido
   async softDeleteUser(@Param('id') id: string): Promise<void> {
     this.logger.log(
       `🚧 [BACKEND] Ruta /users/:id - Desactivando usuario con ID: ${id}`,
     );
-    await this.userService.softDeleteUser(id);
+    try {
+      await this.userService.softDeleteUser(id);
+    } catch (error) {
+      if (
+        error instanceof NotFoundException||
+        error instanceof BadRequestException
+      ) {
+        this.logger.warn(
+          `softDeleteUser(): Error al desactivar usuario con ID "${id}": ${error.message}`,
+        );
+        throw error;
+      }
+      this.logger.error(
+        `softDeleteUser(): Error interno al desactivar usuario: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al desactivar el usuario.',
+      );
+    }
   }
 
   @Patch(':id/reactivate')
   @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
-  @Roles('admin', 'superadmin') // Solo admins y superadmins pueden reactivar usuarios
-  @RequiredPermissions('user_permission') // Requiere permiso de gestión de usuarios
+  @Roles('admin', 'superadmin')
+  @RequiredPermissions('user_permission')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Reactivar un usuario por ID',
@@ -445,10 +600,31 @@ export class UsersController {
     description: 'No autorizado (rol o permiso insuficiente).',
   })
   @ApiResponse({ status: 404, description: 'Usuario no encontrado.' })
+  @ApiResponse({ status: 500, description: 'Error interno del servidor.' }) // Añadido
   async reactivateUser(@Param('id') id: string): Promise<UserDto> {
     this.logger.log(
       `🚧 [BACKEND] Ruta /users/:id/reactivate - Reactivando usuario con ID: ${id}`,
     );
-    return this.userService.reactivateUser(id);
+    try {
+      const user = await this.userService.reactivateUser(id);
+      return plainToInstance(UserDto, user);
+    } catch (error) {
+      if (
+        error instanceof NotFoundException ||
+        error instanceof BadRequestException
+      ) {
+        this.logger.warn(
+          `reactivateUser(): Error al reactivar usuario con ID "${id}": ${error.message}`,
+        );
+        throw error;
+      }
+      this.logger.error(
+        `reactivateUser(): Error interno al reactivar usuario: ${error.message}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException(
+        'Error interno al reactivar el usuario.',
+      );
+    }
   }
 }

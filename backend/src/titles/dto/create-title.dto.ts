@@ -3,7 +3,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsEnum,
-  IsDateString,
+  IsDateString, // <-- Importante: para validar que el string es una fecha válida
   IsUrl,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
@@ -27,15 +27,6 @@ export class CreateTitleDto {
   @ApiProperty({ description: 'Autor o creador del título.', nullable: true })
   author?: string;
 
-  @IsOptional()
-  @IsString()
-  @ApiProperty({
-    description:
-      'Género principal del título (ej. "Aventura", "Fantasia"). Este campo puede ser obsoleto si se usan title_genre.',
-    nullable: true,
-  })
-  genre?: string;
-
   @IsEnum(['comic', 'manga'], {
     message: 'El tipo debe ser "comic" o "manga".',
   })
@@ -55,12 +46,12 @@ export class CreateTitleDto {
   status?: string;
 
   @IsOptional()
-  @IsDateString()
+  @IsDateString() // <-- Se valida como string de fecha ISO 8601
   @ApiProperty({
     description: 'Fecha de publicación del título (formato ISO 8601).',
     nullable: true,
   })
-  publication_date?: string; // Usar string para la entrada, luego convertir a Date
+  publication_date?: string; // <<-- Tipo: string
 
   @IsOptional()
   @IsUrl()

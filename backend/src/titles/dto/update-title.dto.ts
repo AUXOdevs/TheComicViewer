@@ -1,11 +1,16 @@
+// src/titles/dto/update-title.dto.ts
 import {
   IsString,
   IsOptional,
-  IsDateString,
+  IsDateString, // <-- Importante: para validar que el string es una fecha válida
   IsUrl,
   IsIn,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+// No hereda de CreateTitleDto directamente en tu ejemplo, por lo que lo replico.
+// Si hereda de PartialType(CreateTitleDto), entonces IsDateString iría en CreateTitleDto.
+// Ya que está como lo pasaste, asumo que es un DTO independiente.
+// Si usas PartialType(CreateTitleDto), esto ya está cubierto por el de arriba.
 
 export class UpdateTitleDto {
   @IsOptional()
@@ -51,13 +56,15 @@ export class UpdateTitleDto {
   status?: string;
 
   @IsOptional()
-  @IsDateString()
+  @IsDateString() // <-- Tipo: string, se valida como string de fecha
   @ApiProperty({
     description: 'Nueva fecha de publicación del título (formato ISO 8601).',
     required: false,
     example: '1997-07-22T00:00:00Z',
+    type: 'string',
+    format: 'date-time',
   })
-  publication_date?: string;
+  publication_date?: string; // <<-- Tipo: string
 
   @IsOptional()
   @IsUrl()

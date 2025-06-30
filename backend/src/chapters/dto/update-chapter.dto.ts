@@ -1,3 +1,5 @@
+// src/chapters/dto/update-chapter.dto.ts
+import { PartialType, ApiProperty } from '@nestjs/swagger';
 import {
   IsString,
   IsOptional,
@@ -5,41 +7,39 @@ import {
   IsUrl,
   IsDateString,
   Min,
+  IsArray,
+  ArrayMinSize,
+  IsUUID,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { CreateChapterDto } from './create-chapter.dto';
 
-export class UpdateChapterDto {
+export class UpdateChapterDto extends PartialType(CreateChapterDto) {
   @IsOptional()
-  @IsString()
-  @ApiProperty({ description: 'Nuevo nombre del capítulo.', required: false })
-  name?: string;
-
-  @IsOptional()
-  @IsDateString()
+  @IsUUID()
   @ApiProperty({
-    description: 'Nueva fecha de lanzamiento del capítulo (formato ISO 8601).',
+    description:
+      'Nuevo ID del título al que pertenece el capítulo (si se desea reasignar).',
+    example: '996d7681-f76d-4e6f-bfa0-8af7aa83f83c',
     required: false,
-    example: '2024-06-01T15:00:00Z',
   })
-  release_date?: string;
+  title_id?: string;
 
   @IsOptional()
-  @IsUrl()
+  @IsArray({ message: 'Las páginas deben ser un array de URLs.' })
+  @ArrayMinSize(1, { message: 'Las páginas deben contener al menos 1 URL.' })
+  @IsUrl(
+    {},
+    { each: true, message: 'Cada entrada de página debe ser una URL válida.' },
+  )
   @ApiProperty({
-    description: 'Nuevas URLs o paths de las páginas del capítulo.',
+    description: 'Nuevas URLs o rutas de las páginas del capítulo.',
     required: false,
-    example:
-      '["https://example.com/new-page1.jpg", "https://example.com/new-page2.jpg"]',
+    type: [String],
+    example: [
+      'https://ejemplo.com/nueva-pagina1.jpg',
+      'https://ejemplo.com/nueva-pagina2.jpg',
+      'https://ejemplo.com/nueva-pagina3.jpg',
+    ],
   })
-  pages?: string;
-
-  @IsOptional()
-  @IsNumber()
-  @Min(1)
-  @ApiProperty({
-    description: 'Nuevo número de capítulo.',
-    required: false,
-    example: 2,
-  })
-  chapter_number?: number;
+  pages?: string[]; // La API externa sigue usando 'pages'
 }

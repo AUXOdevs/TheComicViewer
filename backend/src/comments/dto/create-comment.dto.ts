@@ -9,7 +9,7 @@ export class CreateCommentDto {
   title_id: string;
 
   @IsUUID()
-  @IsOptional() // Opcional, si el comentario es para un capítulo específico
+  @IsOptional()
   @ApiProperty({
     description: 'ID del capítulo al que pertenece el comentario (si aplica).',
     required: false,
@@ -19,5 +19,5 @@ export class CreateCommentDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ description: 'Contenido del comentario.' })
-  content: string;
+  comment_text: string;
 }
