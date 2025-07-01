@@ -1,12 +1,28 @@
+"use client";
 import { AuthGuard } from "@/Components/protectedRoute";
-import { ProfileSection } from "./components/profileForm";
+
+import  Layout  from "./layout";
+import { ProfileForm } from "./components/profileForm";
+import { SkeletonDashboard } from "./skeleton";
+import { useAuth } from "@/hooks/useAuth";
+
 
 export default function RegistradoDashboardPage() {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return <SkeletonDashboard />;
+  }
+
   return (
     <AuthGuard allowedRoles={["registrado"]}>
-      <div className="max-w-xl mx-auto space-y-6">
-        <ProfileSection isLoading={false} />
-      </div>
+
+      <Layout>
+        <div className="space-y-4">
+          <ProfileForm />
+        </div>
+      </Layout>
+
     </AuthGuard>
   );
 }

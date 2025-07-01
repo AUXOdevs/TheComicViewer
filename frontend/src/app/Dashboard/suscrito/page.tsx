@@ -1,18 +1,36 @@
+"use client";
 import { AuthGuard } from "@/Components/protectedRoute";
-import { SubscriptionInfo } from "./components/subscriptionCard";
-import { HistorySection } from "./components/historyList";
-import { FavoritesSection } from "./components/favoritesList";
+
+import  Layout  from "./layout";
+import { StatsCards } from "./components/statsCads";
+import { HistoryList } from "./components/historyList";
+import { FavoritesList } from "./components/favoritesList";
+import { SubscriptionCard } from "./components/subscriptionCard";
 import { ProfileForm } from "./components/profileForm";
+import { SkeletonDashboard } from "./skeleton";
+import { useAuth } from "@/hooks/useAuth"; 
+
 
 export default function SuscritoDashboardPage() {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return <SkeletonDashboard />;
+  }
+
   return (
     <AuthGuard allowedRoles={["suscrito"]}>
-      <div className="space-y-6">
-        <SubscriptionInfo isLoading={false} />
-        <HistorySection isLoading={false} />
-        <FavoritesSection isLoading={false} />
-        <ProfileForm />
-      </div>
+
+      <Layout>
+        <div className="space-y-4">
+          <StatsCards />
+          <HistoryList />
+          <FavoritesList />
+          <SubscriptionCard />
+          <ProfileForm />
+        </div>
+      </Layout>
+
     </AuthGuard>
   );
 }
