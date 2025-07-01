@@ -1,4 +1,5 @@
 "use client";
+
 export const Sidebar = () => (
   <aside className="w-64 bg-white shadow h-full">
     <div className="p-4 text-2xl font-bold">Adiman</div>

@@ -1,5 +1,6 @@
 "use client";
 import { AuthGuard } from "@/Components/protectedRoute";
+
 import  Layout  from "./layout";
 import { StatsCards } from "./components/statsCads";
 import { HistoryList } from "./components/historyList";
@@ -7,7 +8,8 @@ import { FavoritesList } from "./components/favoritesList";
 import { SubscriptionCard } from "./components/subscriptionCard";
 import { ProfileForm } from "./components/profileForm";
 import { SkeletonDashboard } from "./skeleton";
-import { useAuth } from "@/hooks/useAuth"; // tu hook que ya tienes
+import { useAuth } from "@/hooks/useAuth"; 
+
 
 export default function SuscritoDashboardPage() {
   const { isLoading } = useAuth();
@@ -18,6 +20,7 @@ export default function SuscritoDashboardPage() {
 
   return (
     <AuthGuard allowedRoles={["suscrito"]}>
+
       <Layout>
         <div className="space-y-4">
           <StatsCards />
@@ -27,6 +30,7 @@ export default function SuscritoDashboardPage() {
           <ProfileForm />
         </div>
       </Layout>
+
     </AuthGuard>
   );
 }

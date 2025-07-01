@@ -1,5 +1,6 @@
 "use client";
 import { AuthGuard } from "@/Components/protectedRoute";
+
 import  Layout  from "./layout";
 import { UsersTable } from "./components/usersTable";
 import { TitlesTable } from "./components/titlesTable";
@@ -8,6 +9,7 @@ import { ProfileForm } from "./components/profileForm";
 import { StatsCard } from "./components/statsCard";
 import { SkeletonDashboard } from "./skeleton";
 import { useAuth } from "@/hooks/useAuth";
+
 
 export default function AdminDashboardPage() {
   const { isLoading } = useAuth();
@@ -18,6 +20,7 @@ export default function AdminDashboardPage() {
 
   return (
     <AuthGuard allowedRoles={["admin", "superadmin"]}>
+
       <Layout>
         <div className="space-y-4">
           <StatsCard />
@@ -27,6 +30,3 @@ export default function AdminDashboardPage() {
           <ProfileForm isLoading={false} />
         </div>
       </Layout>
-    </AuthGuard>
-  );
-}

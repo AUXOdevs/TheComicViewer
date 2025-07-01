@@ -1,3 +1,4 @@
+
 "use client";
 export const HistoryList = () => (
   <div className="bg-white rounded shadow p-4">

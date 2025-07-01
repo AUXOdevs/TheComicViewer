@@ -1,3 +1,4 @@
+
 "use client";
 export const SubscriptionCard = () => (
   <div className="bg-white rounded shadow p-4">

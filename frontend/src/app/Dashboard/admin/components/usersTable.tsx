@@ -1,3 +1,4 @@
+
 "use client";
 
 interface UsersTableProps {
@@ -33,3 +34,4 @@ export const UsersTable = ({ isLoading }: UsersTableProps) => (
     </div>
   </div>
 );
+

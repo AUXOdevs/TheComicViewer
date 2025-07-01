@@ -1,4 +1,5 @@
 "use client";
+
 export const Header = () => (
   <header className="flex justify-between items-center p-4 bg-white shadow">
     <div className="flex items-center space-x-2">
