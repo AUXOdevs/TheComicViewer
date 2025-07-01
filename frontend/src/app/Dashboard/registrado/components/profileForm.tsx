@@ -1,15 +1,11 @@
-import { Skeleton } from "@/app/Dashboard/skeletonDasboard";
-
-export const ProfileSection = ({ isLoading }: { isLoading: boolean }) => {
-  if (isLoading) return <Skeleton className="h-40 w-full mb-4" />;
-
-  return (
-    <section className="mb-4">
-      <h2 className="text-xl font-semibold mb-2">Mi Perfil</h2>
-      <p>📧 Email: registrado@correo.com</p>
-      <button className="mt-2 bg-green-600 text-white px-3 py-1 rounded">
-        Editar Perfil
-      </button>
-    </section>
-  );
-};
+"use client";
+export const ProfileForm = () => (
+  <div className="bg-white rounded shadow p-4">
+    <h2 className="font-bold mb-2">Perfil</h2>
+    <form className="space-y-2">
+      <input className="border p-2 rounded w-full" placeholder="Nombre" />
+      <input className="border p-2 rounded w-full" placeholder="Email" />
+      <button className="bg-blue-500 text-white p-2 rounded">Guardar</button>
+    </form>
+  </div>
+);
