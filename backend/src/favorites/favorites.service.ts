@@ -1,3 +1,4 @@
+// src/favorites/favorites.service.ts
 import {
   Injectable,
   NotFoundException,
@@ -14,8 +15,10 @@ import { Favorite } from './entities/favorite.entity';
 import { FavoriteRepository } from './favorites.repository';
 import { TitleRepository } from 'src/titles/titles.repository';
 import { ChapterRepository } from 'src/chapters/chapters.repository';
-import { UserService } from 'src/user/user.service'; // Asegúrate que esta ruta es correcta
-import { TitlesService } from 'src/titles/titles.service'; // Asegúrate de importar TitlesService
+import { UserService } from 'src/user/user.service';
+import { TitlesService } from 'src/titles/titles.service';
+import { GetAllFavoritesDto } from './dto/get-all-favorites.dto'; // Importar el nuevo DTO
+import { ChapterDto } from 'src/chapters/dto/chapter.dto'; // Importar ChapterDto para transformación
 
 @Injectable()
 export class FavoritesService {
@@ -26,11 +29,11 @@ export class FavoritesService {
     private readonly titleRepository: TitleRepository,
     private readonly chapterRepository: ChapterRepository,
     private readonly userService: UserService,
-    private readonly titlesService: TitlesService, // Inyectar TitlesService
+    private readonly titlesService: TitlesService,
   ) {}
 
   async create(
-    userId: string, // Este userId es el auth0_id del usuario autenticado
+    userId: string,
     createFavoriteDto: CreateFavoriteDto,
   ): Promise<FavoriteDto> {
     this.logger.debug(`create(): Añadiendo favorito para usuario ${userId}.`);
@@ -39,16 +42,13 @@ export class FavoritesService {
     let finalTitleId: string;
     let finalChapterId: string | null = null;
 
-    // 1. Validar que al menos uno esté presente
     if (!title_id && !chapter_id) {
       throw new BadRequestException(
         'Debe proporcionar un title_id o un chapter_id.',
       );
     }
 
-    // 2. Lógica para determinar finalTitleId y finalChapterId
     if (chapter_id) {
-      // Usar findOneById del ChapterRepository, que ya carga el título
       const chapter = await this.chapterRepository.findOneById(chapter_id);
       if (!chapter) {
         throw new NotFoundException(
@@ -65,21 +65,18 @@ export class FavoritesService {
       }
 
       finalChapterId = chapter_id;
-      finalTitleId = chapter.title_id; // Obtener el title_id del capítulo
+      finalTitleId = chapter.title_id;
 
-      // Si title_id también fue proporcionado en el DTO, verificar que coincida
       if (title_id && title_id !== finalTitleId) {
         throw new BadRequestException(
           `El capítulo con ID "${chapter_id}" no pertenece al título con ID "${title_id}".`,
         );
       }
     } else {
-      // Solo title_id es proporcionado
       finalTitleId = title_id!;
       finalChapterId = null;
     }
 
-    // 3. Verificar existencia del título (solo si no se partió de un capítulo)
     if (!chapter_id) {
       const existingTitle =
         await this.titleRepository.findOneById(finalTitleId);
@@ -90,7 +87,6 @@ export class FavoritesService {
       }
     }
 
-    // 4. Verificar duplicados usando la combinación final
     const existingFavorite =
       await this.favoriteRepository.findOneByCompositeKeys(
         userId,
@@ -105,7 +101,6 @@ export class FavoritesService {
       );
     }
 
-    // 5. Crear y guardar el nuevo favorito
     const newFavorite = this.favoriteRepository.create({
       user_id: userId,
       title_id: finalTitleId,
@@ -117,7 +112,6 @@ export class FavoritesService {
       `create(): Favorito (ID: ${savedFavorite.favorite_id}) añadido para usuario ${userId}.`,
     );
 
-    // Cargar relaciones para el DTO de retorno
     const favoriteWithRelations = await this.favoriteRepository.findOneById(
       savedFavorite.favorite_id,
     );
@@ -126,7 +120,13 @@ export class FavoritesService {
         'Failed to retrieve favorite with relations after creation.',
       );
     }
-    return plainToInstance(FavoriteDto, favoriteWithRelations);
+
+    // Transformar y parsear el capítulo si existe
+    const favoriteDto = plainToInstance(FavoriteDto, favoriteWithRelations);
+    if (favoriteDto.chapter && typeof favoriteDto.chapter.pages === 'string') {
+      favoriteDto.chapter.pages = JSON.parse(favoriteDto.chapter.pages);
+    }
+    return favoriteDto;
   }
 
   async findAllByUser(userId: string): Promise<FavoriteDto[]> {
@@ -139,7 +139,62 @@ export class FavoritesService {
         `No se encontraron favoritos para el usuario con ID ${userId}.`,
       );
     }
-    return plainToInstance(FavoriteDto, favorites);
+    // Transformar y parsear el capítulo si existe para cada favorito
+    return favorites.map((favorite) => {
+      const favoriteDto = plainToInstance(FavoriteDto, favorite);
+      if (
+        favoriteDto.chapter &&
+        typeof favoriteDto.chapter.pages === 'string'
+      ) {
+        favoriteDto.chapter.pages = JSON.parse(favoriteDto.chapter.pages);
+      }
+      return favoriteDto;
+    });
+  }
+
+  // Nuevo método para obtener favoritos paginados y filtrados
+  async findAllPaginatedAndFiltered(
+    userId: string,
+    queryParams: GetAllFavoritesDto,
+  ): Promise<{
+    favorites: FavoriteDto[];
+    total: number;
+    page: number;
+    limit: number;
+  }> {
+    this.logger.debug(
+      `findAllPaginatedAndFiltered(): Buscando favoritos paginados y filtrados para usuario ${userId}.`,
+    );
+
+    const { favorites, total } =
+      await this.favoriteRepository.findAllPaginatedAndFiltered(
+        userId,
+        queryParams,
+      );
+
+    // Transformar y parsear el capítulo si existe para cada favorito
+    const favoritesWithParsedChapters: FavoriteDto[] = favorites.map(
+      (favorite) => {
+        const favoriteDto = plainToInstance(FavoriteDto, favorite);
+        if (
+          favoriteDto.chapter &&
+          typeof favoriteDto.chapter.pages === 'string'
+        ) {
+          favoriteDto.chapter.pages = JSON.parse(favoriteDto.chapter.pages);
+        }
+        return favoriteDto;
+      },
+    );
+
+    this.logger.log(
+      `findAllPaginatedAndFiltered(): Encontrados ${total} favoritos para el usuario ${userId}.`,
+    );
+    return {
+      favorites: favoritesWithParsedChapters,
+      total,
+      page: queryParams.page || 1,
+      limit: queryParams.limit || 10,
+    };
   }
 
   async findAllFavoritesOfUserByQuery(query: string): Promise<FavoriteDto[]> {
@@ -150,7 +205,6 @@ export class FavoritesService {
     let targetAuth0Id: string;
 
     if (query.includes('@')) {
-      // <<-- CORRECCIÓN AQUÍ: Llamar findByEmail sin el segundo argumento
       const user = await this.userService.findByEmail(query);
       if (!user) {
         throw new NotFoundException(
@@ -159,8 +213,7 @@ export class FavoritesService {
       }
       targetAuth0Id = user.auth0_id;
     } else {
-      // <<-- CORRECCIÓN AQUÍ: Usar findOne y pasar `true` para `includeDeleted` si es para Auth.
-      const user = await this.userService.findOne(query, true); // `true` para incluir usuarios soft-deleted
+      const user = await this.userService.findOne(query, true);
       if (!user) {
         throw new NotFoundException(
           `Usuario con ID "${query}" no encontrado o inactivo.`,
@@ -181,7 +234,17 @@ export class FavoritesService {
     this.logger.log(
       `findAllFavoritesOfUserByQuery(): Encontrados ${favorites.length} favoritos para el usuario (Auth0 ID: ${targetAuth0Id}).`,
     );
-    return plainToInstance(FavoriteDto, favorites);
+    // Transformar y parsear el capítulo si existe para cada favorito
+    return favorites.map((favorite) => {
+      const favoriteDto = plainToInstance(FavoriteDto, favorite);
+      if (
+        favoriteDto.chapter &&
+        typeof favoriteDto.chapter.pages === 'string'
+      ) {
+        favoriteDto.chapter.pages = JSON.parse(favoriteDto.chapter.pages);
+      }
+      return favoriteDto;
+    });
   }
 
   async checkFavoriteStatus(
@@ -259,7 +322,12 @@ export class FavoritesService {
       );
     }
 
-    return plainToInstance(FavoriteDto, favorite);
+    // Transformar y parsear el capítulo si existe
+    const favoriteDto = plainToInstance(FavoriteDto, favorite);
+    if (favoriteDto.chapter && typeof favoriteDto.chapter.pages === 'string') {
+      favoriteDto.chapter.pages = JSON.parse(favoriteDto.chapter.pages);
+    }
+    return favoriteDto;
   }
 
   async isOwner(favoriteId: string, userId: string): Promise<boolean> {
