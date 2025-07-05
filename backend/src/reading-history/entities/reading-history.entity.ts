@@ -1,3 +1,5 @@
+// src/reading-history/entities/reading-history.entity.ts
+
 import {
   Entity,
   PrimaryGeneratedColumn,
