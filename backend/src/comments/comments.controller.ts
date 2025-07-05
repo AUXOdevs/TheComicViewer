@@ -1,3 +1,4 @@
+// src/comments/comments.controller.ts
 import {
   Controller,
   Get,
@@ -10,6 +11,7 @@ import {
   HttpCode,
   HttpStatus,
   Request,
+  Query, // Importar Query
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -21,15 +23,15 @@ import {
   ApiResponse,
   ApiBearerAuth,
   ApiParam,
+  ApiQuery, // Importar ApiQuery
 } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { User } from 'src/user/entities/user.entity';
-// Importamos PermissionsGuard y RequiredPermissions para otras rutas si es necesario,
-// pero los eliminamos de PATCH/DELETE de comentarios.
 import { PermissionsGuard } from 'src/auth/guards/permissions.guard';
 import { RequiredPermissions } from 'src/auth/decorators/permissions.decorator';
+import { GetAllCommentsDto, OrderDirection } from './dto/get-all-comments.dto'; // Importar el nuevo DTO y enum
 
 @ApiTags('comments')
 @Controller('comments')
@@ -65,6 +67,115 @@ export class CommentsController {
     const userId = (req.user as User).auth0_id;
     return this.commentsService.create(userId, createCommentDto);
   }
+
+  // --- NUEVA RUTA: Obtener comentarios con paginación y filtros ---
+  @Get('filtered')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({
+    summary: 'Obtener comentarios con paginación, filtros y ordenación',
+    description:
+      'Lista todos los comentarios disponibles, con opciones de paginación, filtrado por usuario, nombre de usuario, nombre de título, nombre de capítulo, tipo de comentario (título/capítulo) y contenido del comentario. **Acceso público**.',
+  })
+  @ApiQuery({
+    name: 'page',
+    type: Number,
+    required: false,
+    description: 'Número de página para la paginación (por defecto: 1).',
+  })
+  @ApiQuery({
+    name: 'limit',
+    type: Number,
+    required: false,
+    description:
+      'Cantidad de elementos por página (por defecto: 10, máximo: 100).',
+  })
+  @ApiQuery({
+    name: 'sortBy',
+    type: String,
+    required: false,
+    description:
+      'Columna por la que ordenar (ej. `comment_date`, `user.username`, `title.name`, `chapter.chapter_number`). Por defecto: `comment_date`.',
+  })
+  @ApiQuery({
+    name: 'order',
+    enum: ['ASC', 'DESC'],
+    required: false,
+    description:
+      'Dirección de la ordenación (ASC o DESC). Por defecto: `DESC`.',
+  })
+  @ApiQuery({
+    name: 'userId',
+    type: String,
+    required: false,
+    description: 'Filtrar comentarios por el ID del usuario que los creó.',
+  })
+  @ApiQuery({
+    name: 'username',
+    type: String,
+    required: false,
+    description:
+      'Filtrar comentarios por el nombre de usuario (búsqueda parcial, insensible a mayúsculas/minúsculas).',
+  })
+  @ApiQuery({
+    name: 'titleName',
+    type: String,
+    required: false,
+    description:
+      'Filtrar comentarios por el nombre del título al que pertenecen (búsqueda parcial, insensible a mayúsculas/minúsculas).',
+  })
+  @ApiQuery({
+    name: 'chapterName',
+    type: String,
+    required: false,
+    description:
+      'Filtrar comentarios por el nombre del capítulo al que pertenecen (búsqueda parcial, insensible a mayúsculas/minúsculas). Solo aplica a comentarios de capítulos.',
+  })
+  @ApiQuery({
+    name: 'isTitleComment',
+    type: Boolean,
+    required: false,
+    description:
+      'Filtrar solo comentarios de títulos (true) o solo comentarios de capítulos (false). Si no se especifica, incluye ambos.',
+  })
+  @ApiQuery({
+    name: 'commentText',
+    type: String,
+    required: false,
+    description:
+      'Filtrar comentarios por texto (búsqueda parcial, insensible a mayúsculas/minúsculas).',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de comentarios con paginación y filtros.',
+    schema: {
+      type: 'object',
+      properties: {
+        comments: {
+          type: 'array',
+          items: { $ref: '#/components/schemas/CommentDto' },
+        },
+        total: { type: 'number', example: 50 },
+        page: { type: 'number', example: 1 },
+        limit: { type: 'number', example: 10 },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Parámetros de consulta inválidos.',
+  })
+  @ApiResponse({ status: 500, description: 'Error interno del servidor.' })
+  async findAllFiltered(
+    @Query() queryParams: GetAllCommentsDto,
+  ): Promise<{
+    comments: CommentDto[];
+    total: number;
+    page: number;
+    limit: number;
+  }> {
+    return this.commentsService.findAllPaginatedAndFiltered(queryParams);
+  }
+  // --- FIN NUEVA RUTA ---
 
   @Get('by-title/:titleId')
   @HttpCode(HttpStatus.OK)
@@ -137,12 +248,8 @@ export class CommentsController {
   }
 
   @Patch(':id')
-  // ************ CAMBIO CLAVE AQUÍ ************
-  // Eliminamos PermissionsGuard y RequiredPermissions, la lógica fina se maneja en el servicio.
-  @UseGuards(JwtAuthGuard, RolesGuard) // Solo JwtAuthGuard y RolesGuard (todos pueden llegar al controlador)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Todos los roles autenticados pueden intentar modificar
-  // @RequiredPermissions('moderation_permission') // <<-- ELIMINADO
-  // ************ FIN CAMBIO CLAVE ************
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Actualizar un comentario por su ID',
@@ -173,17 +280,13 @@ export class CommentsController {
     @Request() req,
     @Body() updateCommentDto: UpdateCommentDto,
   ): Promise<CommentDto> {
-    const currentUser = req.user as User; // Pasar el objeto User completo
+    const currentUser = req.user as User;
     return this.commentsService.update(id, currentUser, updateCommentDto);
   }
 
   @Delete(':id')
-  // ************ CAMBIO CLAVE AQUÍ ************
-  // Eliminamos PermissionsGuard y RequiredPermissions, la lógica fina se maneja en el servicio.
-  @UseGuards(JwtAuthGuard, RolesGuard) // Solo JwtAuthGuard y RolesGuard (todos pueden llegar al controlador)
-  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin') // Todos los roles autenticados pueden intentar eliminar
-  // @RequiredPermissions('moderation_permission') // <<-- ELIMINADO
-  // ************ FIN CAMBIO CLAVE ************
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('Registrado', 'Suscrito', 'admin', 'superadmin')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Eliminar un comentario por su ID',
@@ -208,7 +311,7 @@ export class CommentsController {
   })
   @ApiResponse({ status: 404, description: 'Comentario no encontrado.' })
   async remove(@Param('id') id: string, @Request() req): Promise<void> {
-    const currentUser = req.user as User; // Pasar el objeto User completo
+    const currentUser = req.user as User;
     await this.commentsService.remove(id, currentUser);
   }
 }
