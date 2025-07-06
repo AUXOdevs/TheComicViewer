@@ -1,3 +1,4 @@
+// src/user/dto/update-user.dto.ts
 import {
   IsString,
   IsOptional,
@@ -5,13 +6,42 @@ import {
   IsBoolean,
   IsUUID,
   IsDate,
-  IsEmail, // Importar IsEmail
+  IsEmail,
+  ValidateNested, // Importar para objetos anidados
 } from 'class-validator';
-import { ApiProperty, PartialType } from '@nestjs/swagger'; // PartialType ya está ahí, solo asegurarse
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
-// Ya no extiende CreateUserDto, ya que CreateUserDto fue eliminado.
-// Ahora solo define los campos que se pueden actualizar.
+// DTO para los permisos de administrador anidados
+export class AdminPermissionsDto {
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({
+    description: 'Permiso para gestionar contenido.',
+    required: false,
+    example: true,
+  })
+  content_permission?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({
+    description: 'Permiso para gestionar usuarios.',
+    required: false,
+    example: true,
+  })
+  user_permission?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  @ApiProperty({
+    description: 'Permiso para moderación.',
+    required: false,
+    example: true,
+  })
+  moderation_permission?: boolean;
+}
+
 export class UpdateUserDto {
   @IsOptional()
   @IsString()
@@ -23,13 +53,13 @@ export class UpdateUserDto {
   name?: string;
 
   @IsOptional()
-  @IsEmail() // Validar que sea un email válido
+  @IsEmail()
   @ApiProperty({
     description: 'Nueva dirección de correo electrónico del usuario.',
     required: false,
     example: 'new.email@example.com',
   })
-  email?: string; // <<-- AÑADIDO DE NUEVO
+  email?: string;
 
   @IsOptional()
   @IsUrl()
@@ -49,7 +79,7 @@ export class UpdateUserDto {
   is_blocked?: boolean;
 
   @IsOptional()
-  @IsUUID() // Si el role se actualiza por ID
+  @IsUUID()
   @ApiProperty({
     description: 'Nuevo ID del rol asignado al usuario.',
     required: false,
@@ -69,4 +99,14 @@ export class UpdateUserDto {
     required: false,
   })
   deleted_at?: Date | null;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => AdminPermissionsDto)
+  @ApiProperty({
+    description: 'Permisos de administrador si el rol es Admin o Superadmin.',
+    required: false,
+    type: AdminPermissionsDto,
+  })
+  admin_permissions?: AdminPermissionsDto; // Añadido de nuevo
 }

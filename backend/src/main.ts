@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, Logger } from '@nestjs/common'; // Mantener Logger
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -14,6 +15,9 @@ async function bootstrap() {
 
   // Establecer un prefijo global para todas las rutas API
   app.setGlobalPrefix('api');
+
+  // Aplicar el filtro de excepciones globalmente
+  app.useGlobalFilters(new HttpExceptionFilter()); // Añadir esta línea
 
   // Configuración global para la validación de DTOs (Data Transfer Objects)
   app.useGlobalPipes(
