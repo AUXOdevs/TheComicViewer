@@ -1,3 +1,4 @@
+// src/common/middleware/logger.middleware.ts
 import { Injectable, NestMiddleware, Logger } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 
@@ -10,17 +11,22 @@ export class RequestLoggerMiddleware implements NestMiddleware {
     const userAgent = req.get('user-agent') || '';
     const ip = req.ip || req.connection.remoteAddress;
     const authorizationHeader =
-      req.get('authorization') || 'No Authorization Header provided'; // ¡AÑADIDO ESTO!
+      req.get('authorization') || 'No Authorization Header provided';
 
-    // Log al inicio de la petición, incluyendo el encabezado de autorización
+    const start = process.hrtime.bigint(); // Iniciar contador de tiempo
+
     this.logger.log(
-      `--> ${method} ${originalUrl} | IP: ${ip} | User-Agent: ${userAgent} | Auth: ${authorizationHeader.substring(0, 50)}...`, // Muestra solo los primeros 50 caracteres para no llenar el log
+      `--> ${method} ${originalUrl} | IP: ${ip} | User-Agent: ${userAgent} | Auth: ${authorizationHeader.substring(0, 50)}...`,
     );
 
-    // Log al finalizar la petición
     res.on('finish', () => {
       const { statusCode } = res;
-      this.logger.log(`<-- ${method} ${originalUrl} | Status: ${statusCode}`);
+      const end = process.hrtime.bigint(); // Finalizar contador de tiempo
+      const durationMs = Number(end - start) / 1_000_000; // Convertir a milisegundos
+
+      this.logger.log(
+        `<-- ${method} ${originalUrl} | Status: ${statusCode} | Duration: ${durationMs.toFixed(2)}ms`,
+      );
     });
 
     next();

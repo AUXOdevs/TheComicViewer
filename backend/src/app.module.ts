@@ -27,6 +27,8 @@ import { DatabaseModule } from './database/database.module';
 import { SettingsModule } from './settings/setting.module';
 import { Setting } from './settings/entities/setting.entity';
 import { SuperadminModule } from './super-admin/super-admin.module';
+import { ThrottlerGuard, ThrottlerModule, ThrottlerModuleOptions } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core'; 
 
 @Module({
   imports: [
@@ -34,6 +36,19 @@ import { SuperadminModule } from './super-admin/super-admin.module';
       isGlobal: true,
       load: [typeorm],
       envFilePath: '.env',
+    }),
+    ThrottlerModule.forRootAsync({
+      // <-- Configuración de Throttler
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService): ThrottlerModuleOptions => ({
+        throttlers: [
+          {
+            ttl: config.get<number>('THROTTLE_TTL', 60),
+            limit: config.get<number>('THROTTLE_LIMIT', 10),
+          },
+        ],
+      }),
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -66,7 +81,14 @@ import { SuperadminModule } from './super-admin/super-admin.module';
     SuperadminModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      // <-- Aplicar ThrottlerGuard globalmente
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

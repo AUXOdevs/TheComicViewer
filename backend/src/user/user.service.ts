@@ -1,3 +1,4 @@
+// src/user/user.service.ts
 import {
   Injectable,
   ConflictException,
@@ -7,6 +8,7 @@ import {
   Logger,
   forwardRef,
   Inject,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { RolesRepository } from '../roles/roles.repository';
@@ -16,6 +18,10 @@ import { AdminService } from 'src/admins/admins.service';
 import { Role } from '../roles/entities/role.entity';
 import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { OrderDto } from 'src/common/dto/order.dto';
+import { Admin } from 'src/admins/entities/admin.entity';
+import { UserDto } from './dto/user.dto';
+import { plainToInstance } from 'class-transformer';
+import { DataSource, Not } from 'typeorm'; // <-- Importar DataSource y Not
 
 @Injectable()
 export class UserService {
@@ -26,9 +32,9 @@ export class UserService {
     private readonly rolesRepository: RolesRepository,
     @Inject(forwardRef(() => AdminService))
     private readonly adminService: AdminService,
+    private readonly dataSource: DataSource,
   ) {}
 
-  // <<-- ESTE ES EL MÉTODO createInitialUser CORREGIDO -->>
   async createInitialUser(
     auth0Id: string,
     email: string,
@@ -40,31 +46,22 @@ export class UserService {
       `createInitialUser(): Procesando usuario inicial para Auth0 ID: ${auth0Id}.`,
     );
 
-    // 1. Intentar encontrar el usuario por Auth0 ID (incluyendo soft-deleted)
     let user = await this.userRepository.findOneByAuth0Id(auth0Id, true);
 
     if (user) {
-      // Si el usuario existe
       if (user.deleted_at !== null) {
-        // Si está soft-deleted, reactivarlo
         this.logger.log(
           `createInitialUser(): Reactivando usuario existente "${email}" (Auth0 ID: ${auth0Id}).`,
         );
         await this.userRepository.reactivate(auth0Id);
-        // Volver a cargar el usuario reactivado para asegurar que las relaciones (role, admin) estén actualizadas
-        // Es crucial obtener la entidad fresca después de la reactivación.
         user = await this.userRepository.findOneByAuth0Id(auth0Id, false);
       }
-      // Si el usuario existe y está activo (o acaba de ser reactivado), simplemente retornarlo.
-      // ESTO ES LO CLAVE: NO SE LANZA ConflictException AQUÍ.
       this.logger.log(
         `createInitialUser(): Usuario "${email}" (ID: ${auth0Id}) ya existe y está activo. Retornando usuario existente.`,
       );
-      return user; // <<-- LA DIFERENCIA CRÍTICA ESTÁ AQUÍ
+      return user;
     }
 
-    // 2. Si el usuario NO existe por Auth0 ID, verificar por email para evitar duplicados en este punto de creación.
-    // Esta parte SÍ lanza ConflictException, pero solo si el email está en uso por un Auth0 ID *diferente* (conflicto real).
     const existingByEmail = await this.userRepository.findByEmailSimple(email);
     if (existingByEmail) {
       this.logger.warn(
@@ -73,7 +70,6 @@ export class UserService {
       throw new ConflictException(`Ya existe un usuario con email "${email}".`);
     }
 
-    // 3. Si no existe por Auth0 ID ni por email (sin conflictos), crear un nuevo usuario.
     let defaultRole: Role | null =
       await this.rolesRepository.findByName('Registrado');
     if (!defaultRole) {
@@ -100,9 +96,7 @@ export class UserService {
     );
     return savedUser;
   }
-  // <<-- FIN DEL MÉTODO createInitialUser CORREGIDO -->>
 
-  // Obtener el perfil del usuario autenticado (para /users/me)
   async findMe(auth0Id: string): Promise<User> {
     this.logger.debug(`findMe(): Buscando perfil para el usuario ${auth0Id}.`);
     const user = await this.userRepository.findOneByAuth0Id(auth0Id);
@@ -114,13 +108,11 @@ export class UserService {
     return user;
   }
 
-  // Actualizar el perfil del usuario autenticado (para /users/me)
   async updateMe(auth0Id: string, updateUserDto: UpdateUserDto): Promise<User> {
     this.logger.debug(
       `updateMe(): Actualizando perfil del usuario ${auth0Id}.`,
     );
 
-    // 1. Validar si el usuario existe antes de intentar actualizar
     const existingUser = await this.userRepository.findOneByAuth0Id(auth0Id);
     if (!existingUser) {
       throw new NotFoundException(
@@ -128,7 +120,6 @@ export class UserService {
       );
     }
 
-    // 2. Crear un objeto con solo los campos que se van a actualizar
     const updateData: Partial<User> = {};
     if (updateUserDto.name !== undefined) {
       updateData.name = updateUserDto.name;
@@ -137,38 +128,31 @@ export class UserService {
       updateData.picture = updateUserDto.picture;
     }
 
-    // 3. Lanzar ForbiddenException si se intenta actualizar campos no permitidos
-    // El email es un campo sensible, y se gestiona mejor en otro endpoint o directamente con Auth0.
+    // Aquí solo se permiten name y picture para updateMe
     if (
       updateUserDto.role_id !== undefined ||
       updateUserDto.is_blocked !== undefined ||
       updateUserDto.deleted_at !== undefined ||
-      updateUserDto.email !== undefined // Asegurar que el email tampoco se pueda cambiar por aquí
+      updateUserDto.email !== undefined ||
+      updateUserDto.admin_permissions !== undefined
     ) {
       throw new ForbiddenException(
         'No tienes permiso para modificar estos campos del perfil. Solo puedes actualizar tu nombre y foto.',
       );
     }
 
-    // 4. Realizar la actualización utilizando el método update del repositorio.
-    // Este método es más seguro para actualizaciones parciales y para evitar el problema con primary keys.
     const updateResult = await this.userRepository.update(auth0Id, updateData);
 
-    // Verificar si la actualización afectó alguna fila
     if (updateResult.affected === 0) {
-      // Aunque ya verificamos la existencia, podría no afectar si no hay cambios.
-      // Puedes ajustar esto si prefieres lanzar un NotFoundException aquí si el usuario de repente desaparece.
       this.logger.warn(
         `updateMe(): No se pudo actualizar el perfil del usuario ${auth0Id} (posiblemente ningún cambio o usuario no encontrado).`,
       );
     }
 
     this.logger.log(`updateMe(): Perfil del usuario ${auth0Id} actualizado.`);
-    // 5. Recuperar y retornar el usuario actualizado para asegurar que todas las relaciones y datos estén frescos
     return this.userRepository.findOneByAuth0Id(auth0Id);
   }
 
-  // Buscar por email (para /users/by-email)
   async findByEmail(email: string): Promise<User> {
     this.logger.debug(`findByEmail(): Buscando usuario con email: ${email}.`);
     const user = await this.userRepository.findByEmail(email);
@@ -180,7 +164,6 @@ export class UserService {
     return user;
   }
 
-  // MODIFICADO: Adaptado para usar paginación, ordenación y filtrado
   async findAll(
     paginationOptions: PaginationDto,
     orderOptions: OrderDto,
@@ -190,7 +173,6 @@ export class UserService {
     filterRoleName?: string,
     filterIsBlocked?: boolean,
   ): Promise<{ users: User[]; total: number }> {
-    // El tipo de retorno es User[] aquí
     this.logger.debug(`findAll(): Buscando todos los usuarios.`);
     const { users, total } = await this.userRepository.findAllPaginated(
       paginationOptions,
@@ -232,71 +214,189 @@ export class UserService {
     return user;
   }
 
-  // `update` para admins, maneja cambios de rol, bloqueo, etc.
-  async update(auth0Id: string, updateUserDto: UpdateUserDto): Promise<User> {
+  async update(
+    auth0Id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UserDto> {
     this.logger.debug(`update(): Actualizando usuario con ID: ${auth0Id}.`);
-    const user = await this.userRepository.findOneByAuth0Id(auth0Id, true);
-    if (!user) {
-      throw new NotFoundException(`Usuario con ID "${auth0Id}" no encontrado.`);
-    }
 
-    // Verificar si se intenta cambiar el email a uno ya existente por otro usuario
-    if (
-      updateUserDto.email !== undefined &&
-      updateUserDto.email !== user.email
-    ) {
-      const existingUserWithEmail = await this.userRepository.findByEmailSimple(
-        updateUserDto.email,
-      );
-      if (existingUserWithEmail && existingUserWithEmail.auth0_id !== auth0Id) {
-        throw new ConflictException(
-          `El email "${updateUserDto.email}" ya está en uso por otro usuario.`,
-        );
-      }
-      user.email = updateUserDto.email;
-    }
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
-    let role: Role | undefined;
-    if (updateUserDto.role_id) {
-      role = await this.rolesRepository.findOneById(updateUserDto.role_id);
-      if (!role) {
-        throw new BadRequestException(
-          `El ID de rol "${updateUserDto.role_id}" no es válido.`,
-        );
-      }
-      user.role_id = role.role_id;
-      user.role = role;
-    }
+    try {
+      const transactionalUserRepository =
+        queryRunner.manager.getRepository(User);
+      const transactionalRolesRepository =
+        queryRunner.manager.getRepository(Role);
+      const transactionalAdminRepository =
+        queryRunner.manager.getRepository(Admin);
 
-    user.name =
-      updateUserDto.name !== undefined ? updateUserDto.name : user.name;
-    user.picture =
-      updateUserDto.picture !== undefined
-        ? updateUserDto.picture
-        : user.picture;
-    user.is_blocked =
-      updateUserDto.is_blocked !== undefined
-        ? updateUserDto.is_blocked
-        : user.is_blocked;
-    user.deleted_at =
-      updateUserDto.deleted_at !== undefined
-        ? updateUserDto.deleted_at
-        : user.deleted_at;
-
-    const updatedUser = await this.userRepository.save(user);
-
-    if (role && (role.name === 'admin' || role.name === 'superadmin')) {
-      await this.adminService.createOrUpdateAdminEntry(updatedUser.auth0_id, {
-        user_permission: true,
-        content_permission: true,
-        moderation_permission: true,
+      let user = await transactionalUserRepository.findOne({
+        where: { auth0_id: auth0Id },
+        relations: ['role', 'admin'],
+        withDeleted: true,
       });
-    } else if (user.admin) {
-      await this.adminService.deleteAdminEntry(updatedUser.auth0_id);
-    }
 
-    this.logger.log(`update(): Usuario ${auth0Id} actualizado exitosamente.`);
-    return this.userRepository.findOneByAuth0Id(updatedUser.auth0_id, true);
+      if (!user) {
+        this.logger.warn(
+          `update(): Usuario con ID "${auth0Id}" no encontrado para actualización transaccional.`,
+        );
+        throw new NotFoundException(
+          `Usuario con ID "${auth0Id}" no encontrado.`,
+        );
+      }
+
+      const oldRole = user.role;
+      let newRole: Role | undefined = oldRole;
+
+      if (updateUserDto.role_id) {
+        const requestedNewRole = await transactionalRolesRepository.findOne({
+          where: { role_id: updateUserDto.role_id },
+        });
+
+        if (!requestedNewRole) {
+          this.logger.warn(
+            `update(): Rol con ID "${updateUserDto.role_id}" no encontrado.`,
+          );
+          throw new BadRequestException(
+            `El ID de rol "${updateUserDto.role_id}" no es válido.`,
+          );
+        }
+
+        const isOldRoleAdminOrSuperadmin =
+          oldRole?.name === 'admin' || oldRole?.name === 'superadmin';
+        const isRequestedNewRoleAdminOrSuperadmin =
+          requestedNewRole.name === 'admin' ||
+          requestedNewRole.name === 'superadmin';
+
+        // Lógica para PROHIBIR la promoción a admin/superadmin a través de esta ruta PATCH
+        if (
+          !isOldRoleAdminOrSuperadmin &&
+          isRequestedNewRoleAdminOrSuperadmin
+        ) {
+          this.logger.warn(
+            `update(): Intento de promover a usuario ${auth0Id} a rol administrativo (${requestedNewRole.name}) a través de la ruta PATCH. Esto no está permitido.`,
+          );
+          throw new ForbiddenException(
+            'No se permite promover usuarios a roles administrativos a través de esta ruta. Use la ruta de administración de administradores.',
+          );
+        }
+
+        newRole = requestedNewRole;
+      }
+
+      // Verificar si se intenta cambiar el email a uno ya existente por otro usuario
+      if (
+        updateUserDto.email !== undefined &&
+        updateUserDto.email !== user.email
+      ) {
+        const existingUserWithEmail = await transactionalUserRepository.findOne(
+          {
+            where: { email: updateUserDto.email, auth0_id: Not(auth0Id) },
+          },
+        );
+        if (existingUserWithEmail) {
+          this.logger.warn(
+            `update(): Conflicto: El email "${updateUserDto.email}" ya está en uso por otro usuario.`,
+          );
+          throw new ConflictException(
+            `El email "${updateUserDto.email}" ya está en uso por otro usuario.`,
+          );
+        }
+        user.email = updateUserDto.email;
+      }
+
+      // Preparar los datos para la actualización directa
+      const partialUpdateData: Partial<User> = {
+        name: updateUserDto.name !== undefined ? updateUserDto.name : user.name,
+        picture:
+          updateUserDto.picture !== undefined
+            ? updateUserDto.picture
+            : user.picture,
+        is_blocked:
+          updateUserDto.is_blocked !== undefined
+            ? updateUserDto.is_blocked
+            : user.is_blocked,
+        deleted_at:
+          updateUserDto.deleted_at !== undefined
+            ? updateUserDto.deleted_at
+            : user.deleted_at,
+        role_id: newRole?.role_id, // Asegurarse de que el role_id se actualice
+      };
+
+      // Realizar la actualización directa
+      await transactionalUserRepository.update(auth0Id, partialUpdateData);
+
+      // Re-cargar el usuario para obtener los datos más recientes, incluyendo las relaciones
+      const finalUser = await transactionalUserRepository.findOne({
+        where: { auth0_id: auth0Id },
+        relations: ['role', 'admin'],
+        withDeleted: true,
+      });
+
+      if (!finalUser) {
+        this.logger.error(
+          `update(): No se pudo recuperar el usuario ${auth0Id} después de la actualización.`,
+        );
+        throw new InternalServerErrorException(
+          'Failed to retrieve user after update.',
+        );
+      }
+
+      const finalRoleName = finalUser.role?.name;
+      const hasAdminEntry = finalUser.admin !== null;
+
+      // Lógica para gestionar la entrada en la tabla 'admins'
+      if (finalRoleName === 'admin' || finalRoleName === 'superadmin') {
+        this.logger.debug(
+          `update(): El rol final es ${finalRoleName}. Asegurando entrada en tabla 'admins'.`,
+        );
+        await this.adminService.createOrUpdateAdminEntry(
+          finalUser.auth0_id,
+          updateUserDto.admin_permissions || {
+            content_permission: true,
+            user_permission: true,
+            moderation_permission: true,
+          },
+          queryRunner,
+        );
+      } else if (hasAdminEntry) {
+        this.logger.debug(
+          `update(): El rol final (${finalRoleName}) no es admin/superadmin, pero tiene una entrada en 'admins'. Eliminando entrada.`,
+        );
+        await this.adminService.deleteAdminEntry(
+          finalUser.auth0_id,
+          queryRunner,
+        );
+      }
+
+      await queryRunner.commitTransaction();
+      this.logger.log(
+        `update(): Transacción de actualización de usuario ${auth0Id} completada exitosamente.`,
+      );
+
+      return plainToInstance(UserDto, finalUser);
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      this.logger.error(
+        `update(): Error durante la transacción de actualización de usuario ${auth0Id}: ${error.message}`,
+        error.stack,
+      );
+      if (
+        error instanceof NotFoundException ||
+        error instanceof BadRequestException ||
+        error instanceof ConflictException ||
+        error instanceof ForbiddenException
+      ) {
+        throw error;
+      }
+      throw new InternalServerErrorException(
+        'Failed to update user due to an internal error.',
+      );
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   async softDeleteUser(auth0Id: string): Promise<void> {
@@ -311,6 +411,13 @@ export class UserService {
       throw new BadRequestException(
         `El usuario con ID "${auth0Id}" ya está desactivado.`,
       );
+    }
+
+    if (user.role?.name === 'admin' || user.role?.name === 'superadmin') {
+      this.logger.debug(
+        `softDeleteUser(): Usuario ${auth0Id} es admin/superadmin. Eliminando entrada de 'admins'.`,
+      );
+      await this.adminService.deleteAdminEntry(auth0Id);
     }
 
     await this.userRepository.softDelete(auth0Id);
