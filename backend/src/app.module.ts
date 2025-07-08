@@ -1,8 +1,10 @@
+// src/app.module.ts
 import {
   MiddlewareConsumer,
   Module,
   NestModule,
   RequestMethod,
+  Logger,
 } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -20,35 +22,46 @@ import { ReadingHistoryModule } from './reading-history/reading-history.module';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import typeorm from './config/typeorm';
+import typeormConfig from './config/typeorm';
+// import appConfig from './config/app.config'; // <-- ELIMINADO
 import { AuthModule } from './auth/auth.module';
-import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware';
+import { RequestLoggerMiddleware } from './common/middleware/request-logger.middleware'; // <-- Nombre de archivo original
 import { DatabaseModule } from './database/database.module';
 import { SettingsModule } from './settings/setting.module';
 import { Setting } from './settings/entities/setting.entity';
 import { SuperadminModule } from './super-admin/super-admin.module';
-import { ThrottlerGuard, ThrottlerModule, ThrottlerModuleOptions } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core'; 
+import {
+  ThrottlerGuard,
+  ThrottlerModule,
+  ThrottlerModuleOptions,
+} from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
+import { CacheModule } from '@nestjs/cache-manager'; // <-- Eliminado CacheStoreFactory y redisStore
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [typeorm],
+      load: [typeormConfig], // <-- Solo carga typeormConfig
       envFilePath: '.env',
     }),
     ThrottlerModule.forRootAsync({
-      // <-- Configuración de Throttler
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService): ThrottlerModuleOptions => ({
         throttlers: [
           {
+            // Usar directamente las variables de entorno para Throttler
             ttl: config.get<number>('THROTTLE_TTL', 60),
             limit: config.get<number>('THROTTLE_LIMIT', 10),
           },
         ],
       }),
+    }),
+    CacheModule.register({
+      ttl: 10 * 60 * 1000, // 10 minutos de caché por defecto (en milisegundos)
+      max: 100, // Número máximo de elementos en caché
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -58,8 +71,6 @@ import { APP_GUARD } from '@nestjs/core';
           ...dbConfig,
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
           Setting,
-          // Asegúrate de que synchronize: true SOLO en desarrollo
-          // synchronize: process.env.NODE_ENV !== 'production', // O controla esto desde tu configuración typeorm.ts
         };
       },
       inject: [ConfigService],
@@ -84,7 +95,6 @@ import { APP_GUARD } from '@nestjs/core';
   providers: [
     AppService,
     {
-      // <-- Aplicar ThrottlerGuard globalmente
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
     },

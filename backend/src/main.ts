@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, Logger } from '@nestjs/common'; // Mantener Logger
+import { ValidationPipe, Logger, LogLevel } from '@nestjs/common'; // Mantener Logger
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 
@@ -10,7 +10,7 @@ async function bootstrap() {
     logger:
       process.env.NODE_ENV === 'production'
         ? ['error', 'warn', 'log']
-        : ['debug', 'log', 'warn', 'error', 'verbose'],
+        : (['debug', 'log', 'warn', 'error', 'verbose'] as LogLevel[]),
   });
 
   // Establecer un prefijo global para todas las rutas API
