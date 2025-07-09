@@ -1,10 +1,36 @@
+"use client";
 import { AuthGuard } from "@/Components/protectedRoute";
 
+import  Layout  from "./layout";
+import { StatsCards } from "./components/statsCads";
+import { HistoryList } from "./components/historyList";
+import { FavoritesList } from "./components/favoritesList";
+import { SubscriptionCard } from "./components/subscriptionCard";
+import { ProfileForm } from "./components/profileForm";
+import { SkeletonDashboard } from "./skeleton";
+import { useAuth } from "@/hooks/useAuth"; 
+
+
 export default function SuscritoDashboardPage() {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return <SkeletonDashboard />;
+  }
+
   return (
     <AuthGuard allowedRoles={["suscrito"]}>
-      <h1 className="text-2xl font-bold">Dashboard Suscrito</h1>
-      <p>Acceso exclusivo para suscriptores premium.</p>
+
+      <Layout>
+        <div className="space-y-4">
+          <StatsCards />
+          <HistoryList />
+          <FavoritesList />
+          <SubscriptionCard />
+          <ProfileForm />
+        </div>
+      </Layout>
+
     </AuthGuard>
   );
 }
