@@ -4,7 +4,7 @@ interface SubscriptionsTableProps {
   isLoading: boolean;
 }
 export const SubscriptionsTable = ({ isLoading }: SubscriptionsTableProps) => (
-  <div className="bg-white rounded shadow p-4">
+  <div className="bg-[#20444c] text-[#8db5ac] rounded shadow p-4">
     <h2 className="font-bold mb-2">User Management</h2>
     <div className="overflow-auto">
       {isLoading ? (

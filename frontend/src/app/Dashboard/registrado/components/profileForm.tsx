@@ -1,11 +1,11 @@
-"use client";
-export const ProfileForm = () => (
-  <div className="bg-white rounded shadow p-4">
-    <h2 className="font-bold mb-2">Perfil</h2>
-    <form className="space-y-2">
-      <input className="border p-2 rounded w-full" placeholder="Nombre" />
-      <input className="border p-2 rounded w-full" placeholder="Email" />
-      <button className="bg-blue-500 text-white p-2 rounded">Guardar</button>
-    </form>
-  </div>
-);
+import { Profile } from "@/lib/type";
+
+export function ProfileForm({ profile }: { profile: Profile }) {
+  return (
+    <div className="bg-[#20444c] text-[#8db5ac] rounded-xl shadow p-4">
+      <h2 className="text-lg text-[#ba681c] font-semibold mb-2">Perfil</h2>
+      <p>Nombre: {profile.name}</p>
+      <p>Email: {profile.email}</p>
+    </div>
+  );
+}

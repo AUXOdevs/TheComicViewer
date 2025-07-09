@@ -1,32 +1,24 @@
 "use client";
 import { AuthGuard } from "@/Components/protectedRoute";
-import  Layout  from "./layout";
-import { UsersTable } from "./components/usersTable";
-import { TitlesTable } from "./components/titlesTable";
-import { SubscriptionsTable } from "./components/subscriptionsTable";
-import { ProfileForm } from "./components/profileForm";
-import { StatsCard } from "./components/statsCard";
-import { SkeletonDashboard } from "./skeleton";
+import { StatsCards } from "./components/statsCard";
 import { useAuth } from "@/hooks/useAuth";
+import { SkeletonDashboard } from "../skeleton";
 
 export default function AdminDashboardPage() {
-  const { isLoading } = useAuth();
+  const { profile } = useAuth();
 
-  if (isLoading) {
+  if (!profile) {
     return <SkeletonDashboard />;
   }
 
   return (
     <AuthGuard allowedRoles={["admin", "superadmin"]}>
-      <Layout>
-        <div className="space-y-4">
-          <StatsCard />
-          <UsersTable isLoading={false} />
-          <TitlesTable isLoading={false} />
-          <SubscriptionsTable isLoading={false} />
-          <ProfileForm isLoading={false} />
+        <div className="p-4 space-y-4">
+          <h1 className="text-2xl text-[#20444c] font-bold">
+            ¡Bienvenido, {profile.name}!
+          </h1>
+          <StatsCards profile={profile} />
         </div>
-      </Layout>
     </AuthGuard>
   );
 }
