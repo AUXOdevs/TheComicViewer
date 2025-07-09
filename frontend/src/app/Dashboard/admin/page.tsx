@@ -1,8 +1,10 @@
 "use client";
 import { AuthGuard } from "@/Components/protectedRoute";
 import { StatsCards } from "./components/statsCard";
+
 import { useAuth } from "@/hooks/useAuth";
 import { SkeletonDashboard } from "../skeleton";
+
 
 export default function AdminDashboardPage() {
   const { profile } = useAuth();
@@ -22,3 +24,4 @@ export default function AdminDashboardPage() {
     </AuthGuard>
   );
 }
+

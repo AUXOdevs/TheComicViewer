@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { Skeleton } from "@/app/Dashboard/skeletonDasboard";
+
 
 
 export default function DashboardRedirect() {
@@ -37,7 +39,7 @@ export default function DashboardRedirect() {
 
   return (
     <div className="p-4 space-y-2">
-      
+
     </div>
   );
 }

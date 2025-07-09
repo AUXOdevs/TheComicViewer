@@ -9,3 +9,4 @@ export function ProfileForm({ profile }: { profile: Profile }) {
     </div>
   );
 }
+

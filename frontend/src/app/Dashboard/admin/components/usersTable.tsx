@@ -1,3 +1,4 @@
+
 "use client";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
@@ -86,3 +87,4 @@ export default function UsersTable() {
     </div>
   );
 }
+

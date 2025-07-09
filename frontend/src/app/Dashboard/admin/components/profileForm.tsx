@@ -1,4 +1,6 @@
+
 import { Profile } from "@/lib/type";
+
 
 export function ProfileForm({ profile }: { profile: Profile }) {
   return (
