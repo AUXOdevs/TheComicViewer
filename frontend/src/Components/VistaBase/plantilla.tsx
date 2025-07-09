@@ -8,6 +8,7 @@ const VistaBase = ({
 }: {
   titulo: string;
   mensajeBienvenida: string;
+  usuario?: string;
 }) => {
   const mangas = obtenerMangasAleatorios();
   const comics = obtenerComicsAleatorios();
