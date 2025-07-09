@@ -11,3 +11,33 @@ export type Titulo = {
   imagen_url: string;
   categoria: string;
 };
+
+// src/types/profile.ts
+
+export type HistoryItem = {
+  title: string;
+  date: string;
+};
+
+export type Favorite = {
+  title: string;
+};
+
+export interface Subscription {
+  expiresAt: string;
+}
+
+export type Role = {
+  name?: string;
+};
+
+export interface Profile {
+  name: string;
+  lastName: string;
+  email: string;
+  role?: Role;
+  subscription?: Subscription;
+  history?: HistoryItem[];
+  favorites?: Favorite[];
+}
+

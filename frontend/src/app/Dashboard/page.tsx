@@ -12,7 +12,7 @@ export default function DashboardRedirect() {
   const { isAuthenticated, userRole, isLoading } = useAuth();
 
   useEffect(() => {
-    if (isLoading) return; // espera a que termine el loading
+    if (isLoading) return; 
 
     if (!isAuthenticated) {
       router.replace("/");

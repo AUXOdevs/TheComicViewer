@@ -1,20 +1,20 @@
-"use client";
-export const StatsCards = () => (
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-    {[
-      { value: "12", label: "Historial", icon: "fa-clock" },
-      { value: "5", label: "Favoritos", icon: "fa-heart" },
-      { value: "Activa", label: "Suscripción", icon: "fa-check-circle" },
-    ].map(({ value, label, icon }) => (
-      <div
-        key={label}
-        className="bg-white p-4 rounded shadow flex justify-between items-center">
-        <div>
-          <div className="text-xl font-bold">{value}</div>
-          <div className="text-gray-500">{label}</div>
-        </div>
-        <i className={`fas ${icon} text-2xl text-green-500`}></i>
+import { Profile } from "@/lib/type";
+
+export function StatsCards({ profile }: { profile: Profile }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="bg-[#20444c]   rounded-xl shadow p-4">
+        <h2 className="text-lg text-[#ba681c] font-semibold">Nombre</h2>
+        <p className="text-[#8db5ac]">{profile.name}</p>
       </div>
-    ))}
-  </div>
-);
+      <div className="bg-[#20444c]   rounded-xl shadow p-4">
+        <h2 className="text-lg text-[#ba681c] font-semibold">Email</h2>
+        <p className="text-[#8db5ac]">{profile.email}</p>
+      </div>
+      <div className="bg-[#20444c]   rounded-xl shadow p-4">
+        <h2 className="text-lg text-[#ba681c] font-semibold">Rol</h2>
+        <p className="text-[#8db5ac]">{profile.role?.name}</p>
+      </div>
+    </div>
+  );
+}
