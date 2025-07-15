@@ -20,12 +20,12 @@ import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { OrderDto } from 'src/common/dto/order.dto';
 import { Admin } from 'src/admins/entities/admin.entity';
 import { UserDto } from './dto/user.dto';
-import { plainToInstance } from 'class-transformer';
-import { DataSource, Not, QueryRunner, Repository } from 'typeorm'; // Añadido Repository para tipado en métodos privados
+// import { plainToInstance } from 'class-transformer'; // ELIMINADO si usas ClassSerializerInterceptor global
+import { DataSource, Not, QueryRunner, Repository } from 'typeorm';
 
 // Constantes para los nombres de roles
 const ROLE_REGISTERED = 'Registrado';
-const ROLE_SUBSCRIBED = 'Suscrito'; // Si tienes un rol 'Suscrito'
+const ROLE_SUBSCRIBED = 'Suscrito';
 const ROLE_ADMIN = 'admin';
 const ROLE_SUPERADMIN = 'superadmin';
 
@@ -77,7 +77,7 @@ export class UserService {
     }
 
     let defaultRole: Role | null =
-      await this.rolesRepository.findByName(ROLE_REGISTERED); // Usar constante
+      await this.rolesRepository.findByName(ROLE_REGISTERED);
     if (!defaultRole) {
       this.logger.error(
         `El rol "${ROLE_REGISTERED}" no fue encontrado. Asegúrate de que los roles por defecto estén en la DB.`,
@@ -106,7 +106,6 @@ export class UserService {
   }
 
   async findMe(auth0Id: string): Promise<UserDto> {
-    // <-- Cambiado a UserDto
     this.logger.debug(`findMe(): Buscando perfil para el usuario ${auth0Id}.`);
     const user = await this.userRepository.findOneByAuth0Id(auth0Id);
     if (!user) {
@@ -114,7 +113,7 @@ export class UserService {
         `Perfil de usuario con ID "${auth0Id}" no encontrado.`,
       );
     }
-    return plainToInstance(UserDto, user); // <-- Transformado a DTO
+    return user as UserDto; // ELIMINADO plainToInstance
   }
 
   async updateMe(auth0Id: string, updateUserDto: UpdateUserDto): Promise<User> {
@@ -316,7 +315,7 @@ export class UserService {
         `update(): Transacción de actualización de usuario ${auth0Id} completada exitosamente.`,
       );
 
-      return plainToInstance(UserDto, finalUser);
+      return finalUser as UserDto; // ELIMINADO plainToInstance
     } catch (error) {
       await queryRunner.rollbackTransaction();
       this.logger.error(
@@ -339,6 +338,50 @@ export class UserService {
     }
   }
 
+  // <-- NUEVO MÉTODO PARA BLOQUEAR/DESBLOQUEAR USUARIOS -->
+  async updateBlockStatus(
+    auth0Id: string,
+    isBlocked: boolean,
+  ): Promise<UserDto> {
+    this.logger.debug(
+      `updateBlockStatus(): Actualizando estado de bloqueo para usuario con ID: ${auth0Id} a ${isBlocked}.`,
+    );
+
+    const user = await this.userRepository.findOneByAuth0Id(auth0Id, false); // No incluir eliminados aquí
+    if (!user) {
+      throw new NotFoundException(`Usuario con ID "${auth0Id}" no encontrado.`);
+    }
+
+    if (user.is_blocked === isBlocked) {
+      throw new BadRequestException(
+        `El usuario con ID "${auth0Id}" ya tiene el estado is_blocked en "${isBlocked}".`,
+      );
+    }
+
+    // Actualizar solo el campo is_blocked
+    await this.userRepository.update(auth0Id, { is_blocked: isBlocked });
+
+    const updatedUser = await this.userRepository.findOneByAuth0Id(
+      auth0Id,
+      false,
+    );
+    if (!updatedUser) {
+      // Esto no debería pasar si el update fue exitoso, pero es una buena práctica
+      this.logger.error(
+        `updateBlockStatus(): No se pudo recuperar el usuario ${auth0Id} después de actualizar el estado de bloqueo.`,
+      );
+      throw new InternalServerErrorException(
+        'Failed to retrieve user after block status update.',
+      );
+    }
+
+    this.logger.log(
+      `updateBlockStatus(): Usuario ${auth0Id} ${isBlocked ? 'bloqueado' : 'desbloqueado'} exitosamente.`,
+    );
+    return updatedUser as UserDto; // ELIMINADO plainToInstance
+  }
+  // <-- FIN NUEVO MÉTODO -->
+
   async softDeleteUser(auth0Id: string): Promise<void> {
     this.logger.debug(
       `softDeleteUser(): Desactivando usuario con ID: ${auth0Id}.`,
@@ -354,7 +397,6 @@ export class UserService {
     }
 
     if (user.role?.name === ROLE_ADMIN || user.role?.name === ROLE_SUPERADMIN) {
-      // Usar constantes
       this.logger.debug(
         `softDeleteUser(): Usuario ${auth0Id} es admin/superadmin. Eliminando entrada de 'admins'.`,
       );
@@ -414,7 +456,6 @@ export class UserService {
       requestedNewRole.name === ROLE_ADMIN ||
       requestedNewRole.name === ROLE_SUPERADMIN;
 
-    // Lógica para PROHIBIR la promoción a admin/superadmin a través de esta ruta PATCH
     if (!isOldRoleAdminOrSuperadmin && isRequestedNewRoleAdminOrSuperadmin) {
       this.logger.warn(
         `_handleRoleUpdate(): Intento de promover a usuario ${user.auth0_id} a rol administrativo (${requestedNewRole.name}) a través de la ruta PATCH. Esto no está permitido.`,
@@ -452,17 +493,16 @@ export class UserService {
   private _applyDirectUserUpdates(
     user: User,
     updateUserDto: UpdateUserDto,
-    newRole: Role | undefined, // Se pasa el newRole para asegurar su actualización
+    newRole: Role | undefined,
   ): void {
     if (updateUserDto.name !== undefined) user.name = updateUserDto.name;
     if (updateUserDto.picture !== undefined)
       user.picture = updateUserDto.picture;
     if (updateUserDto.is_blocked !== undefined)
-      user.is_blocked = updateUserDto.is_blocked;
+      user.is_blocked = updateUserDto.is_blocked; // <-- Asegurarse de que is_blocked se actualice aquí
     if (updateUserDto.deleted_at !== undefined)
       user.deleted_at = updateUserDto.deleted_at;
 
-    // Asegurarse de que el rol se actualice en el objeto de usuario en memoria
     if (newRole && newRole.role_id !== user.role_id) {
       user.role = newRole;
       user.role_id = newRole.role_id;
@@ -478,7 +518,6 @@ export class UserService {
     const hasAdminEntry = finalUser.admin !== null;
 
     if (finalRoleName === ROLE_ADMIN || finalRoleName === ROLE_SUPERADMIN) {
-      // Usar constantes
       this.logger.debug(
         `_syncAdminEntry(): El rol final es ${finalRoleName}. Asegurando entrada en tabla 'admins'.`,
       );

@@ -15,6 +15,7 @@ import {
   OneToOne,
 } from 'typeorm';
 import { Admin } from 'src/admins/entities/admin.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export class User {
@@ -44,6 +45,7 @@ export class User {
   created_at: Date;
 
   @Column({ type: 'boolean', default: false, name: 'is_blocked' })
+  @Exclude({ toPlainOnly: true })
   is_blocked: boolean;
 
   @Column({ type: 'uuid', name: 'role_id', nullable: true })
